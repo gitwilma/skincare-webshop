@@ -16,4 +16,53 @@ export interface CartItem extends Product {
 }
 
 /* Lägg till era produkter här */
-export const products: Product[] = [];
+export const products: Product[] = [
+  {
+    id: "1",
+    articleNumber: "11",
+    image: "",
+    title: "Toner",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+  {
+    id: "2",
+    articleNumber: "22",
+    image: "",
+    title: "Refreshing Pore Mask",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+  {
+    id: "3",
+    articleNumber: "33",
+    image: "",
+    title: "Dynasty cream",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+  {
+    id: "4",
+    articleNumber: "44",
+    image: "",
+    title: "Toner",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+  {
+    id: "5",
+    articleNumber: "55",
+    image: "",
+    title: "Toner",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+  {
+    id: "6",
+    articleNumber: "66",
+    image: "",
+    title: "Toner",
+    description: "Lorem lorem hejehejehejehehjeje",
+    price: 24,
+  },
+];
