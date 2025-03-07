@@ -1,17 +1,18 @@
 import { products } from "@/data";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import ProductCard from "./components/product-card";
 
 export default function Home() {
   return (
     <main>
-      <h1>Produkter</h1>
-      {products.map((product) => (
-        <article key={product.id}>
-          <h3>{product.title}</h3>
-          <p>Artikelnr: {product.articleNumber}</p>
-          <p>{product.description}</p>
-          <p>Pris: {product.price} kr</p>
-        </article>
-      ))}
+      <Container maxWidth="sm">
+        <Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Box>
+      </Container>
     </main>
   );
 }
