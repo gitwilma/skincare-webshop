@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={poppins.className} style={{ margin: 0 }}>
         <AppRouterCacheProvider>
           <Header />
           {children}
