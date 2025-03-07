@@ -1,6 +1,9 @@
 import { brown } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
+'use client';
+
+
 /* Använd primary.main för knappar och länkar
 Använd background.default för bakgrundsfärgen
 Använd text.primary för huvudtexten
@@ -24,6 +27,9 @@ const theme = createTheme({
         primary: brown[900], 
         secondary: brown[600]
     }
+  },
+  typography: {
+    fontFamily: 'var(--font-poppins)',
   },
 });
 
