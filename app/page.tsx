@@ -2,16 +2,16 @@ import { products } from "@/data";
 
 export default function Home() {
   return (
-    <main>  
-      {/* <Link>
-      <article>
-        <h3>Titel</h3>
-        <p>Artikelnumer</p>
-        <p>Beskrivning</p>
-        <p>Pris</p>
-      </article>
-      </Link> */}
-
+    <main>
+      <h1>Produkter</h1>
+      {products.map((product) => (
+        <article key={product.id}>
+          <h3>{product.title}</h3>
+          <p>Artikelnr: {product.articleNumber}</p>
+          <p>{product.description}</p>
+          <p>Pris: {product.price} kr</p>
+        </article>
+      ))}
     </main>
   );
 }
