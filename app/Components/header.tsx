@@ -9,7 +9,7 @@ export default function Header() {
         component="header"
         sx={{
           padding: 1,
-          color: "primary.main",
+          color: "palette.primary.main",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
