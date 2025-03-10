@@ -2,6 +2,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
+import Footer from "./Components/footer";
 import Header from "./Components/header";
 
 const poppins = Poppins({
@@ -22,9 +23,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <AppRouterCacheProvider>
           <Header />
           {children}
-          <footer>
-            <p>© 2024</p>
-          </footer>
+          <Footer />
         </AppRouterCacheProvider>
       </body>
     </html>
