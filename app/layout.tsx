@@ -1,3 +1,4 @@
+import { Box, CssBaseline } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { Poppins } from "next/font/google";
@@ -23,6 +24,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={poppins.className} style={{ margin: 0 }}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box
+              sx={{
+                bgcolor: "background.default",
+              }}
+            />
             <Header />
             {children}
             <footer>
