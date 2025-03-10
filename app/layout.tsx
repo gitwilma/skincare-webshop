@@ -2,7 +2,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
-import Header from "./components/header";
+import Header from "./Components/header";
 
 const poppins = Poppins({
   subsets: ["latin"],
