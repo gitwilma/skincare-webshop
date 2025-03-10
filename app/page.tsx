@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
-import ProductCard from "./components/product-card";
+import ProductCard from "./Components/product-card";
 
 export default function Home() {
   return (
