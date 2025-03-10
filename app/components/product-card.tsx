@@ -1,5 +1,6 @@
 import { Product } from "@/data";
-import { Card, CardMedia, Typography } from "@mui/material";
+import { Box, Card, CardMedia, Typography } from "@mui/material";
+import BuyButton from "../Client Components/buy-button";
 
 interface Props {
   product: Product;
@@ -21,13 +22,22 @@ export default function ProductCard(props: Props) {
       >
         {props.product.title}
       </Typography>
-      <Typography
-        variant="body1"
-        data-cy="product-price"
-        sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        Pris: {props.product.price} kr
-      </Typography>
+        <Typography
+          variant="body1"
+          data-cy="product-price"
+          sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
+        >
+          Pris: {props.product.price} kr
+        </Typography>
+        <BuyButton />
+      </Box>
     </Card>
   );
 }
