@@ -8,12 +8,14 @@ export default function Header() {
       <Box
         component="header"
         sx={{
+          padding: 1,
+          color: "primary.main",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <Menu sx={{ fontSize: 40}}/>
+        <Menu sx={{ fontSize: 40 }} />
         <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
         <ShoppingCart sx={{ fontSize: 40 }} />
       </Box>
