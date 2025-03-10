@@ -25,6 +25,7 @@ export default function CheckoutForm() {
   return (
     <Box
       component="form"
+      data-cy="customer-form"
       onSubmit={handleSubmit}
       sx={{
         display: "flex",
@@ -42,6 +43,7 @@ export default function CheckoutForm() {
         value={formData.name}
         onChange={handleChange}
         autoComplete="name"
+        data-cy="customer-name"
       />
       <TextField
         label="Address"
@@ -49,6 +51,7 @@ export default function CheckoutForm() {
         value={formData.address}
         onChange={handleChange}
         autoComplete="street-address"
+        data-cy="customer-address"
       />
       <TextField
         label="Zip code"
@@ -56,6 +59,7 @@ export default function CheckoutForm() {
         value={formData.zipcode}
         onChange={handleChange}
         autoComplete="postal-code"
+        data-cy="customer-zipcode"
       />
       <TextField
         label="City"
@@ -63,6 +67,7 @@ export default function CheckoutForm() {
         value={formData.city}
         onChange={handleChange}
         autoComplete="address-level2"
+        data-cy="customer-city"
       />
       <TextField
         label="Email"
@@ -70,6 +75,7 @@ export default function CheckoutForm() {
         value={formData.email}
         onChange={handleChange}
         autoComplete="email"
+        data-cy="customer-email"
       />
       <TextField
         label="Phone"
@@ -77,6 +83,7 @@ export default function CheckoutForm() {
         value={formData.phone}
         onChange={handleChange}
         autoComplete="tel"
+        data-cy="phone"
       />
 
       <Button type="submit" variant="contained" color="primary">
