@@ -1,8 +1,10 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
 import Header from "./Components/header";
+import theme from "./theme/theme";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,11 +22,13 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={poppins.className} style={{ margin: 0 }}>
         <AppRouterCacheProvider>
-          <Header />
-          {children}
-          <footer>
-            <p>© 2024</p>
-          </footer>
+          <ThemeProvider theme={theme}>
+            <Header />
+            {children}
+            <footer>
+              <p>© 2024</p>
+            </footer>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

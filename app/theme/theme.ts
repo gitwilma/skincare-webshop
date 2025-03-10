@@ -1,7 +1,7 @@
+'use client';
+
 import { brown } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
-
-'use client';
 
 
 /* Använd primary.main för knappar och länkar
