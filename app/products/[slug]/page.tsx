@@ -1,5 +1,5 @@
 import { products } from "@/data";
-import { Box, CardMedia } from "@mui/material";
+import { Box, CardMedia, Typography } from "@mui/material";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -12,14 +12,34 @@ export default async function ProductPage(props: Props) {
   if (!item) return <h2>404</h2>;
 
   return (
-    <Box>
-      <h2>{item.title}</h2>;
-      <CardMedia
-        sx={{ height: 300 }}
-        image={item.image}
-        data-cy="product-id"
-        key={item.id}
-      ></CardMedia>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row", md: "row" },
+          height: "100vh",
+          width: "100%",
+        }}
+      >
+        <CardMedia
+          sx={{
+            height: "100%",
+            width: { xs: "100%", sm: "50%", md: "50%" },
+            objectFit: "cover",
+          }}
+          image={item.image}
+          key={item.id}
+        />
+        <Box sx={{ display: "flex", flexDirection: "column", width: { xs: "100%", sm: "50%", md: "50%" } }}>
+          <h2>{item.title}</h2>
+          <Typography>{item.description}</Typography>
+        </Box>
+      </Box>
     </Box>
   );
 }
