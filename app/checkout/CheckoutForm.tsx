@@ -38,14 +38,15 @@ export default function CheckoutForm() {
       <Typography variant="h5">Delivery</Typography>
 
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-name" } }}
         label="Name"
         name="name"
         value={formData.name}
         onChange={handleChange}
         autoComplete="name"
-        data-cy="customer-name"
       />
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-address" } }}
         label="Address"
         name="address"
         value={formData.address}
@@ -54,6 +55,7 @@ export default function CheckoutForm() {
         data-cy="customer-address"
       />
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-zipcode" } }}
         label="Zip code"
         name="zipcode"
         value={formData.zipcode}
@@ -62,6 +64,7 @@ export default function CheckoutForm() {
         data-cy="customer-zipcode"
       />
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-city" } }}
         label="City"
         name="city"
         value={formData.city}
@@ -70,6 +73,7 @@ export default function CheckoutForm() {
         data-cy="customer-city"
       />
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-email" } }}
         label="Email"
         name="email"
         value={formData.email}
@@ -78,6 +82,7 @@ export default function CheckoutForm() {
         data-cy="customer-email"
       />
       <TextField
+        slotProps={{ htmlInput: { "data-cy": "customer-phone" } }}
         label="Phone"
         name="phone"
         value={formData.phone}

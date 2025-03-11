@@ -20,7 +20,7 @@ export default function Header() {
         <Link href="/">
           <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
         </Link>
-        <Link href="/checkout">
+        <Link data-cy="cart-link" href="/checkout">
           <IconButton color="primary">
             <ShoppingCart sx={{ fontSize: 40 }} />
           </IconButton>
