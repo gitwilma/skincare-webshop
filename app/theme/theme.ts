@@ -1,7 +1,7 @@
-import { brown } from "@mui/material/colors";
-import { createTheme } from "@mui/material/styles";
+'use client';
 
-("use client");
+import { brown } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 
 /* Använd primary.main för knappar och länkar
 Använd background.default för bakgrundsfärgen
