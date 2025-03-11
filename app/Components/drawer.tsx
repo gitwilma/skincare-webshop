@@ -23,8 +23,8 @@ export default function TemporaryDrawer() {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {["Admin"].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton component={Link} href="/admin">
+          <ListItem key={text} disablePadding>                       
+            <ListItemButton data-cy="admin-link" component={Link} href="/admin">
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
