@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
+import Footer from "./Components/footer";
 import Header from "./Components/header";
 import theme from "./theme/theme";
 

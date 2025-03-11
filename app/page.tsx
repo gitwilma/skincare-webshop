@@ -1,6 +1,9 @@
 import { products } from "@/data";
 import { Box } from "@mui/material";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid2";
 import Image from "next/image";
+import ProductCard from "./Components/product-card";
 
 export default function Home() {
   return (
@@ -27,15 +30,15 @@ export default function Home() {
           objectFit="cover"
         />
       </Box>
-      <h1>Produkter</h1>
-      {products.map((product) => (
-        <article key={product.id}>
-          <h3>{product.title}</h3>
-          <p>Artikelnr: {product.articleNumber}</p>
-          <p>{product.description}</p>
-          <p>Pris: {product.price} kr</p>
-        </article>
-      ))}
+      <Container>
+        <Grid container spacing={2}>
+          {products.map((product) => (
+            <Grid size={{ xs: 6, md: 4, lg: 3 }} key={product.id}>
+              <ProductCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </main>
   );
 }
