@@ -1,0 +1,47 @@
+"use client";
+
+import { MenuRounded } from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Link from "next/link";
+import * as React from "react";
+
+export default function TemporaryDrawer() {
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {["Admin"].map((text) => (
+          <ListItem key={text} disablePadding>                       
+            <ListItemButton data-cy="admin-link" component={Link} href="/admin">
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+    </Box>
+  );
+
+  return (
+    <div>
+      <Button onClick={toggleDrawer(true)}>
+        <MenuRounded sx={{ fontSize: 40 }} />
+      </Button>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+    </div>
+  );
+}
