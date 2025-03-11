@@ -1,7 +1,8 @@
-import { Menu, ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 import { Box, IconButton } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import TemporaryDrawer from "./drawer";
 
 export default function Header() {
   return (
@@ -16,7 +17,7 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <Menu sx={{ fontSize: 40 }} />
+        <TemporaryDrawer />
         <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
         <Link href="/checkout">
           <IconButton color="primary">
@@ -26,7 +27,4 @@ export default function Header() {
       </Box>
     </>
   );
-}
-{
-  /* <Typography variant="h1">Admin</Typography> */
 }
