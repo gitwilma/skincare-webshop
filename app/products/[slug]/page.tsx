@@ -34,7 +34,7 @@ export default async function ProductPage(props: Props) {
         }}
       >
         <CardMedia
-        component="img"
+          component="img"
           sx={{
             width: { xs: "100%", sm: "50%", md: "50%" },
             height: "auto",
@@ -51,9 +51,7 @@ export default async function ProductPage(props: Props) {
             width: { xs: "100%", sm: "50%", md: "50%" },
           }}
         >
-          <Typography
-          variant="h3"
-          >{item.title}</ Typography>
+          <Typography variant="h3">{item.title}</Typography>
           <Typography>{item.description}</Typography>
         </Box>
       </Box>
