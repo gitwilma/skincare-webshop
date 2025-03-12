@@ -4,8 +4,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
-import Footer from "./Components/footer";
 import Header from "./Components/header";
+import { CartProvider } from "./providers/CartProvider";
 import theme from "./theme/theme";
 
 const poppins = Poppins({
@@ -26,16 +26,18 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Box
-              sx={{
-                bgcolor: "background.default",
-              }}
-            />
-            <Header />
-            {children}
-            <footer>
-              <p>© 2024</p>
-            </footer>
+            <CartProvider>
+              <Box
+                sx={{
+                  bgcolor: "background.default",
+                }}
+              />
+              <Header />
+              {children}
+              <footer>
+                <p>© 2024</p>
+              </footer>
+            </CartProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

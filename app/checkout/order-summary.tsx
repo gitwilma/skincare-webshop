@@ -1,27 +1,24 @@
 "use client";
 
-import { CartItem } from "@/data";
-import { Box, List, ListItem, ListItemText } from "@mui/material";
-import { useEffect, useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { useCart } from "../providers/CartProvider";
 
 export default function OrderSummary() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { cart, removeFromCart } = useCart();
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(storedCart);
-  }, []);
+  console.log(cart);
 
   return (
     <Box
-    sx={{
+      sx={{
         display: "flex",
         flexDirection: "column",
         maxWidth: 400,
         mx: "auto",
-      }}>
-      <List
-       data-cy="cart-item">
+      }}
+    >
+      <List data-cy="cart-item">
         {cart.length === 0 ? (
           <ListItem>
             <ListItemText primary="Varukorgen är tom" />
@@ -29,10 +26,16 @@ export default function OrderSummary() {
         ) : (
           cart.map((item) => (
             <ListItem key={item.id}>
-              <ListItemText
-                primary={`${item.title} (x${item.quantity})`}
-                secondary={`$${item.price * item.quantity}`}
+              <ListItemText data-cy="product-quantity"
+                primary={`Produkt: ${item.title}`}
+                secondary={`Antal: ${item.quantity}`}
               />
+              <IconButton
+                onClick={() => removeFromCart(item.id)}
+                color="secondary"
+              >
+                <DeleteIcon />
+              </IconButton>
             </ListItem>
           ))
         )}
