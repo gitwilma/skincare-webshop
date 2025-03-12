@@ -33,7 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             />
             <Header />
             {children}
-            <Footer />
+            <Footer/>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

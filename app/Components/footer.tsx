@@ -1,11 +1,11 @@
 import { Instagram, LinkedIn } from "@mui/icons-material";
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import Image from "next/image";
 
 export default function Footer() {
   return (
     <>
-      <Box
+      <Box        
         component="footer"
         sx={{
           padding: 2,
@@ -31,7 +31,9 @@ export default function Footer() {
           },
         }}
       >
-        <Typography>Shipping</Typography>
+        <Typography data-cy="admin-link"> 
+          <Link href="/admin">Admin</Link>
+        </Typography>
         <Typography>Return</Typography>
         <Typography>Contact</Typography>
         <Typography>About</Typography>
