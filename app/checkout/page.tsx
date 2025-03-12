@@ -1,3 +1,5 @@
+"use client";
+
 import IncreaseDecreaseBtn from "../Client Components/increase-decrease-btn";
 import CheckoutForm from "./CheckoutForm";
 
