@@ -1,7 +1,15 @@
 "use client";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from "@mui/material";
 import { useCart } from "../providers/CartProvider";
 
 export default function OrderSummary() {
@@ -26,7 +34,15 @@ export default function OrderSummary() {
         ) : (
           cart.map((item) => (
             <ListItem key={item.id}>
-              <ListItemText data-cy="product-quantity"
+              <ListItemAvatar>
+                <Avatar
+                  src={item.image}
+                  alt={item.title}
+                  sx={{ width: 50, height: 50 }}
+                />
+              </ListItemAvatar>
+              <ListItemText
+                data-cy="product-quantity"
                 primary={`Produkt: ${item.title}`}
                 secondary={`Antal: ${item.quantity}`}
               />
