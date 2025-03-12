@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import CheckoutForm from "./CheckoutForm";
 import OrderSummary from "./order-summary";
 
