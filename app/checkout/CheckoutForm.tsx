@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Button, TextField, Typography } from "@mui/material";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function CheckoutForm() {
@@ -94,6 +95,7 @@ export default function CheckoutForm() {
         name="name"
         value={formData.name}
         onChange={handleChange}
+        autoComplete="name"
         error={Boolean(errors.name)}
         helperText={errors.name}
         required
@@ -105,6 +107,7 @@ export default function CheckoutForm() {
         name="address"
         value={formData.address}
         onChange={handleChange}
+        autoComplete="street-address"
         error={Boolean(errors.address)}
         helperText={errors.address}
         required
@@ -116,6 +119,7 @@ export default function CheckoutForm() {
         name="zipcode"
         value={formData.zipcode}
         onChange={handleChange}
+        autoComplete="postal-code"
         error={Boolean(errors.zipcode)}
         helperText={errors.zipcode}
         required
@@ -127,6 +131,7 @@ export default function CheckoutForm() {
         name="city"
         value={formData.city}
         onChange={handleChange}
+        autoComplete="address-level2"
         error={Boolean(errors.city)}
         helperText={errors.city}
         required
@@ -138,6 +143,7 @@ export default function CheckoutForm() {
         name="email"
         value={formData.email}
         onChange={handleChange}
+        autoComplete="email"
         error={Boolean(errors.email)}
         helperText={errors.email}
         required
@@ -149,15 +155,18 @@ export default function CheckoutForm() {
         name="phone"
         value={formData.phone}
         onChange={handleChange}
+        autoComplete="tel"
         error={Boolean(errors.phone)}
         helperText={errors.phone}
         required
         data-cy="customer-phone-error"
       />
 
-      <Button type="submit" variant="contained" color="primary">
-        Confirm
-      </Button>
+      <Link href="/confirmation">
+        <Button type="submit" variant="contained" color="primary">
+          Confirm
+        </Button>
+      </Link>
     </Box>
   );
 }
