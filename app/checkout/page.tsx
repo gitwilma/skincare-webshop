@@ -4,7 +4,7 @@ import OrderSummary from "./order-summary";
 
 export default function CheckoutPage() {
   return (
-    <div>
+    <main>
       <Box
         sx={{
           display: "flex",
@@ -29,6 +29,6 @@ export default function CheckoutPage() {
       </Box>
 
       <CheckoutForm />
-    </div>
+    </main>
   );
 }

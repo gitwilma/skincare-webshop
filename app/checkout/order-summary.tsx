@@ -19,7 +19,7 @@ export default function OrderSummary() {
   const { cart, removeFromCart } = useCart();
 
   return (
-    <List sx={{ width: "100%", maxWidth: 400, mx: "auto" }} data-cy="cart-item">
+    <List sx={{ width: "100%", maxWidth: 400, mx: "auto" }}>
       {cart.length === 0 ? (
         <ListItem>
           <ListItemText primary="Varukorgen är tom" />
@@ -27,6 +27,7 @@ export default function OrderSummary() {
       ) : (
         cart.map((item) => (
           <ListItem
+          data-cy="cart-item"
             key={item.id}
             sx={{
               display: "flex",
@@ -41,14 +42,15 @@ export default function OrderSummary() {
               <Avatar
                 src={item.image}
                 alt={item.title}
-                sx={{ width: 70, height: 70 }}
+                sx={{ width: 100, height: 100 }}
               />
             </ListItemAvatar>
             <ListItemText
               data-cy="product-quantity"
               primary={
                 <Typography
-                  variant="h6" // Gör texten något större
+                data-cy="product-title"
+                  variant="h6"
                   sx={{ fontWeight: "bold", color: theme.palette.primary.light }}
                 >
                   {item.title}
@@ -63,7 +65,7 @@ export default function OrderSummary() {
                 alignItems: "flex-end",
               }}
             >
-              <ListItemText primary={`Pris: ${item.price} SEK`} />
+              <ListItemText data-cy="product-price" primary={`Pris: ${item.price} SEK`} />
             </Box>
             <IconButton
               onClick={() => removeFromCart(item.id)}
