@@ -5,6 +5,7 @@ import BuyButton from "../Client Components/buy-button";
 
 interface Props {
   product: Product;
+  hideBuyButton?: boolean;
 }
 
 export default function ProductCard(props: Props) {
@@ -39,7 +40,7 @@ export default function ProductCard(props: Props) {
         >
           Pris: {props.product.price} kr
         </Typography>
-        <BuyButton />
+        {!props.hideBuyButton && <BuyButton />}
       </Box>
     </Card>
   );
