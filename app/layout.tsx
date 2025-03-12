@@ -33,9 +33,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             />
             <Header />
             {children}
-            <footer>
-              <p>© 2024</p>
-            </footer>
+            <Footer/>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
