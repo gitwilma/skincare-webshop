@@ -6,9 +6,11 @@ import BuyButton from "../Client Components/buy-button";
 interface Props {
   product: Product;
   hideBuyButton?: boolean;
+  children?: React.ReactNode;
 }
 
 export default function ProductCard(props: Props) {
+  const { children } = props;
   return (
     <Card data-cy="product" sx={{ maxWidth: 345, marginTop: 4 }}>
       <Link href={"/products/" + props.product.slug}>
@@ -41,6 +43,7 @@ export default function ProductCard(props: Props) {
           Pris: {props.product.price} kr
         </Typography>
         {!props.hideBuyButton && <BuyButton />}
+        {children}
       </Box>
     </Card>
   );
