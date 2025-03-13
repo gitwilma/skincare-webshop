@@ -28,7 +28,6 @@ export default function CheckoutPage() {
         </Typography>
         <OrderSummary />
       </Box>
-      <IncreaseDecreaseBtn />
       <CheckoutForm />
     </main>
   );

@@ -13,6 +13,7 @@ interface CartContextValue {
   cart: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, amount: number) => void;
 }
 
 const CartContext = createContext({} as CartContextValue);
@@ -48,8 +49,23 @@ export function CartProvider({ children }: PropsWithChildren) {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  const updateQuantity = (id: string, amount: number) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: item.quantity + amount }
+          : item
+      );
+  
+      return updatedCart.filter((item) => item.quantity > 0);
+    });
+  };
+  
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, updateQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
