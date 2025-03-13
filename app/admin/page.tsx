@@ -2,7 +2,7 @@ import { products } from "@/data";
 import { Edit, RemoveCircleOutline } from "@mui/icons-material";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ProductCard from "../Components/product-card";
+import ProductCard from "../components/product-card";
 
 export default function AdminPage() {
   return (
