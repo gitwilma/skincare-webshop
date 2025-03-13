@@ -26,7 +26,7 @@ export const products: Product[] = [
     title: "Toner",
     slug: "Toner",
     description: "Denna toner är designad för att lugna och återfukta huden efter rengöring. Berikad med rismjölk och fermenterade ingredienser, hjälper den till att balansera hudens pH-nivå och ger en fräsch känsla. Den är perfekt för att förbereda huden för efterföljande hudvårdsprodukter",
-    price: 24,
+    price: 199,
   },
   {
     id: "2",
@@ -36,7 +36,7 @@ export const products: Product[] = [
     title: "Refreshing Pore Mask",
     slug: "Refreshing-Pore-Mask",
     description: "En uppfriskande mask som minskar synligheten av porer och ger en renare, jämnare hudton. Masken innehåller naturliga ingredienser som hjälper till att kontrollera olja och förbättra hudens textur. Den passar bra för de med fet eller kombinerad hud som vill ha en klarare hud",
-    price: 24,
+    price: 250,
   },
   {
     id: "3",
@@ -46,7 +46,7 @@ export const products: Product[] = [
       title: "Glow Serum",
       slug: "Glow-serum",
     description: "Ett ljusgivande serum som hjälper till att ge huden en naturlig lyster. Formulerat med vitaminer och antioxidanter, förbättrar det hudens struktur och återfuktning. Perfekt för att ge trött och glåmig hud en fräsch och ungdomlig glöd",
-    price: 24,
+    price: 79,
   },
   {
     id: "4",
@@ -56,7 +56,7 @@ export const products: Product[] = [
     title: "Essence Water",
     slug: "Essence-Water",
     description: "En näringsrik essence som ger intensiv återfuktning och hjälper till att bibehålla hudens elasticitet. Den innehåller en blandning av fermenterade ingredienser som hjälper till att förbättra hudens allmänna hälsa och ger en plumpande effekt",
-    price: 24,
+    price: 79,
   },
   {
     id: "5",
@@ -66,7 +66,7 @@ export const products: Product[] = [
     title: "Cleansing Oil",
     slug: "Cleansing-Oil",
     description: "En mild men effektiv rengöringsolja som löser upp smink och orenheter utan att torka ut huden. Oljan omvandlas till en mjuk emulsion vid kontakt med vatten och lämnar huden ren, återfuktad och silkeslen utan att lämna en fet hinna",
-    price: 24,
+    price: 230,
   },
   {
     id: "6",
@@ -76,6 +76,6 @@ export const products: Product[] = [
       title: "Dynasty Cream",
       slug: "Dynasty-Cream",
     description: "En lyxig ansiktskräm som erbjuder djup återfuktning och näring till huden. Med ingredienser som ginseng och andra naturliga extrakt hjälper den till att stimulera hudens återuppbyggnad och minskar synliga tecken på åldrande, såsom fina linjer och rynkor",
-    price: 24,
+    price: 399,
   },
 ];

@@ -9,16 +9,16 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export default function ProductCard(props: Props) {
-  const { children } = props;
+export default function ProductCard({ product }: Props) {
+  
   return (
     <Card data-cy="product" sx={{ maxWidth: 345, marginTop: 4 }}>
-      <Link href={"/products/" + props.product.slug}>
+      <Link href={"/products/" + product.slug}>
         <CardMedia
           sx={{ height: 300 }}
-          image={props.product.image}
+          image={product.image}
           data-cy="product-id"
-          key={props.product.id}
+          key={product.id}
         ></CardMedia>
       </Link>
       <Typography
@@ -26,7 +26,7 @@ export default function ProductCard(props: Props) {
         data-cy="product-title"
         sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
       >
-        {props.product.title}
+        {product.title}
       </Typography>
       <Box
         sx={{
@@ -40,10 +40,9 @@ export default function ProductCard(props: Props) {
           data-cy="product-price"
           sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
         >
-          Pris: {props.product.price} kr
+          Pris: {product.price} kr
         </Typography>
-        {!props.hideBuyButton && <BuyButton />}
-        {children}
+        <BuyButton product={product} />
       </Box>
     </Card>
   );
