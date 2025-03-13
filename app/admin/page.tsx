@@ -6,12 +6,12 @@ import Grid from "@mui/material/Grid2";
 import ProductCard from "../Components/product-card";
 
 export default function AdminPage() {
-  const handleEditBtn = () => {
-    console.log("Edit clicked");
+  const handleEditBtn = (id: string) => () => {
+    console.log("edit product with ID:", id);
   };
 
-  const handleRemoveBtn = () => {
-    console.log("Remove clicked");
+  const handleRemoveBtn = (id: string) => () => {
+    console.log("Removing product with ID:", id);
   };
 
   return (
@@ -51,14 +51,14 @@ export default function AdminPage() {
                   }}
                 >
                   <Button
-                    onClick={handleEditBtn}
+                    onClick={handleEditBtn(product.id)}
                     color="primary"
                     sx={{ minWidth: "auto" }}
                   >
                     <Edit />
                   </Button>
                   <Button
-                    onClick={handleRemoveBtn}
+                    onClick={handleRemoveBtn(product.id)}
                     color="primary"
                     sx={{ minWidth: "auto" }}
                   >
