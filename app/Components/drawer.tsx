@@ -24,7 +24,7 @@ export default function TemporaryDrawer() {
       <List>
         {["Admin"].map((text) => (
           <ListItem key={text} disablePadding>                       
-            <ListItemButton data-cy="admin-link" component={Link} href="/admin">
+            <ListItemButton component={Link} href="/admin">
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
