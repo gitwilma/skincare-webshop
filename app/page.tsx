@@ -1,3 +1,5 @@
+"use client";
+
 import { products } from "@/data";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
