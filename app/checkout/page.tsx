@@ -1,9 +1,7 @@
-"use client";
-
 import { Box, Typography } from "@mui/material";
-import IncreaseDecreaseBtn from "../Client Components/increase-decrease-btn";
-import CheckoutForm from "./CheckoutForm";
-import OrderSummary from "./order-summary";
+import IncreaseDecreaseBtn from "../components/increase-decrease-btn";
+import CheckoutForm from "./lib/checkout-form";
+import OrderSummary from "./lib/order-summary";
 
 export default function CheckoutPage() {
   return (
@@ -28,7 +26,7 @@ export default function CheckoutPage() {
         >
           Order summary
         </Typography>
-      <OrderSummary />
+        <OrderSummary />
       </Box>
       <IncreaseDecreaseBtn />
       <CheckoutForm />

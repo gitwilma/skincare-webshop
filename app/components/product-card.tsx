@@ -1,15 +1,13 @@
 import { Product } from "@/data";
 import { Box, Card, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
-import BuyButton from "../Client Components/buy-button";
 
 interface Props {
   product: Product;
-  hideBuyButton?: boolean;
   children?: React.ReactNode;
 }
 
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({ product, children }: Props) {
   
   return (
     <Card data-cy="product" sx={{ maxWidth: 345, marginTop: 4 }}>
@@ -42,7 +40,7 @@ export default function ProductCard({ product }: Props) {
         >
           Pris: {product.price} kr
         </Typography>
-        <BuyButton product={product} />
+        {children}
       </Box>
     </Card>
   );

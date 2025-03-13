@@ -3,7 +3,7 @@
 import { Product } from "@/data";
 import { AddShoppingCart } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useCart } from "../providers/CartProvider";
+import { useCart } from "../providers/cart-provider";
 
 interface BuyButtonProps {
   product: Product;

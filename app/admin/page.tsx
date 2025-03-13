@@ -1,19 +1,10 @@
-"use client";
 import { products } from "@/data";
 import { Edit, RemoveCircleOutline } from "@mui/icons-material";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ProductCard from "../Components/product-card";
+import ProductCard from "../components/product-card";
 
 export default function AdminPage() {
-  const handleEditBtn = (id: string) => () => {
-    console.log("edit product with ID:", id);
-  };
-
-  const handleRemoveBtn = (id: string) => () => {
-    console.log("Removing product with ID:", id);
-  };
-
   return (
     <>
       <Box
@@ -38,7 +29,7 @@ export default function AdminPage() {
         <Grid container spacing={2}>
           {products.map((product) => (
             <Grid size={{ xs: 6, md: 4, lg: 3 }} key={product.id}>
-              <ProductCard product={product} hideBuyButton={true}>
+              <ProductCard product={product}>
                 <Box
                   sx={{
                     gap: 0.5,
@@ -50,15 +41,15 @@ export default function AdminPage() {
                     color: "primary",
                   }}
                 >
-                  <Button
-                    onClick={handleEditBtn(product.id)}
+                  <Button /* Länk till `/admin/products/${product.id}` */
+                    // onClick={handleEditBtn(product.id)}
                     color="primary"
                     sx={{ minWidth: "auto" }}
                   >
                     <Edit />
                   </Button>
-                  <Button
-                    onClick={handleRemoveBtn(product.id)}
+                  <Button /* DeleteProductButton "use client" --> visa dialog innan borttagning */
+                    // onClick={handleRemoveBtn(product.id)}
                     color="primary"
                     sx={{ minWidth: "auto" }}
                   >

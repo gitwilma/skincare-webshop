@@ -4,9 +4,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Poppins } from "next/font/google";
 import type { Metadata } from "next/types";
 import { PropsWithChildren } from "react";
-import Footer from "./Components/footer";
-import Header from "./Components/header";
-import { CartProvider } from "./providers/CartProvider";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import { CartProvider } from "./providers/cart-provider";
 import theme from "./theme/theme";
 
 const poppins = Poppins({
