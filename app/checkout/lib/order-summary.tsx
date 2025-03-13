@@ -11,9 +11,9 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useCart } from "../providers/CartProvider";
-import theme from "../theme/theme";
-import { Palette } from "@mui/icons-material";
+
+import { useCart } from "@/app/providers/cart-provider";
+import theme from "@/app/theme/theme";
 
 export default function OrderSummary() {
   const { cart, removeFromCart } = useCart();
@@ -27,7 +27,7 @@ export default function OrderSummary() {
       ) : (
         cart.map((item) => (
           <ListItem
-          data-cy="cart-item"
+            data-cy="cart-item"
             key={item.id}
             sx={{
               display: "flex",
@@ -49,9 +49,12 @@ export default function OrderSummary() {
               data-cy="product-quantity"
               primary={
                 <Typography
-                data-cy="product-title"
+                  data-cy="product-title"
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: theme.palette.primary.light }}
+                  sx={{
+                    fontWeight: "bold",
+                    color: theme.palette.primary.light,
+                  }}
                 >
                   {item.title}
                 </Typography>
@@ -65,7 +68,10 @@ export default function OrderSummary() {
                 alignItems: "flex-end",
               }}
             >
-              <ListItemText data-cy="product-price" primary={`Pris: ${item.price} SEK`} />
+              <ListItemText
+                data-cy="product-price"
+                primary={`Pris: ${item.price} SEK`}
+              />
             </Box>
             <IconButton
               onClick={() => removeFromCart(item.id)}
