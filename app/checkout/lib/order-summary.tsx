@@ -75,7 +75,7 @@ export default function OrderSummary() {
               >
                 <ListItemText
                   data-cy="product-price"
-                  primary={`Pris: ${item.price} SEK`}
+                  primary={`Pris: ${item.price * item.quantity} SEK`}
                 />
               </Box>
               <IconButton
