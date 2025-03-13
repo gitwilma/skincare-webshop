@@ -39,7 +39,11 @@ export default function BuyButton({ product }: BuyButtonProps) {
       >
         <AddShoppingCart />
       </Button>
-      <ProductToast open={open} handleClose={handleClose} />
+      <ProductToast
+        data-cy="added-to-cart-toast"
+        open={open}
+        handleClose={handleClose}
+      />
     </div>
   );
 }
