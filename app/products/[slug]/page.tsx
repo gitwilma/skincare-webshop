@@ -25,7 +25,7 @@ export default async function ProductPage(props: Props) {
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", sm: "row", md: "row" },
+          flexDirection: { xs: "column", sm: "row" },
           height: "auto",
           width: "100%",
           justifyContent: "center",
@@ -36,7 +36,7 @@ export default async function ProductPage(props: Props) {
         <CardMedia
           component="img"
           sx={{
-            width: { xs: "100%", sm: "50%", md: "50%" },
+            width: { xs: "100%", sm: "50%" },
             height: "auto",
             objectFit: "contain",
           }}
@@ -48,7 +48,7 @@ export default async function ProductPage(props: Props) {
             gap: 4,
             display: "flex",
             flexDirection: "column",
-            width: { xs: "100%", sm: "50%", md: "50%" },
+            width: { xs: "100%", sm: "50%" },
           }}
         >
           <Typography variant="h3">{item.title}</Typography>

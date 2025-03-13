@@ -1,10 +1,9 @@
-"use client";
-
 import { products } from "@/data";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
+import BuyButton from "./Client Components/buy-button";
 import ProductCard from "./Components/product-card";
 
 export default function Home() {
@@ -14,7 +13,7 @@ export default function Home() {
         sx={{
           position: "relative",
           width: "100%",
-          height: 400,
+          height: { xs: 400, lg: 300 },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -36,7 +35,9 @@ export default function Home() {
         <Grid container spacing={2}>
           {products.map((product) => (
             <Grid size={{ xs: 6, md: 4, lg: 3 }} key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product}>
+                <BuyButton product={product} />
+              </ProductCard>
             </Grid>
           ))}
         </Grid>

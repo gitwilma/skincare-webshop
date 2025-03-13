@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, Typography } from "@mui/material";
 import IncreaseDecreaseBtn from "../Client Components/increase-decrease-btn";
 import CheckoutForm from "./CheckoutForm";
