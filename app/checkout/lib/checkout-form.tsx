@@ -79,7 +79,7 @@ export default function CheckoutForm() {
     e.preventDefault();
     if (validate()) {
       console.log("Form submitted:", formData);
-      router.push("/confirmation");
+      router.push("/confirmation/success");
     }
   };
 
