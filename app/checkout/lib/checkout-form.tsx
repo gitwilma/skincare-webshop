@@ -1,10 +1,11 @@
 "use client";
 
 import { Box, Button, TextField, Typography } from "@mui/material";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CheckoutForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -71,6 +72,7 @@ export default function CheckoutForm() {
     e.preventDefault();
     if (validate()) {
       console.log("Form submitted:", formData);
+      router.push("/confirmation");
     }
   };
 
@@ -162,11 +164,9 @@ export default function CheckoutForm() {
         data-cy="customer-phone-error"
       />
 
-      <Link href="/confirmation">
-        <Button type="submit" variant="contained" color="primary">
-          Confirm
-        </Button>
-      </Link>
+      <Button type="submit" variant="contained" color="primary">
+        Confirm
+      </Button>
     </Box>
   );
 }
