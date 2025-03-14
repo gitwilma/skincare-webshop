@@ -1,6 +1,6 @@
-import { ShoppingCart } from "@mui/icons-material";
 import { Box, IconButton, Link } from "@mui/material";
 import Image from "next/image";
+import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
 
 export default function Header() {
@@ -22,7 +22,7 @@ export default function Header() {
         </Link>
         <Link data-cy="cart-link" href="/checkout">
           <IconButton color="primary">
-            <ShoppingCart sx={{ fontSize: 40 }} />
+            <CartIcon />
           </IconButton>
         </Link>
       </Box>
