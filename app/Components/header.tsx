@@ -14,6 +14,10 @@ export default function Header() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: "background.default",
         }}
       >
         <TemporaryDrawer />
