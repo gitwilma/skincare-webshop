@@ -12,11 +12,17 @@ import {
   Typography,
 } from "@mui/material";
 
+import IncreaseDecreaseBtn from "@/app/components/increase-decrease-btn";
 import { useCart } from "@/app/providers/cart-provider";
 import theme from "@/app/theme/theme";
 
 export default function OrderSummary() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, updateQuantity } = useCart();
+
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <List sx={{ width: "100%", maxWidth: 400, mx: "auto" }}>
@@ -70,9 +76,14 @@ export default function OrderSummary() {
             >
               <ListItemText
                 data-cy="product-price"
-                primary={`Pris: ${item.price} SEK`}
+                primary={`Pris: ${item.price * item.quantity} SEK`}
               />
             </Box>
+            <IncreaseDecreaseBtn
+              productId={item.id}
+              quantity={item.quantity}
+              onUpdate={updateQuantity}
+            />
             <IconButton
               onClick={() => removeFromCart(item.id)}
               sx={{
@@ -84,6 +95,21 @@ export default function OrderSummary() {
             </IconButton>
           </ListItem>
         ))
+      )}
+      {cart.length > 0 && (
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Totalpris:
+          </Typography>
+          <Typography
+            data-cy="total-price"
+            variant="h6"
+            sx={{ fontWeight: "bold", color: theme.palette.primary.main }}
+          >
+            {cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}{" "}
+            SEK
+          </Typography>
+        </Box>
       )}
     </List>
   );
