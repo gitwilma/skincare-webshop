@@ -1,4 +1,4 @@
-import { products } from "@/data";
+import { db } from "@/prisma/db";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid2";
@@ -6,7 +6,8 @@ import Image from "next/image";
 import BuyButton from "./components/buy-button";
 import ProductCard from "./components/product-card";
 
-export default function Home() {
+export default async function Home() {
+  const products = await db.product.findMany();
   return (
     <main>
       <Box

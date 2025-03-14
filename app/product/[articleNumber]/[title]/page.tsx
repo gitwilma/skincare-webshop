@@ -1,17 +1,20 @@
-import { products } from "@/data";
+import { db } from "@/prisma/db"; // Prisma klient
 import { Box, CardMedia, Typography } from "@mui/material";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: { articleNumber: string; title: string };
 }
 
-export default async function ProductPage(props: Props) {
-  const { slug } = await props.params;
-  const item = products.find((i) => i.slug === slug);
+export default async function ProductPage({ params }: Props) {
+  const item = await db.product.findUnique({
+    where: { articleNumber: params.articleNumber },
+  });
 
-  if (!item) return <h2>404</h2>;
+  if (!item) return <h2>404: Produkten hittades inte</h2>;
 
   return (
+    <main>
+
     <Box
       sx={{
         display: "flex",
@@ -21,7 +24,7 @@ export default async function ProductPage(props: Props) {
         mb: 6,
         mt: 6,
       }}
-    >
+      >
       <Box
         sx={{
           display: "flex",
@@ -32,7 +35,7 @@ export default async function ProductPage(props: Props) {
           alignItems: "center",
           gap: 4,
         }}
-      >
+        >
         <CardMedia
           component="img"
           sx={{
@@ -41,8 +44,9 @@ export default async function ProductPage(props: Props) {
             objectFit: "contain",
           }}
           image={item.image}
-          key={item.id}
-        />
+          alt={item.title}
+          />
+
         <Box
           sx={{
             gap: 4,
@@ -50,11 +54,20 @@ export default async function ProductPage(props: Props) {
             flexDirection: "column",
             width: { xs: "100%", sm: "50%" },
           }}
-        >
+          >
           <Typography variant="h3">{item.title}</Typography>
           <Typography>{item.description}</Typography>
+
+          <Typography variant="body1" sx={{ marginTop: 2 }}>
+            <strong>Artikelnummer:</strong> {item.articleNumber}
+          </Typography>
+
+          <Typography variant="body1" sx={{ marginTop: 2 }}>
+            <strong>Pris:</strong> {item.price} kr
+          </Typography>
         </Box>
       </Box>
     </Box>
+          </main>
   );
 }
