@@ -1,6 +1,12 @@
 "use client";
 
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormHelperText,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -66,6 +72,7 @@ export default function CheckoutForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -99,10 +106,13 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="name"
         error={Boolean(errors.name)}
-        helperText={errors.name}
-        required
-        data-cy="customer-name-error"
       />
+      {errors.name && (
+        <FormHelperText data-cy="customer-name-error" error>
+          {errors.name}
+        </FormHelperText>
+      )}
+
       <TextField
         slotProps={{ htmlInput: { "data-cy": "customer-address" } }}
         label="Address"
@@ -111,10 +121,13 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="street-address"
         error={Boolean(errors.address)}
-        helperText={errors.address}
-        required
-        data-cy="customer-address-error"
       />
+      {errors.address && (
+        <FormHelperText data-cy="customer-address-error" error>
+          {errors.address}
+        </FormHelperText>
+      )}
+
       <TextField
         slotProps={{ htmlInput: { "data-cy": "customer-zipcode" } }}
         label="Zip code"
@@ -123,10 +136,13 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="postal-code"
         error={Boolean(errors.zipcode)}
-        helperText={errors.zipcode}
-        required
-        data-cy="customer-zipcode-error"
       />
+      {errors.zipcode && (
+        <FormHelperText data-cy="customer-zipcode-error" error>
+          {errors.zipcode}
+        </FormHelperText>
+      )}
+
       <TextField
         slotProps={{ htmlInput: { "data-cy": "customer-city" } }}
         label="City"
@@ -135,10 +151,13 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="address-level2"
         error={Boolean(errors.city)}
-        helperText={errors.city}
-        required
-        data-cy="customer-city-error"
       />
+      {errors.city && (
+        <FormHelperText data-cy="customer-city-error" error>
+          {errors.city}
+        </FormHelperText>
+      )}
+
       <TextField
         slotProps={{ htmlInput: { "data-cy": "customer-email" } }}
         label="Email"
@@ -147,10 +166,13 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="email"
         error={Boolean(errors.email)}
-        helperText={errors.email}
-        required
-        data-cy="customer-email-error"
       />
+      {errors.email && (
+        <FormHelperText data-cy="customer-email-error" error>
+          {errors.email}
+        </FormHelperText>
+      )}
+
       <TextField
         slotProps={{ htmlInput: { "data-cy": "customer-phone" } }}
         label="Phone"
@@ -159,10 +181,12 @@ export default function CheckoutForm() {
         onChange={handleChange}
         autoComplete="tel"
         error={Boolean(errors.phone)}
-        helperText={errors.phone}
-        required
-        data-cy="customer-phone-error"
       />
+      {errors.phone && (
+        <FormHelperText data-cy="customer-phone-error" error>
+          {errors.phone}
+        </FormHelperText>
+      )}
 
       <Button type="submit" variant="contained" color="primary">
         Confirm
