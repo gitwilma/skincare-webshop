@@ -5,9 +5,10 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <>
-      <Box        
+      <Box
         component="footer"
         sx={{
+          marginTop: 4,
           padding: 2,
           color: "#4e342e",
           display: "grid",
@@ -31,7 +32,7 @@ export default function Footer() {
           },
         }}
       >
-        <Typography data-cy="admin-link"> 
+        <Typography data-cy="admin-link">
           <Link href="/admin">Admin</Link>
         </Typography>
         <Typography>Return</Typography>
