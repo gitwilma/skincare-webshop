@@ -22,7 +22,7 @@ export default function Header() {
       >
         <TemporaryDrawer />
         <Link href="/">
-          <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
+          <Image src="/logo.png" alt="Beauty" width={100} height={100} />
         </Link>
         <Link data-cy="cart-link" href="/checkout">
           <IconButton color="primary">
