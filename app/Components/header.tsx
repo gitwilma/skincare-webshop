@@ -21,7 +21,7 @@ export default function Header() {
           <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
         </Link>
         <Link data-cy="cart-link" href="/checkout">
-          <IconButton color="primary">
+          <IconButton data-cy="cart-items-count-badge" color="primary">
             <CartIcon />
           </IconButton>
         </Link>
