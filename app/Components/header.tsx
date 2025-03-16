@@ -1,6 +1,6 @@
-import { ShoppingCart } from "@mui/icons-material";
 import { Box, IconButton, Link } from "@mui/material";
 import Image from "next/image";
+import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
 
 export default function Header() {
@@ -21,8 +21,8 @@ export default function Header() {
           <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
         </Link>
         <Link data-cy="cart-link" href="/checkout">
-          <IconButton color="primary">
-            <ShoppingCart sx={{ fontSize: 40 }} />
+          <IconButton data-cy="cart-items-count-badge" color="primary">
+            <CartIcon />
           </IconButton>
         </Link>
       </Box>

@@ -31,10 +31,11 @@ export default function ProductToast({ open, handleClose }: ProductToastProps) {
   return (
     <div>
       <Snackbar
+        data-cy="added-to-cart-toast"
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Product added to cart 💅"
+        message="Product has been added to cart 💅"
         action={action}
       />
     </div>
