@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { processCheckout } from "../actions/process-checkout";
 
 export default function CheckoutForm() {
   const router = useRouter();
@@ -29,6 +30,8 @@ export default function CheckoutForm() {
     email: "",
     phone: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validate = () => {
     let newErrors = {
@@ -75,11 +78,20 @@ export default function CheckoutForm() {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form submitted:", formData);
-      router.push("/confirmation/success");
+      try {
+        const form = new FormData();
+        Object.entries(formData).forEach(([key, value]) =>
+          form.append(key, value)
+        );
+
+        await processCheckout(form); // Skickar data till Server Action
+      } catch (error) {
+        setErrorMessage("Något gick fel. Försök igen.");
+      }
+      console.log("Hej");
     }
   };
 
