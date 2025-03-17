@@ -3,7 +3,7 @@ export default function AdminEditProduct() {
     <>
       <h2>
         Här ska man redigera produktern du tryckte på, då ska ett
-        eget formulär visas och automatiskt fyllas i med den info produkten hade sedan innan. Alltså titel, pris, bildURL,artikelnr osv.
+        eget formulär visas och automatiskt fyllas i med den info produkten hade sedan innan. Alltså titel, pris, description, bildURL
       </h2>
     </>
   );
