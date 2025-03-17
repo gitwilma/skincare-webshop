@@ -58,9 +58,7 @@ export default async function ProductPage({ params }: Props) {
             <Typography data-cy="product-title" variant="h3">
               {item.title}
             </Typography>
-            <Typography data-cy="product-description">
-              {item.description}
-            </Typography>
+            <Typography data-cy="product-description">{item.description}</Typography>
 
             <Typography variant="body1" sx={{ marginTop: 2 }}>
               <strong>Artikelnummer:</strong> {item.articleNumber}
@@ -73,7 +71,8 @@ export default async function ProductPage({ params }: Props) {
             >
               <strong>Pris:</strong> {item.price} kr
             </Typography>
-            <BuyButton product={item} />
+            <BuyButton product={item}/>
+
           </Box>
         </Box>
       </Box>

@@ -11,19 +11,19 @@ export default function ProductCard({ product, children }: Props) {
   
   return (
     <Card data-cy="product" sx={{ maxWidth: 345, marginTop: 4 }}>
-      <Link href={"/products/" + product.slug}>
+      <Link href={`/product/${product.articleNumber}/${encodeURIComponent(product.title)}`}>
         <CardMedia
           sx={{ height: 300 }}
           image={product.image}
           data-cy="product-id"
           key={product.id}
-        ></CardMedia>
+          ></CardMedia>
       </Link>
       <Typography
         variant="h6"
         data-cy="product-title"
         sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
-      >
+        >
         {product.title}
       </Typography>
       <Box
@@ -32,12 +32,12 @@ export default function ProductCard({ product, children }: Props) {
           justifyContent: "space-between",
           alignItems: "center",
         }}
-      >
+        >
         <Typography
           variant="body1"
           data-cy="product-price"
           sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
-        >
+          >
           Pris: {product.price} kr
         </Typography>
         {children}
