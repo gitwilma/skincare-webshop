@@ -14,11 +14,15 @@ export default function Header() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          backgroundColor: "background.default",
         }}
       >
         <TemporaryDrawer />
         <Link href="/">
-          <Image src="/Beauty1.png" alt="Beauty" width={100} height={100} />
+          <Image src="/logo.png" alt="Beauty" width={100} height={100} />
         </Link>
         <Link data-cy="cart-link" href="/checkout">
           <IconButton data-cy="cart-items-count-badge" color="primary">
