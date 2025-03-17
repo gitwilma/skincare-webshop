@@ -1,8 +1,10 @@
 "use client";
+import { addNewProduct } from "@/app/actions";
 import { Box, Button, FormHelperText, TextField } from "@mui/material";
 import { useState } from "react";
 
 export default function AdminForm() {
+  // const product = await db.product.findMany();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -81,6 +83,7 @@ export default function AdminForm() {
         component="form"
         data-cy="product-form"
         onSubmit={handleSubmit}
+        action={addNewProduct}
         sx={{
           display: "flex",
           flexDirection: "column",
