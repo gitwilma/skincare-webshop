@@ -29,6 +29,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "var(--font-poppins)",
+    fontWeightRegular: 600, // Standardtext
+    fontWeightMedium: 700, // Mellanrubriker
+    fontWeightBold: 800, // Rubriker 
   },
 });
 
