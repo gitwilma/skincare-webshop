@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/app/providers/cart-provider";
 import {
   Box,
   Button,
@@ -73,6 +74,8 @@ export default function CheckoutForm() {
     return isValid;
   };
 
+  const { clearCart } = useCart();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -87,11 +90,12 @@ export default function CheckoutForm() {
           form.append(key, value)
         );
 
-        await processCheckout(form); // Skickar data till Server Action
+        await processCheckout(form);
+        clearCart();
       } catch (error) {
         setErrorMessage("Något gick fel. Försök igen.");
       }
-      console.log("Hej");
+      console.log("cart");
     }
   };
 
