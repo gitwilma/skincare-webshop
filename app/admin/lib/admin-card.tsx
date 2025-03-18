@@ -26,11 +26,7 @@ export default function AdminCard() {
                   }}
                 >
                   <Button color="primary" sx={{ minWidth: "auto" }}>
-                    <Link
-                      data-cy="admin-edit-product"
-                      href={`/admin/edit-product/${product.id}`}
-                      passHref
-                    >
+                    <Link href={`/admin/admin-edit-product/${product.id}`}>
                       <Edit />
                     </Link>
                   </Button>

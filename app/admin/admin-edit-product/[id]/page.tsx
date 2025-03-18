@@ -16,10 +16,14 @@ const schema = z.object({
   image: z.string().url("Image must be a valid URL"),
 });
 
-export default function AdminEditProduct() {
+export default function AdminEditProduct({
+  params,
+}: {
+  params: { id: string };
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const productId = searchParams.get("id"); // Hämta ID från URL
+  const productId = params.id; // Hämta ID från URL
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
