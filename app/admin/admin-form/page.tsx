@@ -1,4 +1,5 @@
 "use client";
+import { addNewProduct } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField } from "@mui/material";
 import { Prisma } from "@prisma/client";
@@ -8,17 +9,29 @@ import { z } from "zod";
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
-  price: z.number().positive("Price must be a positive number"),
+  price: z.coerce.number().positive("Price must be a positive number"),
   image: z.string().url("Image must be a valid URL"),
 });
 
 export default function AdminForm() {
-  // const product = await db.product.findMany();
   const form = useForm<Prisma.ProductCreateInput>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      title: "",
+      description: "",
+      price: 0,
+      image: "",
+    },
   });
 
-  const handleSubmit = (product: Prisma.ProductCreateInput) => {};
+  const handleSubmit = async (product: Prisma.ProductCreateInput) => {
+    try {
+      await addNewProduct(product);
+      form.reset();
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
+  };
 
   return (
     <Box
