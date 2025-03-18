@@ -59,7 +59,7 @@ export default function AdminForm() {
           formHelperText: { "data-cy": "product-price-error" } as any,
         }}
         label="Price"
-        {...form.register("price")}
+        {...form.register("price", { valueAsNumber: true })}
         error={Boolean(form.formState.errors.price)}
         helperText={form.formState.errors.price?.message}
       />
