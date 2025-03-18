@@ -1,6 +1,12 @@
+import { db } from "@/prisma/db";
 import { Box, Typography } from "@mui/material";
 
-export default function ConfirmationPage() {
+export default async function ConfirmationPage() {
+  const order = await db.order.findUnique({
+    where: { orderNumber: "" },
+    include: { customer: true, orderRows: true },
+  });
+
   return (
     <main>
       <Box

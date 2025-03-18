@@ -92,10 +92,11 @@ export default function CheckoutForm() {
 
         await processCheckout(form);
         clearCart();
+        console.log("cart");
       } catch (error) {
+        console.error(error);
         setErrorMessage("Något gick fel. Försök igen.");
       }
-      console.log("cart");
     }
   };
 

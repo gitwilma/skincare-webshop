@@ -87,8 +87,6 @@ export function CartProvider({ children }: PropsWithChildren) {
   const clearCart = () => {
     setCart([]);
     setFormData({ name: "", email: "", address: "" });
-    localStorage.removeItem("cart");
-    localStorage.removeItem("formData");
   };
 
   return (

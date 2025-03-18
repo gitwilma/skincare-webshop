@@ -1,16 +1,17 @@
 "use server";
 
+import { CartItem } from "@/data";
+import { db } from "@/prisma/db";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 
-export async function processCheckout(formData: FormData) {
-  const name = formData.get("name") as string;
-  const address = formData.get("address") as string;
-  const zipcode = formData.get("zipcode") as string;
-  const city = formData.get("city") as string;
-  const email = formData.get("email") as string;
-  const phone = formData.get("phone") as string;
-
-  const paymentSuccess = true;
+export async function processCheckout(
+  cart: CartItem[],
+  customer: Prisma.CustomerCreateInput
+) {
+  db.order.create({ data: {
+    ""
+  }})
 
   if (paymentSuccess) {
     redirect("/confirmation/bekraftelse");
