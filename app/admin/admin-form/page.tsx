@@ -1,12 +1,21 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField } from "@mui/material";
 import { Prisma } from "@prisma/client";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const schema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  price: z.number().positive("Price must be a positive number"),
+  image: z.string().url("Image must be a valid URL"),
+});
 
 export default function AdminForm() {
   // const product = await db.product.findMany();
   const form = useForm<Prisma.ProductCreateInput>({
-    // "resolver"
+    resolver: zodResolver(schema),
   });
 
   const handleSubmit = (product: Prisma.ProductCreateInput) => {};
