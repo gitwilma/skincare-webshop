@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 export async function addNewProduct(product: Prisma.ProductCreateInput) {
   await db.product.create({ data: product });
   revalidatePath("/");
-  redirect("/");
+  redirect("/admin");
 }
 
 // 🔹 Hämta alla produkter

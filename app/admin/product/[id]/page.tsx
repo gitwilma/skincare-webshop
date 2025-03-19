@@ -96,18 +96,30 @@ export default function AdminEditProduct({
       }}
     >
       <TextField
+        slotProps={{
+          htmlInput: { "data-cy": "product-title" },
+          formHelperText: { "data-cy": "product-title-error" } as any,
+        }}
         label="Title"
         {...form.register("title")}
         error={Boolean(form.formState.errors.title)}
         helperText={form.formState.errors.title?.message}
       />
       <TextField
+        slotProps={{
+          htmlInput: { "data-cy": "product-description" },
+          formHelperText: { "data-cy": "product-description-error" } as any,
+        }}
         label="Description"
         {...form.register("description")}
         error={Boolean(form.formState.errors.description)}
         helperText={form.formState.errors.description?.message}
       />
       <TextField
+        slotProps={{
+          htmlInput: { "data-cy": "product-price" },
+          formHelperText: { "data-cy": "product-price-error" } as any,
+        }}
         label="Price"
         type="number"
         {...form.register("price")}
@@ -115,6 +127,10 @@ export default function AdminEditProduct({
         helperText={form.formState.errors.price?.message}
       />
       <TextField
+        slotProps={{
+          htmlInput: { "data-cy": "product-image" },
+          formHelperText: { "data-cy": "product-image-error" } as any,
+        }}
         label="Image URL"
         {...form.register("image")}
         error={Boolean(form.formState.errors.image)}
