@@ -1,6 +1,7 @@
 "use client";
 
 import { MenuRounded } from "@mui/icons-material";
+import { Theme, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -14,6 +15,9 @@ import * as React from "react";
 
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
+  const isLargeScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.up("sm")
+  );
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -23,7 +27,7 @@ export default function TemporaryDrawer() {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {["Admin"].map((text) => (
-          <ListItem key={text} disablePadding>                       
+          <ListItem key={text} disablePadding>
             <ListItemButton component={Link} href="/admin">
               <ListItemText primary={text} />
             </ListItemButton>
@@ -33,6 +37,18 @@ export default function TemporaryDrawer() {
       <Divider />
     </Box>
   );
+
+  if (isLargeScreen) {
+    // Om skärmen är stor, visa bara Admin-länken och ingen Drawer
+    return (
+      <Link
+        href="/admin"
+        style={{ textDecoration: "none", color: "inherit", fontWeight: "bold" }}
+      >
+        Admin
+      </Link>
+    );
+  }
 
   return (
     <div>
