@@ -15,10 +15,8 @@ export async function processCheckout(
 
   try {
     // Spara kunden i databasen eller hitta befintlig
-    const customer = await db.customer.upsert({
-      where: { id: customerData.id },
-      update: customerData,
-      create: customerData,
+    const customer = await db.customer.create({
+      data: customerData,
     });
 
     // Beräkna totalpris - hämta potentiellt från cart-provider?
