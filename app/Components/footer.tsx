@@ -10,7 +10,7 @@ export default function Footer() {
         sx={{
           marginTop: 4,
           padding: 2,
-          color: "#4e342e",
+          color: "#efebe9",
           display: "grid",
           justifyContent: "center",
           alignItems: "center",
@@ -33,7 +33,9 @@ export default function Footer() {
         }}
       >
         <Typography data-cy="admin-link">
-          <Link href="/admin">Admin</Link>
+          <Link href="/admin" color="#efebe9">
+            Admin
+          </Link>
         </Typography>
         <Typography>Return</Typography>
         <Typography>Contact</Typography>

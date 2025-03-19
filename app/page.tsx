@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
 import BuyButton from "./components/buy-button";
+import HeroText from "./components/hero-text";
 import ProductCard from "./components/product-card";
 
 export default async function Home() {
@@ -32,10 +33,11 @@ export default async function Home() {
           objectFit="cover"
         />
       </Box>
+      <HeroText />
       <Container>
         <Grid container spacing={2}>
           {products.map((product) => (
-            <Grid size={{ xs: 6, md: 4, lg: 3 }} key={product.id}>
+            <Grid size={{ xs: 6, md: 4 }} key={product.id}>
               <ProductCard product={product}>
                 <BuyButton product={product} />
               </ProductCard>
