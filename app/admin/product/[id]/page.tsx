@@ -4,7 +4,7 @@ import { getProductById, updateProduct } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import { Prisma } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,7 +22,7 @@ export default function AdminEditProduct({
   params: { id: string };
 }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const productId = params?.id as string; // Hämta ID från URL
   console.log("Received product ID from URL params:", productId);
 
