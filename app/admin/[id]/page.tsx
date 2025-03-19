@@ -23,7 +23,7 @@ export default function AdminEditProduct({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const productId = params.id; // Hämta ID från URL
+  const productId = params?.id; // Hämta ID från URL
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
