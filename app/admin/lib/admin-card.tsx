@@ -1,12 +1,14 @@
+import { getAllProducts } from "@/app/actions";
 import ProductCard from "@/app/components/product-card";
-import { products } from "@/data";
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 import DeleteBtn from "./delete-btn";
 
-export default function AdminCard() {
+export default async function AdminCard() {
+  const products = await getAllProducts();
+
   return (
     <>
       <Container>
@@ -27,7 +29,7 @@ export default function AdminCard() {
                 >
                   <Button color="primary" sx={{ minWidth: "auto" }}>
                     <Link href={`/admin/${product.id}`}>
-                      <Edit data-cy="admin-edit-product"/>
+                      <Edit data-cy="admin-edit-product" />
                     </Link>
                   </Button>
                   <DeleteBtn />
