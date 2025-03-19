@@ -41,21 +41,7 @@ export async function processCheckout(
         },
       },
     });
-
-    console.log("🔹 Attempting payment processing...");
-
-    const paymentSuccess = true;
-
-    if (paymentSuccess) {
-      console.log("Redirecting to confirmation page...");
-
-      return redirect("/confirmation/bekraftelse");
-    } else {
-      throw new Error("Payment failed. Try again");
-    }
   } catch (error) {
-    console.error("Checkout error:", error);
-
     // Undvik att kasta ett fel om det är en redirect
     if ((error as any)?.digest === "NEXT_REDIRECT") {
       return;
@@ -69,5 +55,14 @@ export async function processCheckout(
         "Something went wrong with checkout. Unknown error occurred."
       );
     }
+  }
+  const paymentSuccess = true;
+
+  if (paymentSuccess) {
+    console.log("Redirecting to confirmation page...");
+
+    return redirect("/confirmation/bekraftelse");
+  } else {
+    throw new Error("Payment failed. Try again");
   }
 }
