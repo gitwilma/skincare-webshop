@@ -42,11 +42,12 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = async (data: CheckoutFormValues) => {
-    try {
-      const response = await processCheckout(cartItems, data);
+    console.log("Form submitted with data:", data); // Kontrollera om denna logg visas
+    const response = await processCheckout(cartItems, data);
 
+    try {
+      console.log("Running response");
       clearCart();
-      // router.push("/confirmation/success");
     } catch (error) {
       console.error("Checkout error:", error);
     }

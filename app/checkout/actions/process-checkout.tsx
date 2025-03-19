@@ -9,6 +9,8 @@ export async function processCheckout(
   cart: CartItem[],
   customerData: Prisma.CustomerCreateInput
 ) {
+  console.log("Hej");
+
   if (cart.length === 0) {
     throw new Error("Cart is empty");
   }
@@ -40,16 +42,32 @@ export async function processCheckout(
       },
     });
 
-    // Simulera betalningsprocess (här kan du lägga in betalningslogik)
-    const paymentSuccess = true; // Uppdatera detta med faktisk betalningslogik
+    console.log("🔹 Attempting payment processing...");
+
+    const paymentSuccess = true;
 
     if (paymentSuccess) {
-      redirect("/confirmation/bekraftelse");
+      console.log("Redirecting to confirmation page...");
+
+      return redirect("/confirmation/bekraftelse");
     } else {
       throw new Error("Payment failed. Try again");
     }
   } catch (error) {
     console.error("Checkout error:", error);
-    throw new Error("Something went wrong with checkout.");
+
+    // Undvik att kasta ett fel om det är en redirect
+    if ((error as any)?.digest === "NEXT_REDIRECT") {
+      return;
+    }
+    if (error instanceof Error) {
+      throw new Error(
+        "Something went wrong with checkout. Error details: " + error.message
+      );
+    } else {
+      throw new Error(
+        "Something went wrong with checkout. Unknown error occurred."
+      );
+    }
   }
 }
