@@ -23,7 +23,8 @@ export default function AdminEditProduct({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const productId = params?.id; // Hämta ID från URL
+  const productId = params?.id as string; // Hämta ID från URL
+  console.log("Received product ID from URL params:", productId);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +48,7 @@ export default function AdminEditProduct({
 
     const fetchProduct = async () => {
       try {
+        console.log("Fetching product with ID:", productId); // ✅ Debugging
         const fetchedProduct = await getProductById(productId); // Hämta produktdata
         if (fetchedProduct) {
           form.reset(fetchedProduct); // Sätt produktdata i formuläret
@@ -54,6 +56,7 @@ export default function AdminEditProduct({
           setError("Product not found");
         }
       } catch (err) {
+        console.error("Fetch error:", err); // ✅ Logga felet
         setError("Failed to fetch product");
       }
       setLoading(false);

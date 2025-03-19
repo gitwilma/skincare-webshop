@@ -27,7 +27,7 @@ export default function AdminCard() {
                 >
                   <Button color="primary" sx={{ minWidth: "auto" }}>
                     <Link href={`/admin/${product.id}`}>
-                      <Edit />
+                      <Edit data-cy="admin-edit-product"/>
                     </Link>
                   </Button>
                   <DeleteBtn />
