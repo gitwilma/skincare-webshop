@@ -32,7 +32,7 @@ export default async function AdminCard() {
                       <Edit data-cy="admin-edit-product" />
                     </Link>
                   </Button>
-                  <DeleteBtn productId={product.id} />
+                  <DeleteBtn productId={product.articleNumber} />
                 </Box>
               </ProductCard>
             </Grid>
