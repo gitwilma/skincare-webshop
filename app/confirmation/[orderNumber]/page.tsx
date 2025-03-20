@@ -54,7 +54,7 @@ export default async function ConfirmationPage(props: Props) {
                 src={row.product.image}
               ></CardMedia>
               <Typography variant="body1">
-                {row.product.title} - {row.quantity} st - {row.price} kr
+                {row.product.title} : {row.quantity} st - {row.price} kr
               </Typography>
             </ListItem>
           ))}
