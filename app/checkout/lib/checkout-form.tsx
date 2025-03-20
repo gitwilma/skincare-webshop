@@ -43,14 +43,10 @@ export default function CheckoutForm() {
 
   const onSubmit = async (data: CheckoutFormValues) => {
     console.log("Form submitted with data:", data); // Kontrollera om denna logg visas
-    const response = await processCheckout(cartItems, data);
-
-    try {
-      console.log("Running response");
-      clearCart();
-    } catch (error) {
-      console.error("Checkout error:", error);
-    }
+    const orderNumber = await processCheckout(cartItems, data);
+    console.log("ORDER COMPLETE");
+    clearCart();
+    router.push("/confirmation/" + orderNumber);
   };
 
   return (
