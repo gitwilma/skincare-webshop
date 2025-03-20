@@ -1,20 +1,29 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Link from "next/link";
 import AdminCard from "./lib/admin-card";
 
 export default function AdminPage() {
   return (
     <main>
-      <Link href="/admin/product/new/">
-        <Button
-          data-cy="admin-add-product"
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Add a product
-        </Button>
-      </Link>
+      <Box
+        sx={{
+          display: "flex",
+          width: "90%",
+          justifyContent: "flex-end",
+          mb: 2,
+        }}
+      >
+        <Link href="/admin/product/new/">
+          <Button
+            data-cy="admin-add-product"
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Add a product
+          </Button>
+        </Link>
+      </Box>
       <AdminCard />
     </main>
   );
