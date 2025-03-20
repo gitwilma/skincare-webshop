@@ -14,7 +14,9 @@ export default function HeroText() {
         alignItems: "center",
       }}
     >
-      <Typography variant="h2" gutterBottom>
+      <Typography sx={{
+        fontSize: {xs: 40, md: 60}
+      }} variant="h2" gutterBottom>
         Timeless Korean Skincare Inspired by Heritage
       </Typography>
       <Typography variant="body1">
