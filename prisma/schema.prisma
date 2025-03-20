@@ -11,10 +11,45 @@ datasource db {
 }
 
 model Product {
-  id            String @id @default(cuid())
-  articleNumber String @unique @default(cuid())
+  id            String     @id @default(cuid())
+  articleNumber String     @unique @default(cuid())
   title         String
   description   String
   image         String
   price         Float
+  orderRows     OrderRow[]
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  orderNumber String   @unique @default(cuid())
+  createdAt   DateTime @default(now())
+  customerId  String
+  totalPrice  Float
+
+  customer  Customer   @relation(fields: [customerId], references: [id])
+  orderRows OrderRow[]
+}
+
+model OrderRow {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  product Product @relation(fields: [productId], references: [id])
+  order   Order   @relation(fields: [orderId], references: [id])
+}
+
+model Customer {
+  id      String @id @default(cuid())
+  name    String
+  address String
+  zipcode String
+  city    String
+  email   String
+  phone   String
+
+  orders Order[]
 }
