@@ -12,6 +12,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Link from "next/link";
 import * as React from "react";
+import theme from "../theme/theme";
 
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +44,7 @@ export default function TemporaryDrawer() {
     return (
       <Link
         href="/admin"
-        style={{ textDecoration: "none", color: "inherit", fontWeight: "bold" }}
+        style={{ textDecoration: "none", color: theme.palette.primary.main, fontWeight: "bold", marginLeft: 10 }}
       >
         Admin
       </Link>
