@@ -12,7 +12,7 @@ export default function AdminPage() {
           variant="contained"
           color="primary"
         >
-          Add Products. gå till admin-formuläret
+          Add a product
         </Button>
       </Link>
       <AdminCard />
