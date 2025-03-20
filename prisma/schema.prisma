@@ -27,7 +27,7 @@ model Order {
   customerId  String
   totalPrice  Float
 
-  customer  Customer   @relation(fields: [customerId], references: [id])
+  customer  Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
   orderRows OrderRow[]
 }
 
@@ -38,8 +38,8 @@ model OrderRow {
   quantity  Int
   price     Float
 
-  product Product @relation(fields: [productId], references: [id])
-  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model Customer {
