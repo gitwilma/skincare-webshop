@@ -5,12 +5,12 @@ import AdminCard from "./lib/admin-card";
 export default function AdminPage() {
   return (
     <main>
+      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Manage products</Typography>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
-          mb: 2,
-          marginRight: 4,
+          justifyContent: "center",
+          marginTop: 3,
         }}
       >
         <Link href="/admin/product/new/">
@@ -24,7 +24,6 @@ export default function AdminPage() {
           </Button>
         </Link>
       </Box>
-        <Typography variant="h4" sx={{display: "flex", justifyContent: "center"}}>Manage products</Typography>
       <AdminCard />
     </main>
   );
