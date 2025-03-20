@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import AdminCard from "./lib/admin-card";
 
@@ -24,6 +24,7 @@ export default function AdminPage() {
           </Button>
         </Link>
       </Box>
+        <Typography variant="h4" sx={{display: "flex", justifyContent: "center"}}>Manage products</Typography>
       <AdminCard />
     </main>
   );
