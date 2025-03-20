@@ -3,13 +3,12 @@ import { db } from "@/prisma/db"; // Prisma klient
 import { Box, CardMedia, Typography } from "@mui/material";
 
 interface Props {
-  params: { articleNumber: string; title: string };
+  params: Promise<{ articleNumber: string }>;
 }
 
 export default async function ProductPage({ params }: Props) {
-  const item = await db.product.findUnique({
-    where: { articleNumber: params.articleNumber },
-  });
+  const { articleNumber } = await params;
+  const item = await db.product.findUnique({ where: { articleNumber } });
 
   if (!item) return <h2>404: Produkten hittades inte</h2>;
 
@@ -58,7 +57,9 @@ export default async function ProductPage({ params }: Props) {
             <Typography data-cy="product-title" variant="h3">
               {item.title}
             </Typography>
-            <Typography data-cy="product-description">{item.description}</Typography>
+            <Typography data-cy="product-description">
+              {item.description}
+            </Typography>
 
             <Typography variant="body1" sx={{ marginTop: 2 }}>
               <strong>Artikelnummer:</strong> {item.articleNumber}
@@ -71,8 +72,7 @@ export default async function ProductPage({ params }: Props) {
             >
               <strong>Pris:</strong> {item.price} kr
             </Typography>
-            <BuyButton product={item}/>
-
+            <BuyButton product={item} />
           </Box>
         </Box>
       </Box>
