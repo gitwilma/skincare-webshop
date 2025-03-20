@@ -6,12 +6,17 @@ import OrderSummary from "./lib/order-summary";
 export default function CheckoutPage() {
   return (
     <main>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        gap: 4,
+        margin: 4,
+      }}
+    >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          margin: 4,
+          width: { xs: "100%", md: "50%" },
           textAlign: "center",
         }}
       >
@@ -28,7 +33,16 @@ export default function CheckoutPage() {
         </Typography>
         <OrderSummary />
       </Box>
-      <CheckoutForm />
-    </main>
+
+      <Box
+        sx={{
+          width: { xs: "100%", md: "50%" },
+        }}
+      >
+        <CheckoutForm />
+      </Box>
+    </Box>
+  </main>
+
   );
 }
