@@ -33,7 +33,7 @@ export default function Footer() {
         }}
       >
         <Typography data-cy="admin-link">
-          <Link href="/admin" color="#efebe9">
+          <Link sx={{textDecoration: "none"}} href="/admin" color="#efebe9">
             Admin
           </Link>
         </Typography>

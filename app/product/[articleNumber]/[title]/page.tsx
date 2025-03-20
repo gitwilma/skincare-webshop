@@ -1,6 +1,6 @@
 import BuyButton from "@/app/components/buy-button";
 import { db } from "@/prisma/db"; // Prisma klient
-import { Box, CardMedia, Typography } from "@mui/material";
+import { Box, CardMedia, Typography, Divider } from "@mui/material";
 
 interface Props {
   params: Promise<{ articleNumber: string }>;
@@ -57,22 +57,26 @@ export default async function ProductPage({ params }: Props) {
             <Typography data-cy="product-title" variant="h3">
               {item.title}
             </Typography>
+            <Typography>
+              <strong>Artikelnummer:</strong> {item.articleNumber}
+            </Typography>
+            <Divider />
             <Typography data-cy="product-description">
               {item.description}
             </Typography>
 
-            <Typography variant="body1" sx={{ marginTop: 2 }}>
-              <strong>Artikelnummer:</strong> {item.articleNumber}
-            </Typography>
-
+            <Box sx={{display: "flex", justifyContent: "flex-end", gap: "10px"}}>
             <Typography
               data-cy="product-price"
               variant="body1"
               sx={{ marginTop: 2 }}
-            >
+              >
               <strong>Pris:</strong> {item.price} kr
             </Typography>
             <BuyButton product={item} />
+              </Box>
+
+
           </Box>
         </Box>
       </Box>
