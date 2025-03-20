@@ -28,7 +28,7 @@ export default function OrderSummary() {
     <List sx={{ width: "100%", maxWidth: 400, mx: "auto" }}>
       {cart.length === 0 ? (
         <ListItem>
-          <ListItemText primary="Varukorgen är tom" />
+          <ListItemText sx={{ display: "flex", justifyContent: "center",}} primary="Varukorgen är tom" />
         </ListItem>
       ) : (
         cart.map((item) => (

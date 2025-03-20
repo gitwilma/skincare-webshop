@@ -37,7 +37,7 @@ export default async function ConfirmationPage(props: Props) {
           Tack för din order, {order.customer.name}!
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
-          Ditt ordernummer är: {order.orderNumber}
+          Ditt ordernummer är : {order.orderNumber}
         </Typography>
         <Typography variant="body1" fontWeight="bold">
           Beställda produkter:
@@ -49,7 +49,7 @@ export default async function ConfirmationPage(props: Props) {
               sx={{ display: "flex", alignItems: "center", gap: 2 }}
             >
               <CardMedia
-                sx={{ height: 200 }}
+                sx={{ height: 200, objectFit: "contain" }}
                 component="img"
                 src={row.product.image}
               ></CardMedia>
@@ -60,19 +60,19 @@ export default async function ConfirmationPage(props: Props) {
           ))}
         </List>
         <Typography variant="h6" fontWeight="bold" mt={2}>
-          Totalt: {totalPrice.toFixed(2)} kr
+          Totalt : {totalPrice.toFixed(2)} kr
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
-          Dina varor levereras till {order.customer.address},{" "}
+          Dina varor levereras till : {order.customer.address},{" "}
           {order.customer.zipcode} {order.customer.city}.
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
-          Ett bekräftelsemail har skickats till din epost:{" "}
+          Ett bekräftelsemail har skickats till din epost : {" "}
           {order.customer.email}
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
           När leveransen är framme kommer vi skicka ett SMS till ditt
-          telefonnummer: {order.customer.phone}
+          telefonnummer : {order.customer.phone}
         </Typography>
       </Box>
     </main>
