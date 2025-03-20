@@ -19,7 +19,6 @@ export default function ProductCard({ product, children }: Props) {
           sx={{ height: 300 }}
           component="img"
           image={product.image}
-          data-cy="product-id"
           key={product.id}
         ></CardMedia>
       </Link>
@@ -29,6 +28,9 @@ export default function ProductCard({ product, children }: Props) {
         sx={{ boxSizing: "border-box", paddingLeft: 0.5 }}
       >
         {product.title}
+      </Typography>
+      <Typography data-cy="product-id" variant="body2">
+        {product.articleNumber}
       </Typography>
       <Box
         sx={{

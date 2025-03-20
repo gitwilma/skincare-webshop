@@ -37,9 +37,9 @@ export async function updateProduct(id: string, data: Prisma.ProductUpdateInput)
 }
 
 // 🔹 Radera en produkt
-export async function deleteProduct(id: string) {
-  if (!id) throw new Error("Product ID is required");
+export async function deleteProduct(articleNumber: string) {
+  if (!articleNumber) throw new Error("Product ID is required");
 
-  await db.product.delete({ where: { id } });
+  await db.product.delete({ where: { articleNumber } });
   revalidatePath("/admin");
 }
