@@ -14,7 +14,7 @@ export default async function AdminCard() {
       <Container>
         <Grid container spacing={2}>
           {products.map((product) => (
-            <Grid size={{ xs: 12, md: 4, lg: 3 }} key={product.id}>
+            <Grid size={{ xs: 6, md: 4 }} key={product.id}>
               <ProductCard product={product}>
                 <Box
                   sx={{
