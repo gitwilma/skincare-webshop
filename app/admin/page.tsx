@@ -8,9 +8,9 @@ export default function AdminPage() {
       <Box
         sx={{
           display: "flex",
-          width: "90%",
           justifyContent: "flex-end",
           mb: 2,
+          marginRight: 4,
         }}
       >
         <Link href="/admin/product/new/">
