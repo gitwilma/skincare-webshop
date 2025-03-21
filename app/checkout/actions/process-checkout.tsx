@@ -14,18 +14,15 @@ export async function processCheckout(
     throw new Error("Cart is empty");
   }
 
-  // Spara kunden i databasen eller hitta befintlig
   const customer = await db.customer.create({
     data: customerData,
   });
 
-  // Beräkna totalpris - hämta potentiellt från cart-provider?
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  // Skapa order
   const order = await db.order.create({
     data: {
       customerId: customer.id,

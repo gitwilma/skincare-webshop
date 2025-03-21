@@ -14,7 +14,7 @@ export default async function AdminCard() {
       <Container>
         <Grid container spacing={2}>
           {products.map((product) => (
-            <Grid size={{ xs: 12, md: 4, lg: 3 }} key={product.id}>
+            <Grid size={{ xs: 6, md: 4 }} key={product.id}>
               <ProductCard product={product}>
                 <Box
                   sx={{
@@ -29,7 +29,7 @@ export default async function AdminCard() {
                 >
                   <Button color="primary" sx={{ minWidth: "auto" }}>
                     <Link href={`/admin/product/${product.articleNumber}`}>
-                      <Edit data-cy="admin-edit-product" />
+                      <Edit color="primary" data-cy="admin-edit-product" />
                     </Link>
                   </Button>
                   <DeleteBtn productId={product.articleNumber} />

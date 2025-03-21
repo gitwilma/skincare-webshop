@@ -14,9 +14,8 @@ const poppins = Poppins({
   weight: "100",
 });
 
-/* Beskriv din hemsida för sökmotorerna */
 export const metadata: Metadata = {
-  title: "Webbshoppen",
+  title: "Beauty of Joseon",
   description: "Dina favoritprodukter online till en bra pris...",
 };
 

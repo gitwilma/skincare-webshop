@@ -1,7 +1,7 @@
 "use client";
 import { addNewProduct } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { Prisma } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -45,8 +45,22 @@ export default function AdminForm() {
           gap: 2,
           maxWidth: 400,
           mx: "auto",
+          marginBottom: "50px",
+          marginTop: "70px",
         }}
       >
+        <Typography
+        variant="h3"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          fontSize: "2.5rem",
+          fontWeight: "bold",
+          color: "primary.main",
+          marginBottom: 9,
+        }}>
+          Lägg till en produkt
+        </Typography>
         <TextField
           slotProps={{
             htmlInput: { "data-cy": "product-title" },

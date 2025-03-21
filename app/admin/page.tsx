@@ -1,16 +1,16 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import AdminCard from "./lib/admin-card";
 
 export default function AdminPage() {
   return (
     <main>
+      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Hantera produkter</Typography>
       <Box
         sx={{
           display: "flex",
-          width: "90%",
-          justifyContent: "flex-end",
-          mb: 2,
+          justifyContent: "center",
+          marginTop: 3,
         }}
       >
         <Link href="/admin/product/new/">

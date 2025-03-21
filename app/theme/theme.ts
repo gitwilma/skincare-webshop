@@ -3,11 +3,6 @@
 import { brown } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
-/* Använd primary.main för knappar och länkar
-Använd background.default för bakgrundsfärgen
-Använd text.primary för huvudtexten
-Använd secondary.main för accenter och kontrastfärg */
-
 const theme = createTheme({
   palette: {
     primary: {
