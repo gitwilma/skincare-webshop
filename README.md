@@ -1,7 +1,7 @@
-# Webbshop - Beauty by Joseon
+# Webbshop - Beauty of Joseon
 
 ## Description
-Webshop - Beauty by Joseon is an e-commerce application where users can explore and "purchase" beauty products inspired by traditional Korean skincare. The application is built using modern web development technology for a smooth and responsive user experience.
+Webshop - Beauty of Joseon is an e-commerce application where users can explore and "purchase" beauty products inspired by traditional Korean skincare. The application is built using modern web development technology for a smooth and responsive user experience.
 
 ## Technologies
 The project is built with the following technologies:
@@ -17,7 +17,7 @@ Follow these steps to install and run the project locally:
 
 1. Clone this repository:
    ```sh
-   git clone
+   git clone https://github.com/plugga-tech/nextjs-webshop-ts-react-skincare-webshop.git
    ```
 
 2. Install dependencies:
@@ -25,6 +25,7 @@ Follow these steps to install and run the project locally:
    npm install
    ```
 3. Configure environment variables by creating a .env file and filling in the relevant variables for Prisma and other services.
+
 
 4. Migrate the database:
    ```sh

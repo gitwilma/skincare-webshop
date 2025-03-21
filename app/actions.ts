@@ -5,19 +5,16 @@ import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-// 🔹 Lägg till en ny produkt
 export async function addNewProduct(product: Prisma.ProductCreateInput) {
   await db.product.create({ data: product });
   revalidatePath("/");
   redirect("/admin");
 }
 
-// 🔹 Hämta alla produkter
 export async function getAllProducts() {
   return await db.product.findMany();
 }
 
-// 🔹 Hämta en enskild produkt med ID
 export async function getProductById(id: string) {
   if (!id) throw new Error("Product ID is required");
   
@@ -28,7 +25,6 @@ export async function getProductById(id: string) {
   return product;
 }
 
-// 🔹 Uppdatera en produkt
 export async function updateProduct(id: string, data: Prisma.ProductUpdateInput) {
   if (!id) throw new Error("Product ID is required");
 
@@ -36,7 +32,6 @@ export async function updateProduct(id: string, data: Prisma.ProductUpdateInput)
   revalidatePath("/admin");
 }
 
-// 🔹 Radera en produkt
 export async function deleteProduct(articleNumber: string) {
   if (!articleNumber) throw new Error("Product ID is required");
 

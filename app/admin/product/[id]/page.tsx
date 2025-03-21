@@ -7,8 +7,8 @@ interface Props {
 }
 
 export default async function AdminEditProductPage({ params }: Props) {
-  // const searchParams = useSearchParams();
-  const { id: articleNumber } = await params; // Hämta ID från URL
+
+  const { id: articleNumber } = await params;
   const product = await db.product.findUnique({ where: { articleNumber } });
 
   if (!product) {

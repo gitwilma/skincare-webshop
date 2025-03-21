@@ -5,7 +5,7 @@ import AdminCard from "./lib/admin-card";
 export default function AdminPage() {
   return (
     <main>
-      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Manage products</Typography>
+      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Hantera produkter</Typography>
       <Box
         sx={{
           display: "flex",

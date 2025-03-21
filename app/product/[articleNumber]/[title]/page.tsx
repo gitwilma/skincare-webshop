@@ -1,5 +1,5 @@
 import BuyButton from "@/app/components/buy-button";
-import { db } from "@/prisma/db"; // Prisma klient
+import { db } from "@/prisma/db";
 import { Box, CardMedia, Typography, Divider } from "@mui/material";
 
 interface Props {

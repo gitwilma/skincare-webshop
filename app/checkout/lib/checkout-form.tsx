@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { processCheckout } from "../actions/process-checkout";
 
-// Zod schema för validering
 const checkoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
   address: z.string().min(1, "Address is required"),
@@ -26,7 +25,6 @@ const checkoutSchema = z.object({
   phone: z.string().regex(/^\d{7,15}$/, "Invalid phone number"),
 });
 
-// Typ baserad på Zod-schemat
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutForm() {
@@ -42,7 +40,7 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = async (data: CheckoutFormValues) => {
-    console.log("Form submitted with data:", data); // Kontrollera om denna logg visas
+    console.log("Form submitted with data:", data);
     const orderNumber = await processCheckout(cartItems, data);
     console.log("ORDER COMPLETE");
     clearCart();

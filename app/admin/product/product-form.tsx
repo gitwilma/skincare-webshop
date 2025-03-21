@@ -29,7 +29,7 @@ export default function ProductForm({ product }: Props) {
 
   const handleSubmit = async (data: Prisma.ProductCreateInput) => {
     try {
-      await updateProduct(product.id, data); // Uppdatera produkten
+      await updateProduct(product.id, data);
       router.push("/admin");
     } catch (error) {
       console.error("Error updating product:", error);

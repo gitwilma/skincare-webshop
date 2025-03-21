@@ -40,7 +40,6 @@ export default function TemporaryDrawer() {
   );
 
   if (isLargeScreen) {
-    // Om skärmen är stor, visa bara Admin-länken och ingen Drawer
     return (
       <Link
         href="/admin"
