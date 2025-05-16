@@ -102,7 +102,7 @@ export default function ProductForm({ product }: Props) {
         }}
         label="Quantity"
         type="number"
-        {...form.register("quantity")}
+        {...form.register("quantity", { valueAsNumber: true })}
         error={Boolean(form.formState.errors.quantity)}
         helperText={form.formState.errors.quantity?.message}
       />
