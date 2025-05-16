@@ -20,3 +20,5 @@ main()
     await db.$disconnect();
     process.exit(1);
   });
+
+  

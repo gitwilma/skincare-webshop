@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteProduct } from "@/app/actions";
 import { RemoveCircleOutline } from "@mui/icons-material";
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { useState, useTransition } from "react";
