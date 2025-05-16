@@ -1,4 +1,3 @@
-import { db } from "@/prisma/db";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid2";
@@ -6,9 +5,19 @@ import Image from "next/image";
 import BuyButton from "./components/buy-button";
 import HeroText from "./components/hero-text";
 import ProductCard from "./components/product-card";
+import { db } from "@/prisma/db"; // <-- Import Prisma client
 
 export default async function Home() {
-  const products = await db.product.findMany();
+  let products = [];
+  try {
+    products = await db.product.findMany(); // <-- Fetch directly from Prisma
+    if (!Array.isArray(products)) {
+      products = [];
+    }
+  } catch (e) {
+    console.error("Failed to fetch products", e);
+    products = [];
+  }
   return (
     <main>
       <Box

@@ -1,5 +1,4 @@
 "use client";
-import { addNewProduct } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Prisma } from "@prisma/client";
@@ -26,7 +25,12 @@ export default function AdminForm() {
 
   const handleSubmit = async (product: Prisma.ProductCreateInput) => {
     try {
-      await addNewProduct(product);
+      const res = await fetch("/api/products/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+      if (!res.ok) throw new Error("Failed to add product");
       form.reset();
     } catch (error) {
       console.error("Error adding product:", error);
@@ -50,15 +54,16 @@ export default function AdminForm() {
         }}
       >
         <Typography
-        variant="h3"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          fontSize: "2.5rem",
-          fontWeight: "bold",
-          color: "primary.main",
-          marginBottom: 9,
-        }}>
+          variant="h3"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
+            fontWeight: "bold",
+            color: "primary.main",
+            marginBottom: 9,
+          }}
+        >
           Lägg till en produkt
         </Typography>
         <TextField

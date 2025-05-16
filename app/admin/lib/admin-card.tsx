@@ -1,13 +1,13 @@
-import { getAllProducts } from "@/app/actions";
 import ProductCard from "@/app/components/product-card";
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 import DeleteBtn from "./delete-btn";
+import { db } from "@/prisma/db";
 
 export default async function AdminCard() {
-  const products = await getAllProducts();
+  const products = await db.product.findMany();
 
   return (
     <>

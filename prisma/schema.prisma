@@ -17,6 +17,7 @@ model Product {
   description   String
   image         String
   price         Float
+  quantity      Int        @default(0) // Add this field to track stock quantity
   orderRows     OrderRow[]
 }
 
