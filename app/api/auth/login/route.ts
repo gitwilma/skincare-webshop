@@ -1,23 +1,33 @@
-// pages/api/auth/login.ts
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from "@prisma/client";
-import { serialize } from 'cookie';
+import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
+const prisma = new PrismaClient();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { email, password } = req.body;
+export async function POST(request: Request) {
+  const { email, password } = await request.json();
+  console.log("Login attempt:", email, password); // Debug
 
   const user = await prisma.user.findUnique({ where: { email } });
+  console.log("Found user:", user); // Debug
 
   if (!user || user.password !== password) {
-    return res.status(401).json({ message: 'Invalid email or password' });
+    console.log("Invalid credentials");
+    return new Response(JSON.stringify({ error: "Invalid credentials" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
-  const cookie = serialize('authToken', String(user.id), {
-    path: '/',
-    maxAge: 60 * 60 * 24, // 1 day
+  console.log("Login successful");
+
+  const response = NextResponse.json({ message: "Login successful" });
+
+  response.cookies.set("authToken", String(user.id), {
+    path: "/",
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
   });
 
-  res.setHeader('Set-Cookie', cookie);
-  res.status(200).json({ id: user.id, email: user.email });
+  return response;
 }
