@@ -12,7 +12,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { processCheckout } from "../actions/process-checkout";
 
 const checkoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -41,7 +40,24 @@ export default function CheckoutForm() {
 
   const onSubmit = async (data: CheckoutFormValues) => {
     console.log("Form submitted with data:", data);
-    const orderNumber = await processCheckout(cartItems, data);
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: cartItems,
+        customer: data,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Order failed");
+    }
+
+    const result = await res.json();
+    const orderNumber = result.orderNumber;
+
     console.log("ORDER COMPLETE");
     clearCart();
     router.push("/confirmation/" + orderNumber);

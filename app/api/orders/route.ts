@@ -1,30 +1,38 @@
 import { db } from "@/prisma/db";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) { // körs när en kund skickar in sin order från checkout-formuläret
+type CartItem = {
+  id: string;
+  articleNumber: string;
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  quantity: number;
+};
+
+export async function POST(req: Request) {
   const body = await req.json();
+  const cart: CartItem[] = body.cart;
+  const customerData = body.customer;
 
-  const { cart, customer } = body;
-
-  if (!cart || cart.length === 0 || !customer) {
+  if (!cart || cart.length === 0 || !customerData) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const createdCustomer = await db.customer.create({ // när auth finns: använd session-info istället för att skapa customer direkt
-    data: customer,
-  });
+  const customer = await db.customer.create({ data: customerData });
 
   const totalPrice = cart.reduce(
-    (sum: number, item: any) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
   const order = await db.order.create({
     data: {
-      customerId: createdCustomer.id,
+      customerId: customer.id,
       totalPrice,
       orderRows: {
-        create: cart.map((item: any) => ({
+        create: cart.map((item) => ({
           productId: item.id,
           quantity: item.quantity,
           price: item.price,
@@ -34,15 +42,4 @@ export async function POST(req: Request) { // körs när en kund skickar in sin 
   });
 
   return NextResponse.json({ orderNumber: order.orderNumber });
-}
-
-export async function GET() {
-  const orders = await db.order.findMany({ // när auth finns: lägg till det här senare för att bara visa orders för admin
-    include: {
-      customer: true,
-      orderRows: true,
-    },
-  });
-
-  return NextResponse.json(orders);
 }
