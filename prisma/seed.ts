@@ -53,10 +53,10 @@ async function main() {
 
 
   await db.product.upsert({
-    where: { articleNumber: "prod-003" },
+    where: { articleNumber: "001" },
     update: {},
     create: {
-      articleNumber: "prod-003",
+      articleNumber: "001",
       title: "Cola Zero",
       description: "Sockerfri läsk",
       image: "/images/products/cola-zero.jpg",
@@ -68,10 +68,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-004" },
+    where: { articleNumber: "889" },
     update: {},
     create: {
-      articleNumber: "prod-004",
+      articleNumber: "889",
       title: "Apelsinjuice",
       description: "Fräsch apelsinjuice",
       image: "/images/products/apelsinjuice.jpg",
@@ -83,10 +83,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-005" },
+    where: { articleNumber: "99888" },
     update: {},
     create: {
-      articleNumber: "prod-005",
+      articleNumber: "99888",
       title: "Kolsyrat vatten",
       description: "Kallt mineralvatten med bubblor",
       image: "/images/products/sparkling-water.jpg",
@@ -98,10 +98,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-006" },
+    where: { articleNumber: "p99888" },
     update: {},
     create: {
-      articleNumber: "prod-006",
+      articleNumber: "p99888",
       title: "Monster Energy",
       description: "Energi för hela dagen",
       image: "/images/products/monster.jpg",
@@ -113,10 +113,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-007" },
+    where: { articleNumber: "89000" },
     update: {},
     create: {
-      articleNumber: "prod-007",
+      articleNumber: "89000",
       title: "Iskaffe",
       description: "Kallbryggt kaffe för varma dagar",
       image: "/images/products/iced-coffee.jpg",
@@ -128,10 +128,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-008" },
+    where: { articleNumber: "996667" },
     update: {},
     create: {
-      articleNumber: "prod-008",
+      articleNumber: "996667",
       title: "Grönt Te",
       description: "Naturligt och hälsosamt",
       image: "/images/products/green-tea.jpg",
@@ -143,10 +143,10 @@ async function main() {
   });
 
   await db.product.upsert({
-    where: { articleNumber: "prod-009" },
+    where: { articleNumber: "00888" },
     update: {},
     create: {
-      articleNumber: "prod-009",
+      articleNumber: "00888",
       title: "Röd Juice",
       description: "Mix av hallon och jordgubb",
       image: "/images/products/red-juice.jpg",
@@ -157,6 +157,34 @@ async function main() {
     },
   });
 
+  await db.product.upsert({
+    where: { articleNumber: "77889" },
+    update: {},
+    create: {
+      articleNumber: "77889",
+      title: "Kolsyrat Mineralvatten",
+      description: "Friskt och bubblande mineralvatten",
+      image: "/images/products/sparkling-water.jpg",
+      price: 12,
+      categories: {
+        connect: [{ slug: "vatten" }],
+      },
+    },
+  });
+  await db.product.upsert({
+    where: { articleNumber: "00889" },
+    update: {},
+    create: {
+      articleNumber: "00889",
+      title: "Kolsyrat Mineralvatten",
+      description: "Friskt och bubblande mineralvatten",
+      image: "/images/products/sparkling-water.jpg",
+      price: 12,
+      categories: {
+        connect: [{ slug: "vatten" }],
+      },
+    },
+  });
 }
 
 main()
