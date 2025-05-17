@@ -6,6 +6,7 @@ import Image from "next/image";
 import BuyButton from "./components/buy-button";
 import HeroText from "./components/hero-text";
 import ProductCard from "./components/product-card";
+import CategoryList from "./components/categoriesList";
 
 export default async function Home() {
   const products = await db.product.findMany();
@@ -33,6 +34,9 @@ export default async function Home() {
           objectFit="cover"
         />
       </Box>
+
+
+      <CategoryList/>
       <HeroText />
       <Container>
         <Grid container spacing={2}>
