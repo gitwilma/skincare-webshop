@@ -11,13 +11,20 @@ datasource db {
 }
 
 model Product {
-  id            String     @id @default(cuid())
+  id            Int     @id @default(autoincrement())
   articleNumber String     @unique @default(cuid())
   title         String
   description   String
   image         String
   price         Float
-  orderRows     OrderRow[]
+  // orderRows     OrderRow[]
+  
+  categories    Category[]
+}
+model Category {
+    id            Int     @id @default(autoincrement())
+    name          String  @unique
+    products      Product[]
 }
 
 model Order {
@@ -31,16 +38,16 @@ model Order {
   orderRows OrderRow[]
 }
 
-model OrderRow {
-  id        String @id @default(cuid())
-  orderId   String
-  productId String
-  quantity  Int
-  price     Float
+// model OrderRow {
+//   id        String @id @default(cuid())
+//   orderId   String
+//   productId String
+//   quantity  Int
+//   price     Float
 
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-}
+//   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+//   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+// }
 
 model Customer {
   id      String @id @default(cuid())
