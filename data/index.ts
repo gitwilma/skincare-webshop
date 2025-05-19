@@ -16,6 +16,12 @@ export interface Product {
 export interface CartItem extends Product {
   quantity: number;
 }
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+}
 
 /* Lägg till era produkter här */
 export const products: Product[] = [

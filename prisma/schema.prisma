@@ -19,7 +19,18 @@ model Product {
   price         Float
   quantity      Int        @default(0) // Add this field to track stock quantity
   orderRows     OrderRow[]
+  categories    Category[] @relation("ProductCategories")
 }
+
+model Category {
+  id    String   @id @default(cuid())
+  name  String   @unique
+  slug  String   @unique
+  image String
+
+  products Product[] @relation("ProductCategories")
+}
+
 
 model Order {
   id          String   @id @default(cuid())
@@ -54,3 +65,11 @@ model Customer {
 
   orders Order[]
 }
+
+// USER ska så småningom ersätta Customer mvh Ragnar
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+}
+

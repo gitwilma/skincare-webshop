@@ -9,6 +9,7 @@ import { db } from "@/prisma/db";
 export default async function AdminCard() {
   const products = await db.product.findMany();
 
+
   return (
     <>
       <Container>
