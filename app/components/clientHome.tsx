@@ -8,6 +8,8 @@ import Image from "next/image";
 import HeroText from "./hero-text";
 import ProductCard from "./product-card";
 import BuyButton from "./buy-button";
+import CategoryList from "./categoriesList";
+
 
 export default function HomeContent({ products }: { products: any[] }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -98,6 +100,7 @@ export default function HomeContent({ products }: { products: any[] }) {
             objectFit="cover"
           />
         </Box>
+        <CategoryList/>
 
         <HeroText />
 
