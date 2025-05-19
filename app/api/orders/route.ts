@@ -41,5 +41,12 @@ export async function POST(req: Request) {
     },
   });
 
+  for (const item of cart) {
+    await db.product.update({
+      where: { id: item.id },
+      data: { quantity: { decrement: item.quantity } },
+    });
+  }
+
   return NextResponse.json({ orderNumber: order.orderNumber });
 }

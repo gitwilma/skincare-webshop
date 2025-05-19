@@ -36,3 +36,15 @@ export async function PATCH(
   await db.product.update({ where: { id }, data });
   return NextResponse.json({ success: true });
 }
+
+export async function DELETE(req: Request) {
+  const { articleNumber } = await req.json();
+  if (!articleNumber)
+    return NextResponse.json(
+      { error: "Product ID is required" },
+      { status: 400 }
+    );
+
+  await db.product.delete({ where: { articleNumber } });
+  return NextResponse.json({ success: true });
+}
