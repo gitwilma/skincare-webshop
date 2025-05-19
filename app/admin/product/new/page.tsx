@@ -12,6 +12,7 @@ const schema = z.object({
   image: z.string().url("Image must be a valid URL"),
 });
 
+
 export default function AdminForm() {
   const form = useForm<Prisma.ProductCreateInput>({
     resolver: zodResolver(schema),
@@ -106,6 +107,17 @@ export default function AdminForm() {
           error={Boolean(form.formState.errors.image)}
           helperText={form.formState.errors.image?.message}
         />
+        <TextField
+                slotProps={{
+                  htmlInput: { "data-cy": "product-quantity" },
+                  formHelperText: { "data-cy": "product-quantity-error" } as any,
+                }}
+                label="Quantity"
+                type="number"
+                {...form.register("quantity", { valueAsNumber: true })}
+                error={Boolean(form.formState.errors.quantity)}
+                helperText={form.formState.errors.quantity?.message}
+              />
         <Button type="submit" variant="contained" color="primary">
           Add Product
         </Button>
