@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const { email, password } = await request.json();
+  const { email, username, password } = await request.json();
   console.log("REGISTER ATTEMPT:", email);
 
   const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -16,6 +16,7 @@ export async function POST(request: Request) {
   const newUser = await prisma.user.create({
     data: {
       email,
+      username,
       password,
     },
   });
