@@ -38,9 +38,21 @@ model Order {
   createdAt   DateTime @default(now())
   customerId  String
   totalPrice  Float
+  shippingAddressId   String
 
-  customer  Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
   orderRows OrderRow[]
+  shippingAddress Address @relation(fields: [shippingAddressId], references: [id], onDelete: Cascade)
+}
+
+model Address {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  street   String
+  zipcode  String
+  city     String
+  phone    String
+
+  orders   Order[]
 }
 
 model OrderRow {
@@ -54,22 +66,11 @@ model OrderRow {
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
-model Customer {
-  id      String @id @default(cuid())
-  name    String
-  address String
-  zipcode String
-  city    String
-  email   String
-  phone   String
-
-  orders Order[]
-}
-
 // USER ska så småningom ersätta Customer mvh Ragnar
 model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
 }
+
 
