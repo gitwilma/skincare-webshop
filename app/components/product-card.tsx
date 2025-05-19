@@ -32,6 +32,9 @@ export default function ProductCard({ product, children }: Props) {
       <Typography data-cy="product-id" variant="body2">
         {product.articleNumber}
       </Typography>
+      <Typography data-cy="product-id" variant="body2">
+        {product.quantity} left
+      </Typography>
       <Box
         sx={{
           display: "flex",

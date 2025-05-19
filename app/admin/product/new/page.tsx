@@ -12,6 +12,7 @@ const schema = z.object({
   image: z.string().url("Image must be a valid URL"),
 });
 
+
 export default function AdminForm() {
   const form = useForm<Prisma.ProductCreateInput>({
     resolver: zodResolver(schema),
@@ -25,7 +26,12 @@ export default function AdminForm() {
 
   const handleSubmit = async (product: Prisma.ProductCreateInput) => {
     try {
-      await addNewProduct(product);
+      const res = await fetch("/api/products/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+      if (!res.ok) throw new Error("Failed to add product");
       form.reset();
     } catch (error) {
       console.error("Error adding product:", error);
@@ -49,15 +55,16 @@ export default function AdminForm() {
         }}
       >
         <Typography
-        variant="h3"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          fontSize: "2.5rem",
-          fontWeight: "bold",
-          color: "primary.main",
-          marginBottom: 9,
-        }}>
+          variant="h3"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "2.5rem",
+            fontWeight: "bold",
+            color: "primary.main",
+            marginBottom: 9,
+          }}
+        >
           Lägg till en produkt
         </Typography>
         <TextField
@@ -100,6 +107,17 @@ export default function AdminForm() {
           error={Boolean(form.formState.errors.image)}
           helperText={form.formState.errors.image?.message}
         />
+        <TextField
+                slotProps={{
+                  htmlInput: { "data-cy": "product-quantity" },
+                  formHelperText: { "data-cy": "product-quantity-error" } as any,
+                }}
+                label="Quantity"
+                type="number"
+                {...form.register("quantity", { valueAsNumber: true })}
+                error={Boolean(form.formState.errors.quantity)}
+                helperText={form.formState.errors.quantity?.message}
+              />
         <Button type="submit" variant="contained" color="primary">
           Add Product
         </Button>

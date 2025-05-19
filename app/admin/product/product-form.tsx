@@ -1,6 +1,5 @@
 "use client";
 
-import { updateProduct } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField } from "@mui/material";
 import { Prisma, Product } from "@prisma/client";
@@ -13,6 +12,7 @@ const schema = z.object({
   description: z.string().min(1, "Description is required"),
   price: z.coerce.number().positive("Price must be a positive number"),
   image: z.string().url("Image must be a valid URL"),
+  quantity: z.coerce.number().int().min(0, "Quantity must be 0 or more"),
 });
 
 interface Props {
@@ -29,7 +29,12 @@ export default function ProductForm({ product }: Props) {
 
   const handleSubmit = async (data: Prisma.ProductCreateInput) => {
     try {
-      await updateProduct(product.id, data);
+      const res = await fetch(`/api/products/${product.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Failed to update product");
       router.push("/admin");
     } catch (error) {
       console.error("Error updating product:", error);
@@ -89,6 +94,17 @@ export default function ProductForm({ product }: Props) {
         {...form.register("image")}
         error={Boolean(form.formState.errors.image)}
         helperText={form.formState.errors.image?.message}
+      />
+      <TextField
+        slotProps={{
+          htmlInput: { "data-cy": "product-quantity" },
+          formHelperText: { "data-cy": "product-quantity-error" } as any,
+        }}
+        label="Quantity"
+        type="number"
+        {...form.register("quantity", { valueAsNumber: true })}
+        error={Boolean(form.formState.errors.quantity)}
+        helperText={form.formState.errors.quantity?.message}
       />
       <Button type="submit" variant="contained" color="primary">
         Save Changes

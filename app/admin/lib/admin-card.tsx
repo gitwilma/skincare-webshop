@@ -4,8 +4,11 @@ import { Box, Button, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 import DeleteBtn from "./delete-btn";
+import { db } from "@/prisma/db";
 
 export default async function AdminCard() {
+  const products = await db.product.findMany();
+
 
   return (
     <>
