@@ -149,7 +149,7 @@ export default function Header() {
         <DialogContent>
           <TextField
             margin="dense"
-            label="Email"
+            label="Username"
             type="email"
             fullWidth
             variant="outlined"
