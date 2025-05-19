@@ -31,16 +31,7 @@ async function main() {
       slug: "energidryck",
       image: "/images/categories/energidryck.jpg",
     },
-    {
-      name: "Kaffe",
-      slug: "kaffe",
-      image: "/images/categories/kaffe.jpg",
-    },
-    {
-      name: "Te",
-      slug: "te",
-      image: "/images/categories/te.jpg",
-    },
+   
   ];
 
   for (const category of categories) {
@@ -122,7 +113,7 @@ async function main() {
       image: "/images/products/iced-coffee.jpg",
       price: 30,
       categories: {
-        connect: [{ slug: "kaffe" }],
+        connect: [{ slug: "vatten" }],
       },
     },
   });
@@ -137,7 +128,7 @@ async function main() {
       image: "/images/products/green-tea.jpg",
       price: 18,
       categories: {
-        connect: [{ slug: "te" }],
+        connect: [{ slug: "lask" }],
       },
     },
   });
@@ -181,7 +172,7 @@ async function main() {
       image: "/images/products/sparkling-water.jpg",
       price: 12,
       categories: {
-        connect: [{ slug: "vatten" }],
+        connect: [{ slug: "juice" }],
       },
     },
   });
