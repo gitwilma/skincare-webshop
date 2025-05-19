@@ -12,27 +12,27 @@ async function main() {
 
   const categories = [
     {
-      name: "Läsk",
-      slug: "lask",
-      image: "/images/categories/lask.jpg",
+      name: "Fruktig",
+      slug: "fruktig",
+      image: "/images/categories/fruktig.jpg",
     },
     {
-      name: "Juice",
-      slug: "juice",
-      image: "/images/categories/juice.jpg",
+      name: "Ingefära",
+      slug: "ingefara",
+      image: "/images/categories/ginger.jpg",
     },
     {
-      name: "Vatten",
-      slug: "vatten",
-      image: "/images/categories/vatten.jpg",
+      name: "Klassisk",
+      slug: "klassisk",
+      image: "/images/categories/klassisk.jpg",
     },
     {
-      name: "Energidryck",
-      slug: "energidryck",
-      image: "/images/categories/energidryck.jpg",
+      name: "Koffeinfri",
+      slug: "koffeinfri",
+      image: "/images/categories/decaf.jpg",
     },
-   
   ];
+  
 
   for (const category of categories) {
     await db.category.upsert({
@@ -44,135 +44,61 @@ async function main() {
 
 
   await db.product.upsert({
-    where: { articleNumber: "001" },
+    where: { articleNumber: "K001" },
     update: {},
     create: {
-      articleNumber: "001",
-      title: "Cola Zero",
-      description: "Sockerfri läsk",
-      image: "/images/products/cola-zero.jpg",
-      price: 15,
+      articleNumber: "K001",
+      title: "Kombucha Mango Passion",
+      description: "Fruktig kombucha med smak av mango och passionsfrukt.",
+      image: "/images/roots/blueberry.png",
+      price: 35,
       categories: {
-        connect: [{ slug: "lask" }],
+        connect: [{ slug: "fruktig" }],
       },
     },
   });
-
+  
   await db.product.upsert({
-    where: { articleNumber: "889" },
+    where: { articleNumber: "K002" },
     update: {},
     create: {
-      articleNumber: "889",
-      title: "Apelsinjuice",
-      description: "Fräsch apelsinjuice",
-      image: "/images/products/apelsinjuice.jpg",
-      price: 20,
+      articleNumber: "K002",
+      title: "Kombucha Ingefära Citron",
+      description: "Frisk kombucha med syrlig citron och kryddig ingefära.",
+      image: "/images/roots/ginger.png",
+      price: 36,
       categories: {
-        connect: [{ slug: "juice" }],
+        connect: [{ slug: "ingefara" }],
       },
     },
   });
-
+  
   await db.product.upsert({
-    where: { articleNumber: "99888" },
+    where: { articleNumber: "K003" },
     update: {},
     create: {
-      articleNumber: "99888",
-      title: "Kolsyrat vatten",
-      description: "Kallt mineralvatten med bubblor",
-      image: "/images/products/sparkling-water.jpg",
-      price: 10,
+      articleNumber: "K003",
+      title: "Klassisk Kombucha",
+      description: "Originalsmak - fermenterat te som det ska smaka.",
+      image: "/images/roots/currant.png",
+      price: 32,
       categories: {
-        connect: [{ slug: "vatten" }],
+        connect: [{ slug: "klassisk" }],
       },
     },
   });
-
+  
   await db.product.upsert({
-    where: { articleNumber: "p99888" },
+    where: { articleNumber: "K004" },
     update: {},
     create: {
-      articleNumber: "p99888",
-      title: "Monster Energy",
-      description: "Energi för hela dagen",
-      image: "/images/products/monster.jpg",
-      price: 25,
+      articleNumber: "K004",
+      title: "Koffeinfri Hallon Kombucha",
+      description: "Bärig kombucha utan koffein.",
+      image: "/images/roots/honey.png",
+      price: 34,
       categories: {
-        connect: [{ slug: "energidryck" }],
-      },
-    },
-  });
-
-  await db.product.upsert({
-    where: { articleNumber: "89000" },
-    update: {},
-    create: {
-      articleNumber: "89000",
-      title: "Iskaffe",
-      description: "Kallbryggt kaffe för varma dagar",
-      image: "/images/products/iced-coffee.jpg",
-      price: 30,
-      categories: {
-        connect: [{ slug: "vatten" }],
-      },
-    },
-  });
-
-  await db.product.upsert({
-    where: { articleNumber: "996667" },
-    update: {},
-    create: {
-      articleNumber: "996667",
-      title: "Grönt Te",
-      description: "Naturligt och hälsosamt",
-      image: "/images/products/green-tea.jpg",
-      price: 18,
-      categories: {
-        connect: [{ slug: "lask" }],
-      },
-    },
-  });
-
-  await db.product.upsert({
-    where: { articleNumber: "00888" },
-    update: {},
-    create: {
-      articleNumber: "00888",
-      title: "Röd Juice",
-      description: "Mix av hallon och jordgubb",
-      image: "/images/products/red-juice.jpg",
-      price: 22,
-      categories: {
-        connect: [{ slug: "juice" }, { slug: "lask" }], 
-      },
-    },
-  });
-
-  await db.product.upsert({
-    where: { articleNumber: "77889" },
-    update: {},
-    create: {
-      articleNumber: "77889",
-      title: "Kolsyrat Mineralvatten",
-      description: "Friskt och bubblande mineralvatten",
-      image: "/images/products/sparkling-water.jpg",
-      price: 12,
-      categories: {
-        connect: [{ slug: "vatten" }],
-      },
-    },
-  });
-  await db.product.upsert({
-    where: { articleNumber: "00889" },
-    update: {},
-    create: {
-      articleNumber: "00889",
-      title: "Kolsyrat Mineralvatten",
-      description: "Friskt och bubblande mineralvatten",
-      image: "/images/products/sparkling-water.jpg",
-      price: 12,
-      categories: {
-        connect: [{ slug: "juice" }],
+        connect: [{ slug: "koffeinfri" }, { slug: "fruktig" }],
       },
     },
   });
