@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
   Link,
   Menu,
   MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
   TextField,
-  DialogActions,
-  Button,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useEffect, useState } from "react";
 import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
 
@@ -103,7 +103,7 @@ export default function Header() {
       >
         <TemporaryDrawer />
         <Link href="/">
-          <Image src="/logo.png" alt="Beauty" width={100} height={100} />
+          <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
         </Link>
 
         <Box display="flex" alignItems="center">
@@ -122,24 +122,29 @@ export default function Header() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-   {!user
-  ? [
-      <MenuItem key="login" onClick={() => handleOpenModal("login")}>
-        Login
-      </MenuItem>,
-      <MenuItem key="register" onClick={() => handleOpenModal("register")}>
-        Register
-      </MenuItem>,
-    ]
-  : [
-      <MenuItem key="greeting" disabled>
-        <Typography variant="body2">Hi, {user.email}</Typography>
-      </MenuItem>,
-      <MenuItem key="logout" onClick={handleLogout}>
-        Logout
-      </MenuItem>,
-    ]}
-
+            {!user
+              ? [
+                  <MenuItem
+                    key="login"
+                    onClick={() => handleOpenModal("login")}
+                  >
+                    Login
+                  </MenuItem>,
+                  <MenuItem
+                    key="register"
+                    onClick={() => handleOpenModal("register")}
+                  >
+                    Register
+                  </MenuItem>,
+                ]
+              : [
+                  <MenuItem key="greeting" disabled>
+                    <Typography variant="body2">Hi, {user.email}</Typography>
+                  </MenuItem>,
+                  <MenuItem key="logout" onClick={handleLogout}>
+                    Logout
+                  </MenuItem>,
+                ]}
           </Menu>
         </Box>
       </Box>
