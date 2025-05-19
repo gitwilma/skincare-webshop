@@ -77,17 +77,16 @@ model User {
   // Address Address[]
 }
 
-// model Address {
-//   id      String @id @default(cuid())
-//   name    String
-//   address String
-//   zipcode String
-//   city    String
-//   email   String
-//   phone   String
+model Address {
+  id      String @id @default(cuid())
+  name    String
+  address String
+  zipcode String
+  city    String
+  email   String
+  phone   String
 
-//   userId Int
-//   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
-
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
