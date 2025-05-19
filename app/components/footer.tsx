@@ -10,12 +10,12 @@ export default function Footer() {
         sx={{
           marginTop: 4,
           padding: 2,
-          color: "#efebe9",
+          color: "#000",
           display: "grid",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          backgroundColor: "#a1887f",
+          backgroundColor: "#F2F2E8",
 
           "@media (min-width: 600px)": {
             display: "flex",
@@ -33,7 +33,7 @@ export default function Footer() {
         }}
       >
         <Typography data-cy="admin-link">
-          <Link sx={{textDecoration: "none"}} href="/admin" color="#efebe9">
+          <Link sx={{ textDecoration: "none" }} href="/admin" color="#efebe9">
             Admin
           </Link>
         </Typography>
@@ -46,7 +46,7 @@ export default function Footer() {
           <LinkedIn />
           <Instagram />
         </Box>
-        <Image src="/Beauty.png" alt="Beauty" width={100} height={100} />
+        <Image src="/logotype.png" alt="Beauty" width={150} height={100} />
       </Box>
     </>
   );
