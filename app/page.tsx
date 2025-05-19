@@ -51,4 +51,14 @@ export default async function Home() {
       </Container>
     </main>
   );
+
+import HomeContent from "./components/clientHome";
+
+export default async function Home() {
+  const products = await db.product.findMany();
+
+
 }
+
+
+// denna sidan är bara server, inget för client. clientHome är client

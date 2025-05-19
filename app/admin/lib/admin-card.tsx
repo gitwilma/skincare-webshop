@@ -1,4 +1,3 @@
-import { getAllProducts } from "@/app/actions";
 import ProductCard from "@/app/components/product-card";
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Container } from "@mui/material";
@@ -7,7 +6,6 @@ import Link from "next/link";
 import DeleteBtn from "./delete-btn";
 
 export default async function AdminCard() {
-  const products = await getAllProducts();
 
   return (
     <>
