@@ -10,8 +10,8 @@ const schema = z.object({
   description: z.string().min(1, "Description is required"),
   price: z.coerce.number().positive("Price must be a positive number"),
   image: z.string().url("Image must be a valid URL"),
+  quantity: z.coerce.number().int().min(0, "Quantity must be 0 or more"),
 });
-
 
 export default function AdminForm() {
   const form = useForm<Prisma.ProductCreateInput>({
@@ -21,6 +21,7 @@ export default function AdminForm() {
       description: "",
       price: 0,
       image: "",
+      quantity: 1,
     },
   });
 
@@ -108,16 +109,15 @@ export default function AdminForm() {
           helperText={form.formState.errors.image?.message}
         />
         <TextField
-                slotProps={{
-                  htmlInput: { "data-cy": "product-quantity" },
-                  formHelperText: { "data-cy": "product-quantity-error" } as any,
-                }}
-                label="Quantity"
-                type="number"
-                {...form.register("quantity", { valueAsNumber: true })}
-                error={Boolean(form.formState.errors.quantity)}
-                helperText={form.formState.errors.quantity?.message}
-              />
+          slotProps={{
+            htmlInput: { "data-cy": "product-quantity" },
+            formHelperText: { "data-cy": "product-quantity-error" } as any,
+          }}
+          label="Quantity"
+          {...form.register("quantity", { valueAsNumber: true })}
+          error={Boolean(form.formState.errors.quantity)}
+          helperText={form.formState.errors.quantity?.message}
+        />
         <Button type="submit" variant="contained" color="primary">
           Add Product
         </Button>
