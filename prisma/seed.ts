@@ -5,7 +5,9 @@ async function main() {
     {
       name: "Fruktig",
       slug: "fruktig",
+
       image: "/categories/fruktig.jpg",
+
     },
     {
       name: "Ingefära",
@@ -15,7 +17,10 @@ async function main() {
     {
       name: "Klassisk",
       slug: "klassisk",
-      image: "/categories/klassisk.jpg",
+      image: "/categories/classic.jpg",
+
+    
+
     },
     {
       name: "Koffeinfri",
