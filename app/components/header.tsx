@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   IconButton,
   Link,
   Menu,
   MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
   TextField,
-  DialogActions,
-  Button,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useEffect, useState } from "react";
 import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
 
@@ -24,7 +24,9 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [user, setUser] = useState<null | { email: string }>(null);
+  const [user, setUser] = useState<null | { email: string; isAdmin: boolean }>(
+    null
+  );
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,8 +64,8 @@ export default function Header() {
     if (res.ok) {
       const me = await fetch("/api/auth/me", { credentials: "include" });
       if (me.ok) {
-        const userData = await me.json();
-        setUser(userData);
+        const data = await me.json();
+        setUser({ email: data.email, isAdmin: data.isAdmin });
       }
       setOpenModal(false);
     } else {
@@ -102,11 +104,35 @@ export default function Header() {
         }}
       >
         <TemporaryDrawer />
-        <Link href="/">
-          <Image src="/logo.png" alt="Beauty" width={100} height={100} />
-        </Link>
+        <Box sx={{ flex: 1, position: "relative", height: 80 }}>
+          <Box
+            sx={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Link href="/">
+              <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
+            </Link>
+          </Box>
+        </Box>
 
         <Box display="flex" alignItems="center">
+          {user && (
+            <Link
+              href={user.isAdmin ? "/admin" : "/orders"}
+              underline="none"
+              sx={{ marginRight: 2 }}
+            >
+              <Typography variant="body2" color="primary">
+                {user.isAdmin ? "Admin" : "Mina ordrar"}
+              </Typography>
+            </Link>
+          )}
+
+          {/* Länken till checkout */}
           <Link data-cy="cart-link" href="/checkout">
             <IconButton data-cy="cart-items-count-badge" color="primary">
               <CartIcon />
@@ -122,24 +148,29 @@ export default function Header() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-   {!user
-  ? [
-      <MenuItem key="login" onClick={() => handleOpenModal("login")}>
-        Login
-      </MenuItem>,
-      <MenuItem key="register" onClick={() => handleOpenModal("register")}>
-        Register
-      </MenuItem>,
-    ]
-  : [
-      <MenuItem key="greeting" disabled>
-        <Typography variant="body2">Hi, {user.email}</Typography>
-      </MenuItem>,
-      <MenuItem key="logout" onClick={handleLogout}>
-        Logout
-      </MenuItem>,
-    ]}
-
+            {!user
+              ? [
+                  <MenuItem
+                    key="login"
+                    onClick={() => handleOpenModal("login")}
+                  >
+                    Login
+                  </MenuItem>,
+                  <MenuItem
+                    key="register"
+                    onClick={() => handleOpenModal("register")}
+                  >
+                    Register
+                  </MenuItem>,
+                ]
+              : [
+                  <MenuItem key="greeting" disabled>
+                    <Typography variant="body2">Hi, {user.email}</Typography>
+                  </MenuItem>,
+                  <MenuItem key="logout" onClick={handleLogout}>
+                    Logout
+                  </MenuItem>,
+                ]}
           </Menu>
         </Box>
       </Box>

@@ -6,7 +6,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: brown[400],
+      main: "#000",
       light: brown[300],
       dark: brown[700],
     },
@@ -14,8 +14,8 @@ const theme = createTheme({
       main: "#f44336" /*accentfärger*/,
     },
     background: {
-      default: brown[50],
-      paper: "#F5F5F5" /*white smoke*/,
+      default: "#F2F2E8",
+      paper: "#E7C9FF" /*white smoke*/,
     },
     text: {
       primary: brown[900],
