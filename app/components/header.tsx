@@ -24,7 +24,9 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [user, setUser] = useState<null | { email: string }>(null);
+  const [user, setUser] = useState<null | { email: string; isAdmin: boolean }>(
+    null
+  );
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,8 +64,8 @@ export default function Header() {
     if (res.ok) {
       const me = await fetch("/api/auth/me", { credentials: "include" });
       if (me.ok) {
-        const userData = await me.json();
-        setUser(userData);
+        const data = await me.json();
+        setUser({ email: data.email, isAdmin: data.isAdmin });
       }
       setOpenModal(false);
     } else {
@@ -107,6 +109,20 @@ export default function Header() {
         </Link>
 
         <Box display="flex" alignItems="center">
+          {/* Länken till ordrar/admin – separerad */}
+          {user && (
+            <Link
+              href={user.isAdmin ? "/admin" : "/orders"}
+              underline="none"
+              sx={{ marginRight: 2 }}
+            >
+              <Typography variant="body2" color="primary">
+                {user.isAdmin ? "Admin" : "Mina ordrar"}
+              </Typography>
+            </Link>
+          )}
+
+          {/* Länken till checkout */}
           <Link data-cy="cart-link" href="/checkout">
             <IconButton data-cy="cart-items-count-badge" color="primary">
               <CartIcon />
