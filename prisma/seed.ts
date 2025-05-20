@@ -1,20 +1,13 @@
-import { products } from "@/data";
 import { db } from "./db";
 
 async function main() {
-  for (const { id, ...product } of products) {
-    await db.product.upsert({
-      where: { articleNumber: product.articleNumber },
-      update: {},
-      create: product,
-    });
-  }
-
   const categories = [
     {
       name: "Fruktig",
       slug: "fruktig",
-      image: "/categories/fruktig.jpg", 
+
+      image: "/categories/fruktig.jpg",
+
     },
     {
       name: "Ingefära",
@@ -25,6 +18,9 @@ async function main() {
       name: "Klassisk",
       slug: "klassisk",
       image: "/categories/classic.jpg",
+
+    
+
     },
     {
       name: "Koffeinfri",
@@ -32,7 +28,6 @@ async function main() {
       image: "/categories/decaf.jpg",
     },
   ];
-  
 
   for (const category of categories) {
     await db.category.upsert({
@@ -41,7 +36,6 @@ async function main() {
       create: category,
     });
   }
-
 
   await db.product.upsert({
     where: { articleNumber: "K001" },
@@ -57,7 +51,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K002" },
     update: {},
@@ -72,7 +66,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K003" },
     update: {},
@@ -87,7 +81,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K004" },
     update: {},
@@ -113,5 +107,3 @@ main()
     await db.$disconnect();
     process.exit(1);
   });
-
-  
