@@ -104,13 +104,22 @@ export default function Header() {
         }}
       >
         <TemporaryDrawer />
-        <Link href="/">
-          <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
-        </Link>
+        <Box sx={{ flex: 1, position: "relative", height: 80 }}>
+          <Box
+            sx={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Link href="/">
+              <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
+            </Link>
+          </Box>
+        </Box>
 
         <Box display="flex" alignItems="center">
-          {/* Länken till ordrar/admin – separerad */}
-
           {user && (
             <Link
               href={user.isAdmin ? "/admin" : "/orders"}
