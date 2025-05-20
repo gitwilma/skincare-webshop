@@ -1,47 +1,18 @@
 "use client";
 
+import { db } from "@/prisma/db";
 import {
   Box,
   Card,
   CardContent,
   CardMedia,
-  CircularProgress,
   Grid,
-  
-  Typography,
+
+  Typography
 } from "@mui/material";
-import { Category } from "@prisma/client";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function CategoryList() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await fetch("/api/categories");
-        const data = await res.json();
-        setCategories(data);
-      } catch (err) {
-        console.error("Kunde inte hämta kategorier:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCategories();
-  }, []);
-
-  if (loading) {
-    return (
-      <Box display='flex' justifyContent='center' mt={4}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
+export default function CategoryList({ categories }: { categories: any[] }) {
   return (
     <Box px={2} py={4}>
       <Typography variant='h5' fontWeight={600} gutterBottom>
@@ -50,7 +21,7 @@ export default function CategoryList() {
       <Grid container spacing={3}>
         {categories.map((category) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={category.id}>
-          <Link href={`/categories/${category.slug}`} passHref>
+            <Link href={`/categories/${category.slug}`} passHref>
               <Card
                 sx={{
                   height: "100%",
