@@ -15,12 +15,11 @@ import { z } from "zod";
 
 const checkoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  address: z.string().min(1, "Address is required"),
+  street: z.string().min(1, "Street is required"),
   zipcode: z
     .string()
     .regex(/^[0-9]{5}$/, "Invalid zipcode (5 digits required)"),
   city: z.string().min(1, "City is required"),
-  email: z.string().email("Invalid email address"),
   phone: z.string().regex(/^\d{7,15}$/, "Invalid phone number"),
 });
 
@@ -39,7 +38,6 @@ export default function CheckoutForm() {
   });
 
   const onSubmit = async (data: CheckoutFormValues) => {
-    console.log("Form submitted with data:", data);
     const res = await fetch("/api/orders", {
       method: "POST",
       headers: {
@@ -47,7 +45,7 @@ export default function CheckoutForm() {
       },
       body: JSON.stringify({
         cart: cartItems,
-        customer: data,
+        address: data,
       }),
     });
 
@@ -58,7 +56,6 @@ export default function CheckoutForm() {
     const result = await res.json();
     const orderNumber = result.orderNumber;
 
-    console.log("ORDER COMPLETE");
     clearCart();
     router.push("/confirmation/" + orderNumber);
   };
@@ -92,15 +89,15 @@ export default function CheckoutForm() {
       )}
 
       <TextField
-        slotProps={{ htmlInput: { "data-cy": "customer-address" } }}
-        label="Address"
-        {...register("address")}
+        slotProps={{ htmlInput: { "data-cy": "customer-street" } }}
+        label="Street"
+        {...register("street")}
         autoComplete="street-address"
-        error={Boolean(errors.address)}
+        error={Boolean(errors.street)}
       />
-      {errors.address && (
-        <FormHelperText data-cy="customer-address-error" error>
-          {errors.address.message}
+      {errors.street && (
+        <FormHelperText data-cy="customer-street-error" error>
+          {errors.street.message}
         </FormHelperText>
       )}
 
@@ -127,19 +124,6 @@ export default function CheckoutForm() {
       {errors.city && (
         <FormHelperText data-cy="customer-city-error" error>
           {errors.city.message}
-        </FormHelperText>
-      )}
-
-      <TextField
-        slotProps={{ htmlInput: { "data-cy": "customer-email" } }}
-        label="Email"
-        {...register("email")}
-        autoComplete="email"
-        error={Boolean(errors.email)}
-      />
-      {errors.email && (
-        <FormHelperText data-cy="customer-email-error" error>
-          {errors.email.message}
         </FormHelperText>
       )}
 

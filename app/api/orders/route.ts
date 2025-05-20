@@ -12,41 +12,46 @@ type CartItem = {
 };
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const cart: CartItem[] = body.cart;
-  const customerData = body.customer;
+  try {
+    const body = await req.json();
+    const cart: CartItem[] = body.cart;
+    const addressData = body.address;
 
-  if (!cart || cart.length === 0 || !customerData) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-  }
+    if (!cart || cart.length === 0 || !addressData) {
+      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
+    
+    const address = await db.address.create({ data: addressData });
 
-  const customer = await db.customer.create({ data: customerData });
+    const totalPrice = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
 
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-
-  const order = await db.order.create({
-    data: {
-      customerId: customer.id,
-      totalPrice,
-      orderRows: {
-        create: cart.map((item) => ({
-          productId: item.id,
-          quantity: item.quantity,
-          price: item.price,
-        })),
+    const order = await db.order.create({
+      data: {
+        shippingAddressId: address.id,
+        totalPrice,
+        orderRows: {
+          create: cart.map((item) => ({
+            productId: item.id,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
       },
-    },
-  });
-
-  for (const item of cart) {
-    await db.product.update({
-      where: { id: item.id },
-      data: { quantity: { decrement: item.quantity } },
     });
-  }
 
-  return NextResponse.json({ orderNumber: order.orderNumber });
+    for (const item of cart) {
+      await db.product.update({
+        where: { id: item.id },
+        data: { quantity: { decrement: item.quantity } },
+      });
+    }
+
+    return NextResponse.json({ orderNumber: order.orderNumber });
+  } catch (error) {
+    console.error("Order API error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }

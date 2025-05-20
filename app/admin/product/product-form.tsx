@@ -1,8 +1,10 @@
 "use client";
 
+import { Product } from "@/prisma-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField } from "@mui/material";
-import { Prisma, Product } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
