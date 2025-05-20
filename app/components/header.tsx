@@ -110,6 +110,12 @@ export default function Header() {
 
         <Box display="flex" alignItems="center">
           {/* Länken till ordrar/admin – separerad */}
+          <Link href="/admin" underline="none" sx={{ marginRight: 2 }}>
+            <Typography variant="body2" color="primary">
+              Admin
+            </Typography>
+          </Link>
+
           {user && (
             <Link
               href={user.isAdmin ? "/admin" : "/orders"}
