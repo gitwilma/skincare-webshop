@@ -29,9 +29,10 @@ export default function Header() {
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const { data: session } = useSession();
-  const user = session?.user as AppUser | undefined;
+  const [localUser, setLocalUser] = useState<AppUser | null>(null);
+  const { data: session } = useSession(); //better-auth session
+  const user: AppUser | null =
+    localUser ?? (session?.user as AppUser | undefined) ?? null;
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,6 +53,8 @@ export default function Header() {
   };
 
   const handleLogout = async () => {
+    localStorage.removeItem("user");
+    setLocalUser(null);
     await signOut();
     handleCloseMenu();
   };
@@ -67,7 +70,8 @@ export default function Header() {
 
     if (res.ok) {
       const data = await res.json();
-      console.log("Auth success", data);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setLocalUser(data.user);
       setOpenModal(false);
     } else {
       alert(`${mode} failed`);
@@ -75,10 +79,11 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (user) {
-      setOpenModal(false);
+    const saved = localStorage.getItem("user");
+    if (saved) {
+      setLocalUser(JSON.parse(saved));
     }
-  }, [user]);
+  }, []);
 
   return (
     <>
@@ -171,10 +176,9 @@ export default function Header() {
         <DialogTitle>{mode === "login" ? "Login" : "Register"}</DialogTitle>
         <DialogContent>
           <GitHubSignInButton />
-
           <TextField
             margin="dense"
-            label="Username"
+            label="Email"
             type="email"
             fullWidth
             variant="outlined"
