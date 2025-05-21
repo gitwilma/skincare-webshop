@@ -17,7 +17,7 @@ model Product {
   description   String
   image         String
   price         Float
-  quantity      Int        @default(0) // Add this field to track stock quantity
+  quantity      Int        @default(0) 
   orderRows     OrderRow[]
   categories    Category[] @relation("ProductCategories")
 }
