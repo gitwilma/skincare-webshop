@@ -12,7 +12,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Link from "next/link";
 import * as React from "react";
-import theme from "../theme/theme";
 
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -27,27 +26,20 @@ export default function TemporaryDrawer() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {["Admin"].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton component={Link} href="/admin">
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {/* Lägg här andra statiska länkar om du vill, t.ex: */}
+        <ListItem disablePadding>
+          <ListItemButton component={Link} href="/">
+            <ListItemText primary="Hem" />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
     </Box>
   );
 
   if (isLargeScreen) {
-    return (
-      <Link
-        href="/admin"
-        style={{ textDecoration: "none", color: theme.palette.primary.main, fontWeight: "bold", marginLeft: 10 }}
-      >
-        Admin
-      </Link>
-    );
+    // På stora skärmar: visa inget extra i Drawer
+    return null;
   }
 
   return (

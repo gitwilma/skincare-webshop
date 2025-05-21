@@ -13,8 +13,13 @@ export default function DeleteBtn({ productId }: { productId: string }) {
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteProduct(productId);
+      await fetch(`/api/products/${productId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ articleNumber: productId }),
+      });
       handleClose();
+      // Optionally, refresh the product list or page here
     });
   };
 

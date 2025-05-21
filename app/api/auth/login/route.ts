@@ -34,11 +34,11 @@ export async function POST(request: Request) {
   const response = NextResponse.json({ message: "Login successful" });
 
   response.cookies.set("authToken", String(user.id), {
-    path: "/",
+    path: "/" ,
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   });
-
+  console.log(response.cookies.get("authToken")); // Debug
   return response;
 }

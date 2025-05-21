@@ -14,18 +14,25 @@ export default function HeroText() {
         alignItems: "center",
       }}
     >
-      <Typography sx={{
-        fontSize: {xs: 40, md: 60}
-      }} variant="h2" gutterBottom>
-        Timeless Korean Skincare Inspired by Heritage
+      <Typography
+        sx={{
+          fontSize: { xs: 40, md: 60 },
+        }}
+        variant="h2"
+        gutterBottom
+      >
+        Fermented Dreams
       </Typography>
       <Typography variant="body1">
-        At Beauty of Joseon, we embrace the wisdom of traditional Korean
-        skincare, blending natural hanbang ingredients with modern formulations.
-        Our products are designed to nourish, restore, and enhance your skin’s
-        natural radiance, just as they did for the noblewomen of the Joseon
-        dynasty. Discover the elegance of time-honored beauty rituals tailored
-        for today’s skincare needs.
+        Upptäck vår ekologiska kombucha – en fermenterad tedryck bryggd med
+        naturliga ingredienser och levande bakteriekultur (SCOBY). Den är ett
+        smakrikt och hälsosammare alternativ till läsk, med mindre socker och
+        utan konstgjorda tillsatser. Vår kombucha tillverkas i liten skala för
+        att bevara kvalitet och hantverk. Genom den naturliga fermenteringen får
+        drycken sin friska syrlighet, lätt sötma och naturliga kolsyra.
+        Probiotiska egenskaper gör den dessutom snäll mot magen. Vi vill
+        inspirera fler att upptäcka den fermenterade dryckens rika kultur – och
+        njuta längs vägen.
       </Typography>
     </Box>
   );

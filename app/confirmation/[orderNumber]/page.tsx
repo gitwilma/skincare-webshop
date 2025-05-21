@@ -9,7 +9,7 @@ export default async function ConfirmationPage(props: Props) {
   const { orderNumber } = await props.params;
   const order = await db.order.findUnique({
     where: { orderNumber },
-    include: { customer: true, orderRows: { include: { product: true } } },
+    include: { shippingAddress: true, orderRows: { include: { product: true } } },
   });
 
   if (!order) {
@@ -34,7 +34,7 @@ export default async function ConfirmationPage(props: Props) {
         }}
       >
         <Typography variant="h4" fontWeight="bold" sx={{ my: 2 }}>
-          Tack för din order, {order.customer.name}!
+          Tack för din order, {order.shippingAddress.name}!
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
           Ditt ordernummer är : {order.orderNumber}
@@ -63,16 +63,16 @@ export default async function ConfirmationPage(props: Props) {
           Totalt : {totalPrice.toFixed(2)} kr
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
-          Dina varor levereras till : {order.customer.address},{" "}
-          {order.customer.zipcode} {order.customer.city}.
+          Dina varor levereras till : {order.shippingAddress.street},{" "}
+          {order.shippingAddress.zipcode} {order.shippingAddress.city}.
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
-          Ett bekräftelsemail har skickats till din epost : {" "}
-          {order.customer.email}
+          Ett bekräftelsemail har skickats till din epost :{" "}
+          {order.shippingAddress.name}
         </Typography>
         <Typography variant="body1" sx={{ my: 2 }}>
           När leveransen är framme kommer vi skicka ett SMS till ditt
-          telefonnummer : {order.customer.phone}
+          telefonnummer : {order.shippingAddress.phone}
         </Typography>
       </Box>
     </main>

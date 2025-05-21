@@ -6,7 +6,14 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
 
   const { email, password } = await request.json();
-  console.log("REGISTER ATTEMPT:", email);
+
+  // Trim and validate
+  if (!email || !email.trim()) {
+    return NextResponse.json({ error: "Username is required" }, { status: 400 });
+  }
+  if (!password || password.length < 4) {
+    return NextResponse.json({ error: "Password must be at least 4 characters" }, { status: 400 });
+  }
 
  
 

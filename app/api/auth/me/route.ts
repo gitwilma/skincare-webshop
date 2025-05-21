@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers';
 import { PrismaClient } from '@prisma/client';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
@@ -20,5 +20,7 @@ export async function GET() {
     return NextResponse.json({ error: 'User not found' }, { status: 404 });
   }
 
-  return NextResponse.json({ id: user.id, email: user.email });
+
+  return NextResponse.json({ id: user.id, email: user.email, isAdmin: user.isAdmin });
+
 }
