@@ -29,15 +29,13 @@ export default function CategoryList({ categories }: { categories: any[] }) {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  border: "2px solid black",
                   p: 2,
                   transition: "transform 0.2s",
                   "&:hover": {
                     transform: "scale(1.02)",
                   },
-                  height: 100,
+                  height: 80,
                   overflow: "hidden",
-                  backgroundColor: "#fff",
                 }}
               >
                 <Box
@@ -63,6 +61,7 @@ export default function CategoryList({ categories }: { categories: any[] }) {
                     fontWeight: 700,
                     textTransform: "uppercase",
                     fontSize: 16,
+                    borderBottom: "2px solid black",
                   }}
                 >
                   {category.name}
