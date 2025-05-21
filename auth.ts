@@ -1,4 +1,20 @@
-import { PrismaClient } from '@prisma/client';
+import { db } from "@/prisma/db";
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+
+export const auth = betterAuth({
+  database: prismaAdapter(db, { provider: "postgresql" }),
+  socialProviders: {
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
+  },
+});
+
+
+
+/* import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
@@ -31,3 +47,4 @@ export async function POST(request: Request) {
   console.log(response.cookies.get("authToken")); // Debug
   return response;
 }
+*/ 

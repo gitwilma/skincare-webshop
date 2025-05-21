@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut, useSession } from "@/auth-client";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
@@ -17,16 +18,20 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AppUser } from "../types/user";
 import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
+import GitHubSignInButton from "./github-button";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [user, setUser] = useState<null | { email: string; isAdmin: boolean }>(
-    null
-  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { data: session } = useSession();
+  const user = session?.user as AppUser | undefined;
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,26 +52,22 @@ export default function Header() {
   };
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout");
-    setUser(null);
+    await signOut();
     handleCloseMenu();
   };
 
   const handleAuth = async (email: string, password: string) => {
-    const endpoint = mode === "login" ? "login" : "register";
-    const res = await fetch(`/api/auth/${endpoint}`, {
+    const endpoint = mode === "login" ? "/api/login" : "/api/register";
+
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({ email, password }),
     });
 
     if (res.ok) {
-      const me = await fetch("/api/auth/me", { credentials: "include" });
-      if (me.ok) {
-        const data = await me.json();
-        setUser({ email: data.email, isAdmin: data.isAdmin });
-      }
+      const data = await res.json();
+      console.log("Auth success", data);
       setOpenModal(false);
     } else {
       alert(`${mode} failed`);
@@ -74,18 +75,10 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await fetch("/api/auth/me", { credentials: "include" });
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data);
-      }
-    };
-    fetchUser();
-  }, []);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    if (user) {
+      setOpenModal(false);
+    }
+  }, [user]);
 
   return (
     <>
@@ -132,7 +125,6 @@ export default function Header() {
             </Link>
           )}
 
-          {/* Länken till checkout */}
           <Link data-cy="cart-link" href="/checkout">
             <IconButton data-cy="cart-items-count-badge" color="primary">
               <CartIcon />
@@ -178,6 +170,8 @@ export default function Header() {
       <Dialog open={openModal} onClose={handleCloseModal}>
         <DialogTitle>{mode === "login" ? "Login" : "Register"}</DialogTitle>
         <DialogContent>
+          <GitHubSignInButton />
+
           <TextField
             margin="dense"
             label="Username"
