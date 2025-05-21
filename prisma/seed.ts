@@ -5,42 +5,42 @@ async function main() {
     {
       name: "Fruktig",
       slug: "fruktig",
-      image: "/categories/fruktig.jpg",
+      image: "/categories/apple.png",
     },
     {
-      name: "Ingefära",
-      slug: "ingefara",
-      image: "/categories/ginger.jpg",
+      name: "Blommig",
+      slug: "blommig",
+      image: "/categories/flower.png",
     },
     {
-      name: "Klassisk",
-      slug: "klassisk",
-      image: "/categories/classic.jpg",
+      name: "Het",
+      slug: "het",
+      image: "/categories/chili.png",
     },
     {
-      name: "Koffeinfri",
-      slug: "koffeinfri",
-      image: "/categories/decaf.jpg",
+      name: "Bärig",
+      slug: "berry",
+      image: "/categories/berry.png",
     },
     {
       name: "Örter",
       slug: "orter",
-      image: "/categories/herbal.jpg",
+      image: "/categories/herb.png",
     },
     {
-      name: "Smakrik",
-      slug: "smakrik",
-      image: "/categories/smakrik.jpg",
+      name: "Citrus",
+      slug: "citrus",
+      image: "/categories/lemon.png",
     },
     {
-      name: "Limited Edition",
-      slug: "limited",
-      image: "/categories/limited.jpg",
+      name: "Ingefära",
+      slug: "ingefar",
+      image: "/categories/ginger.png",
     },
     {
-      name: "Nyhet",
-      slug: "nyhet",
-      image: "/categories/nyhet.jpg",
+      name: "Fisk",
+      slug: "Fisk",
+      image: "/categories/fish.png",
     },
   ];
 
@@ -97,7 +97,7 @@ async function main() {
       price: 32,
       quantity: 30,
       categories: {
-        connect: [{ slug: "klassisk" }],
+        connect: [{ slug: "het" }],
       },
     },
   });
@@ -113,7 +113,7 @@ async function main() {
       price: 34,
       quantity: 50,
       categories: {
-        connect: [{ slug: "koffeinfri" }, { slug: "fruktig" }],
+        connect: [{ slug: "berry" }, { slug: "fruktig" }],
       },
     },
   });
@@ -145,7 +145,7 @@ async function main() {
       price: 37,
       quantity: 18,
       categories: {
-        connect: [{ slug: "klassisk" }],
+        connect: [{ slug: "het" }],
       },
     },
   });
@@ -177,7 +177,7 @@ async function main() {
       price: 36,
       quantity: 32,
       categories: {
-        connect: [{ slug: "klassisk" }],
+        connect: [{ slug: "fisk" }],
       },
     },
   });
@@ -193,7 +193,7 @@ async function main() {
       price: 37,
       quantity: 15,
       categories: {
-        connect: [{ slug: "klassisk" }],
+        connect: [{ slug: "het" }],
       },
     },
   });
@@ -241,7 +241,7 @@ async function main() {
       price: 40,
       quantity: 10,
       categories: {
-        connect: [{ slug: "klassisk" }],
+        connect: [{ slug: "het" }],
       },
     },
   });

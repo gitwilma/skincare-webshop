@@ -1,47 +1,73 @@
 "use client";
 
-import { db } from "@/prisma/db";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-
-  Typography
-} from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Link from "next/link";
+import Image from "next/image";
+import { BorderBottom } from "@mui/icons-material";
 
 export default function CategoryList({ categories }: { categories: any[] }) {
   return (
-    <Box px={2} py={4}>
-      <Typography variant='h5' fontWeight={600} gutterBottom>
+    <Box px={2} py={4}         sx={{ borderBottom: "2px solid black" }}
+>
+      <Typography
+        variant="h5"
+        fontWeight={700}
+        sx={{ fontFamily: "monospace", mb: 3 }}
+      >
         Kategorier
       </Typography>
-      <Grid container spacing={3}>
+
+      <Grid container spacing={2}>
         {categories.map((category) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={category.id}>
-            <Link href={`/categories/${category.slug}`} passHref>
-              <Card
+            <Link
+              href={`/categories/${category.slug}`}
+              passHref
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Box
                 sx={{
-                  height: "100%",
-                  cursor: "pointer",
-                  transition: "0.3s",
-                  "&:hover": { boxShadow: 6 },
+                  display: "flex",
+                  alignItems: "center",
+                  border: "2px solid black",
+                  p: 2,
+                  transition: "transform 0.2s",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                  },
+                  height: 100,
+                  overflow: "hidden",
+                  backgroundColor: "#fff",
                 }}
               >
-                <CardMedia
-                  component='img'
-                  height='160'
-                  image={category.image}
-                  alt={category.name}
-                />
-                <CardContent>
-                  <Typography variant='subtitle1' fontWeight={500}>
-                    {category.name}
-                  </Typography>
-                </CardContent>
-              </Card>
+                <Box
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    position: "relative",
+                    flexShrink: 0,
+                    mr: 2,
+                  }}
+                >
+                  <Image
+                    src={category.image}
+                    alt={category.name}
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </Box>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    fontSize: 16,
+                  }}
+                >
+                  {category.name}
+                </Typography>
+              </Box>
             </Link>
           </Grid>
         ))}
