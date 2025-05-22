@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut, useSession } from "@/auth-client";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
@@ -17,14 +18,21 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AppUser } from "../types/user";
 import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
+import GitHubSignInButton from "./github-button";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [user, setUser] = useState<null | { email: string }>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [localUser, setLocalUser] = useState<AppUser | null>(null);
+  const { data: session } = useSession(); //better-auth session
+  const user: AppUser | null =
+    localUser ?? (session?.user as AppUser | undefined) ?? null;
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,26 +53,25 @@ export default function Header() {
   };
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout");
-    setUser(null);
+    localStorage.removeItem("user");
+    setLocalUser(null);
+    await signOut();
     handleCloseMenu();
   };
 
   const handleAuth = async (email: string, password: string) => {
-    const endpoint = mode === "login" ? "login" : "register";
-    const res = await fetch(`/api/auth/${endpoint}`, {
+    const endpoint = mode === "login" ? "/api/login" : "/api/register";
+
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({ email, password }),
     });
 
     if (res.ok) {
-      const me = await fetch("/api/auth/me", { credentials: "include" });
-      if (me.ok) {
-        const userData = await me.json();
-        setUser(userData);
-      }
+      const data = await res.json();
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setLocalUser(data.user);
       setOpenModal(false);
     } else {
       alert(`${mode} failed`);
@@ -72,18 +79,11 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await fetch("/api/auth/me", { credentials: "include" });
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data);
-      }
-    };
-    fetchUser();
+    const saved = localStorage.getItem("user");
+    if (saved) {
+      setLocalUser(JSON.parse(saved));
+    }
   }, []);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
     <>
@@ -102,11 +102,40 @@ export default function Header() {
         }}
       >
         <TemporaryDrawer />
-        <Link href="/">
-          <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
-        </Link>
+        <Box sx={{ flex: 1, position: "relative", height: 80 }}>
+          <Box
+            sx={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Link href="/">
+              <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
+            </Link>
+          </Box>
+        </Box>
 
         <Box display="flex" alignItems="center">
+          {user && (
+            <>
+              {user.isAdmin ? (
+                <Link href="/admin" underline="none" sx={{ marginRight: 2 }}>
+                  <Typography variant="body2" color="primary">
+                    Admin
+                  </Typography>
+                </Link>
+              ) : (
+                <Link href="/orders" underline="none" sx={{ marginRight: 2 }}>
+                  <Typography variant="body2" color="primary">
+                    Mina ordrar
+                  </Typography>
+                </Link>
+              )}
+            </>
+          )}
+
           <Link data-cy="cart-link" href="/checkout">
             <IconButton data-cy="cart-items-count-badge" color="primary">
               <CartIcon />
@@ -152,9 +181,10 @@ export default function Header() {
       <Dialog open={openModal} onClose={handleCloseModal}>
         <DialogTitle>{mode === "login" ? "Login" : "Register"}</DialogTitle>
         <DialogContent>
+          <GitHubSignInButton />
           <TextField
             margin="dense"
-            label="Username"
+            label="Email"
             type="email"
             fullWidth
             variant="outlined"

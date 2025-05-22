@@ -3,6 +3,8 @@
 cypress
 prisma/dev.db
 
+prisma-client
+
 # dependencies
 /node_modules
 /.pnp

@@ -1,53 +1,118 @@
 import { Instagram, LinkedIn } from "@mui/icons-material";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, IconButton, TextField, Button } from "@mui/material";
 import Image from "next/image";
 
 export default function Footer() {
   return (
     <>
       <Box
-        component="footer"
         sx={{
-          marginTop: 4,
-          padding: 2,
-          color: "#000",
-          display: "grid",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          backgroundColor: "#F2F2E8",
-
-          "@media (min-width: 600px)": {
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center",
-          },
-
-          "@media (min-width: 1280px)": {
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            alignItems: "center",
-          },
+          width: "100%",
+          height: "2px",
+          backgroundColor: "black",
+          mt: 4,
         }}
       >
-        <Typography data-cy="admin-link">
-          <Link sx={{ textDecoration: "none" }} href="/admin" color="#efebe9">
+    <Box
+      component="footer"
+      sx={{
+        mt: "auto",
+        width: "100%",
+        px: 2,
+        py: 4,
+        display: "grid",
+        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
+        alignItems: "start",
+        gap: 4,
+        borderTop: "2px solid black",
+        backgroundColor: "#f2f2e8",
+        fontFamily: "monospace",
+        color: "black",
+        textAlign: { xs: "center", md: "left" },
+      }}
+    >
+      {/* Vänster */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Typography>
+          <Link href="/admin" underline="none" color="black">
             Admin
           </Link>
         </Typography>
         <Typography>Return</Typography>
         <Typography>Contact</Typography>
         <Typography>About</Typography>
-        <Typography mb={1}>FAQ</Typography>
-        <Box>
-          <Typography>Follow us:</Typography>
-          <LinkedIn />
-          <Instagram />
-        </Box>
-        <Image src="/logotype.png" alt="Beauty" width={150} height={100} />
+        <Typography>FAQ</Typography>
+       
       </Box>
+
+      {/* Mitten */}
+      <Box sx={{ textAlign: "center" }}>
+      <Box >
+          <Image src="/logotype.png" alt="Logotype" width={120} height={80} />
+        </Box>
+        <Typography sx={{ mb: 1 }}>Follow us:</Typography>
+        <IconButton href="https://linkedin.com" target="_blank" size="small" sx={{ color: "black" }}>
+          <LinkedIn />
+        </IconButton>
+        <IconButton href="https://instagram.com" target="_blank" size="small" sx={{ color: "black" }}>
+          <Instagram />
+        </IconButton>
+       
+      </Box>
+
+      {/* Höger */}
+      <Box sx={{ maxWidth: 300, justifySelf: { md: "end" }, width: "100%" }}>
+        <Typography sx={{ mb: 1 }}>Subscribe to our dreamy newsletter</Typography>
+        <Box
+          component="form"
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 1,
+            border: "2px solid black",
+            p: 1,
+          }}
+        >
+          <TextField
+            placeholder="Your email"
+            variant="standard"
+            InputProps={{
+              disableUnderline: true,
+              sx: {
+                fontFamily: "monospace",
+                flexGrow: 1,
+              },
+            }}
+            fullWidth
+          />
+          <Button
+            type="submit"
+            sx={{
+              fontFamily: "monospace",
+              border: "2px solid black",
+              borderRadius: 0,
+              color: "black",
+              backgroundColor: "transparent",
+              px: 2,
+              "&:hover": {
+                backgroundColor: "#000",
+                color: "#fff",
+              },
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+     <Box sx={{ textAlign: "center", borderTop: "2px solid black", py: 2 }}>
+     <Typography sx={{ fontSize: "1rem", fontFamily: "monospace" }}>
+           &copy; {new Date().getFullYear()} FermentedDreams. All rights reserved.
+         </Typography>
+     </Box>
+     </Box>
+
     </>
+
   );
 }
