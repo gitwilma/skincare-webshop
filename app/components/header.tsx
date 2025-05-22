@@ -68,6 +68,7 @@ export default function Header() {
         }}
       >
         <TemporaryDrawer />
+
         <Box sx={{ flex: 1, position: "relative", height: 80 }}>
           <Box
             sx={{
@@ -85,11 +86,21 @@ export default function Header() {
 
         <Box display="flex" alignItems="center">
           {user && (
-            <Link href="/orders" underline="none" sx={{ marginRight: 2 }}>
-              <Typography variant="body2" color="primary">
-                Mina ordrar
-              </Typography>
-            </Link>
+            <>
+              {user.isAdmin ? (
+                <Link href="/admin" underline="none" sx={{ marginRight: 2 }}>
+                  <Typography variant="body2" color="primary">
+                    Admin
+                  </Typography>
+                </Link>
+              ) : (
+                <Link href="/orders" underline="none" sx={{ marginRight: 2 }}>
+                  <Typography variant="body2" color="primary">
+                    Mina ordrar
+                  </Typography>
+                </Link>
+              )}
+            </>
           )}
 
           <Link data-cy="cart-link" href="/checkout">
