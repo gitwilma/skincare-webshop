@@ -35,6 +35,7 @@ export default function CartIcon() {
       document.body.style.overflow = "auto";
     };
   }, [open]);
+  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
