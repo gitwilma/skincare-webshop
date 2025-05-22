@@ -29,6 +29,18 @@ export default function CartIcon() {
   }, [pathname]);
 
   useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden"; 
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -88,20 +100,25 @@ export default function CartIcon() {
             <>
               <Box
                 sx={{
-                  maxHeight: 250, 
+                  maxHeight: 300,
                   overflowY: "auto",
-                  pr: 1, 
+                  pr: 1,
                 }}
               >
                 {cart.map((item) => (
-                  <Box
-                    key={item.id}
-                    display='flex'
-                    alignItems='center'
-                    gap={1}
-                    mb={2}
-                  >
-                    {item.image && (
+                  <Link
+                  key={item.id}
+                  href={`/product/${item.articleNumber}/${encodeURIComponent(item.title)}`}
+                  passHref
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                    <Box
+                      key={item.id}
+                      display='flex'
+                      alignItems='center'
+                      gap={1}
+                      mb={2}
+                    >
                       <Box
                         component='img'
                         src={item.image}
@@ -113,21 +130,19 @@ export default function CartIcon() {
                           objectFit: "cover",
                         }}
                       />
-                    )}
-
-                    <Box flexGrow={1}>
+                      <Box flexGrow={1}>
+                        <Typography fontWeight='bold' fontSize={14}>
+                          {item.title}
+                        </Typography>
+                        <Typography fontSize={12} color='text.secondary'>
+                          {item.quantity} st x {item.price} kr
+                        </Typography>
+                      </Box>
                       <Typography fontWeight='bold' fontSize={14}>
-                        {item.title}
-                      </Typography>
-                      <Typography fontSize={12} color='text.secondary'>
-                        {item.quantity} st x {item.price} kr
+                        {item.price * item.quantity} kr
                       </Typography>
                     </Box>
-
-                    <Typography fontWeight='bold' fontSize={14}>
-                      {item.price * item.quantity} kr
-                    </Typography>
-                  </Box>
+                  </Link>
                 ))}
               </Box>
 
