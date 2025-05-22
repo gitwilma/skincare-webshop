@@ -34,12 +34,12 @@ async function main() {
     },
     {
       name: "Ingefära",
-      slug: "ingefar",
+      slug: "ingefara",
       image: "/categories/ginger.png",
     },
     {
       name: "Fisk",
-      slug: "Fisk",
+      slug: "fisk",
       image: "/categories/fish.png",
     },
   ];
@@ -47,7 +47,7 @@ async function main() {
   for (const category of categories) {
     await db.category.upsert({
       where: { slug: category.slug },
-      update: {},
+      update: category,
       create: category,
     });
   }
