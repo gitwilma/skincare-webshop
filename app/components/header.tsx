@@ -104,11 +104,11 @@ export default function Header() {
             </>
           )}
 
-          <Link data-cy="cart-link" href="/checkout">
+      
             <IconButton data-cy="cart-items-count-badge" color="primary">
               <CartIcon />
             </IconButton>
-          </Link>
+         
 
           <IconButton color="primary" onClick={handleProfileClick}>
             <AccountCircleIcon />
