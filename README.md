@@ -35,7 +35,7 @@ Follow these steps to install and run the project locally:
    ```sh
    npm run dev
    ```
-
+.
 ## Link to Design System
 We use **MUI (Material-UI)** as the design system. The documentation can be found here:
 [Material-UI Documentation](https://mui.com/)
