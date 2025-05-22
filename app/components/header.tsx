@@ -65,11 +65,12 @@ export default function Header() {
           top: 0,
           zIndex: 1000,
           backgroundColor: "background.default",
+          borderBottom: "2px solid black",
         }}
       >
         <TemporaryDrawer />
-
-        <Box sx={{ flex: 1, position: "relative", height: 80 }}>
+        <Box sx={{ flex: 1, position: "relative", height: 80,        
+ }}>
           <Box
             sx={{
               position: "absolute",
