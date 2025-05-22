@@ -4,20 +4,17 @@ import { signOut, useSession } from "@/auth-client";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
-  Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
   Link,
   Menu,
   MenuItem,
-  TextField,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AppUser } from "../types/user";
 import CartIcon from "./cart-icon";
 import TemporaryDrawer from "./drawer";
@@ -27,12 +24,9 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openModal, setOpenModal] = useState(false);
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [localUser, setLocalUser] = useState<AppUser | null>(null);
-  const { data: session } = useSession(); //better-auth session
-  const user: AppUser | null =
-    localUser ?? (session?.user as AppUser | undefined) ?? null;
+
+  const { data: session } = useSession();
+  const user: AppUser | null = (session?.user as AppUser | undefined) ?? null;
 
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,8 +36,8 @@ export default function Header() {
     setAnchorEl(null);
   };
 
-  const handleOpenModal = (type: "login" | "register") => {
-    setMode(type);
+  const handleOpenModal = (selectedMode: "login" | "register") => {
+    setMode(selectedMode);
     setOpenModal(true);
     handleCloseMenu();
   };
@@ -53,37 +47,9 @@ export default function Header() {
   };
 
   const handleLogout = async () => {
-    localStorage.removeItem("user");
-    setLocalUser(null);
     await signOut();
     handleCloseMenu();
   };
-
-  const handleAuth = async (email: string, password: string) => {
-    const endpoint = mode === "login" ? "/api/login" : "/api/register";
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setLocalUser(data.user);
-      setOpenModal(false);
-    } else {
-      alert(`${mode} failed`);
-    }
-  };
-
-  useEffect(() => {
-    const saved = localStorage.getItem("user");
-    if (saved) {
-      setLocalUser(JSON.parse(saved));
-    }
-  }, []);
 
   return (
     <>
@@ -102,6 +68,7 @@ export default function Header() {
         }}
       >
         <TemporaryDrawer />
+
         <Box sx={{ flex: 1, position: "relative", height: 80 }}>
           <Box
             sx={{
@@ -157,21 +124,21 @@ export default function Header() {
                     key="login"
                     onClick={() => handleOpenModal("login")}
                   >
-                    Login
+                    Logga in
                   </MenuItem>,
                   <MenuItem
                     key="register"
                     onClick={() => handleOpenModal("register")}
                   >
-                    Register
+                    Registrera dig
                   </MenuItem>,
                 ]
               : [
                   <MenuItem key="greeting" disabled>
-                    <Typography variant="body2">Hi, {user.email}</Typography>
+                    <Typography variant="body2">Hej, {user.email}</Typography>
                   </MenuItem>,
                   <MenuItem key="logout" onClick={handleLogout}>
-                    Logout
+                    Logga ut
                   </MenuItem>,
                 ]}
           </Menu>
@@ -179,34 +146,12 @@ export default function Header() {
       </Box>
 
       <Dialog open={openModal} onClose={handleCloseModal}>
-        <DialogTitle>{mode === "login" ? "Login" : "Register"}</DialogTitle>
+        <DialogTitle>
+          {mode === "login" ? "Logga in" : "Registrera dig"}
+        </DialogTitle>
         <DialogContent>
           <GitHubSignInButton />
-          <TextField
-            margin="dense"
-            label="Email"
-            type="email"
-            fullWidth
-            variant="outlined"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseModal}>Cancel</Button>
-          <Button onClick={() => handleAuth(email, password)}>
-            {mode === "login" ? "Login" : "Register"}
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
