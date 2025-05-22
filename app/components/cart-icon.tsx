@@ -86,45 +86,50 @@ export default function CartIcon() {
             <Typography color='text.secondary'>Varukorgen är tom</Typography>
           ) : (
             <>
-              {cart.map((item) => (
-                <Box
-                  key={item.id}
-                  display='flex'
-                  alignItems='center'
-                  gap={1}
-                  mb={2}
-                >
-                  {/* Produktbild */}
-                  {item.image && (
-                    <Box
-                      component='img'
-                      src={item.image}
-                      alt={item.title}
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: "4px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
+              <Box
+                sx={{
+                  maxHeight: 250, 
+                  overflowY: "auto",
+                  pr: 1, 
+                }}
+              >
+                {cart.map((item) => (
+                  <Box
+                    key={item.id}
+                    display='flex'
+                    alignItems='center'
+                    gap={1}
+                    mb={2}
+                  >
+                    {item.image && (
+                      <Box
+                        component='img'
+                        src={item.image}
+                        alt={item.title}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: "4px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    )}
 
-                  {/* Produktinfo */}
-                  <Box flexGrow={1}>
+                    <Box flexGrow={1}>
+                      <Typography fontWeight='bold' fontSize={14}>
+                        {item.title}
+                      </Typography>
+                      <Typography fontSize={12} color='text.secondary'>
+                        {item.quantity} st x {item.price} kr
+                      </Typography>
+                    </Box>
+
                     <Typography fontWeight='bold' fontSize={14}>
-                      {item.title}
-                    </Typography>
-                    <Typography fontSize={12} color='text.secondary'>
-                      {item.quantity} st x {item.price} kr
+                      {item.price * item.quantity} kr
                     </Typography>
                   </Box>
-
-                  {/* Pris högerjusterat */}
-                  <Typography fontWeight='bold' fontSize={14}>
-                    {item.price * item.quantity} kr
-                  </Typography>
-                </Box>
-              ))}
+                ))}
+              </Box>
 
               <Divider sx={{ my: 1 }} />
 
