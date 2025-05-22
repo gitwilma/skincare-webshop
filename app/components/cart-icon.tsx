@@ -25,7 +25,7 @@ export default function CartIcon() {
   const pathname = usePathname();
 
   useEffect(() => {
-    setOpen(false); 
+    setOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -68,10 +68,12 @@ export default function CartIcon() {
             position: "absolute",
             right: 0,
             mt: 1,
-            width: 300,
+            width: 320,
             zIndex: 10,
             p: 2,
-            bgcolor: "background.paper",
+            bgcolor: "white",
+            borderRadius: "12px",
+            boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
           }}
         >
           <Typography variant='h6' gutterBottom>
@@ -88,16 +90,39 @@ export default function CartIcon() {
                 <Box
                   key={item.id}
                   display='flex'
-                  justifyContent='space-between'
-                  mb={1}
+                  alignItems='center'
+                  gap={1}
+                  mb={2}
                 >
-                  <Box>
-                  <Typography fontWeight='bold'>{item.id}</Typography> {/* Namn */}
-                    <Typography variant='body2' color='text.secondary'>
-                      Antal: {item.quantity}
+                  {/* Produktbild */}
+                  {item.image && (
+                    <Box
+                      component='img'
+                      src={item.image}
+                      alt={item.title}
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "4px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+
+                  {/* Produktinfo */}
+                  <Box flexGrow={1}>
+                    <Typography fontWeight='bold' fontSize={14}>
+                      {item.title}
+                    </Typography>
+                    <Typography fontSize={12} color='text.secondary'>
+                      {item.quantity} st x {item.price} kr
                     </Typography>
                   </Box>
-                  <Typography>{item.price * item.quantity} kr</Typography>
+
+                  {/* Pris högerjusterat */}
+                  <Typography fontWeight='bold' fontSize={14}>
+                    {item.price * item.quantity} kr
+                  </Typography>
                 </Box>
               ))}
 
