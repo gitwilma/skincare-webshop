@@ -1,7 +1,8 @@
 "use client";
 
-import { ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart, Delete } from "@mui/icons-material";
 import {
+  Avatar,
   Badge,
   Box,
   Button,
@@ -13,28 +14,23 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import IncreaseDecreaseBtn from "../components/increase-decrease-btn";
 import { useCart } from "../providers/cart-provider";
 
 export default function CartIcon() {
-  const { cart } = useCart();
+  const { cart, updateQuantity, removeFromCart, isHydrated } = useCart();
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const pathname = usePathname();
+ 
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden"; 
-    } else {
-      document.body.style.overflow = "auto"; 
-    }
-
+    document.body.style.overflow = open ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -42,23 +38,23 @@ export default function CartIcon() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  if (!isHydrated) return null;
+
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <Box position='relative' ref={dropdownRef}>
+    <Box position="relative" ref={dropdownRef}>
       <IconButton
-        color='primary'
+        color="primary"
         onClick={() => setOpen((prev) => !prev)}
-        data-cy='cart-items-count-badge'
+        data-cy="cart-items-count-badge"
       >
         <Badge
           badgeContent={cartCount}
@@ -80,87 +76,109 @@ export default function CartIcon() {
             position: "absolute",
             right: 0,
             mt: 1,
-            width: 320,
+            width: 400,
+            maxHeight: 520,
             zIndex: 10,
             p: 2,
             bgcolor: "white",
             borderRadius: "12px",
             boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
+            overflow: "hidden",
           }}
         >
-          <Typography variant='h6' gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Din varukorg
           </Typography>
 
           <Divider sx={{ mb: 1 }} />
 
-          {cart.length === 0 ? (
-            <Typography color='text.secondary'>Varukorgen är tom</Typography>
-          ) : (
-            <>
-              <Box
-                sx={{
-                  maxHeight: 300,
-                  overflowY: "auto",
-                  pr: 1,
-                }}
-              >
-                {cart.map((item) => (
-                  <Link
+          <Box sx={{ maxHeight: 330, overflowY: "auto", pr: 1 }}>
+            {cart.length === 0 ? (
+              <Typography color="text.secondary" align="center">
+                Varukorgen är tom
+              </Typography>
+            ) : (
+              cart.map((item) => (
+                <Box
                   key={item.id}
-                  href={`/product/${item.articleNumber}/${encodeURIComponent(item.title)}`}
-                  passHref
-                  style={{ textDecoration: "none", color: "inherit" }}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  gap={1.5}
+                  mb={2}
                 >
-                    <Box
-                      key={item.id}
-                      display='flex'
-                      alignItems='center'
-                      gap={1}
-                      mb={2}
-                    >
-                      <Box
-                        component='img'
-                        src={item.image}
-                        alt={item.title}
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: "4px",
-                          objectFit: "cover",
-                        }}
-                      />
-                      <Box flexGrow={1}>
-                        <Typography fontWeight='bold' fontSize={14}>
-                          {item.title}
-                        </Typography>
-                        <Typography fontSize={12} color='text.secondary'>
-                          {item.quantity} st x {item.price} kr
-                        </Typography>
-                      </Box>
-                      <Typography fontWeight='bold' fontSize={14}>
-                        {item.price * item.quantity} kr
-                      </Typography>
-                    </Box>
+                  <Link
+                    href={`/product/${item.articleNumber}/${encodeURIComponent(item.title)}`}
+                    passHref
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Avatar
+                      src={item.image}
+                      alt={item.title}
+                      variant="rounded"
+                      sx={{ width: 56, height: 56, flexShrink: 0 }}
+                    />
                   </Link>
-                ))}
-              </Box>
 
-              <Divider sx={{ my: 1 }} />
+                  <Box
+                    flex={1}
+                    minWidth={0}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography fontSize={13} fontWeight="bold" noWrap>
+                      {item.title}
+                    </Typography>
+                    <Typography fontSize={12} color="text.secondary">
+                      {item.price} kr/st
+                    </Typography>
+                  </Box>
 
-              {/* GÅ TILL KASSA-KNAPPEN */}
-              <Link href='/checkout' passHref>
-                <Button
-                  fullWidth
-                  variant='contained'
-                  color='primary'
-                  data-cy='cart-link'
-                >
-                  Gå till kassan
-                </Button>
-              </Link>
-            </>
+                  <Box>
+                    <IncreaseDecreaseBtn
+                      productId={item.id}
+                      quantity={item.quantity}
+                      onUpdate={updateQuantity}
+                    />
+                  </Box>
+
+                  <Box textAlign="right">
+                    <Typography fontSize={13} fontWeight="bold">
+                      {item.price * item.quantity} kr
+                    </Typography>
+                    <IconButton
+                      onClick={() => removeFromCart(item.id)}
+                      size="small"
+                      sx={{ mt: 0.5, color: "gray" }}
+                    >
+                      <Delete fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Box>
+              ))
+            )}
+          </Box>
+
+          <Divider sx={{ my: 1 }} />
+
+          {cart.length > 0 && (
+            <Box display="flex" justifyContent="space-between" mb={1} px={0.5}>
+              <Typography fontWeight="bold">Totalpris:</Typography>
+              <Typography fontWeight="bold">{totalPrice} kr</Typography>
+            </Box>
           )}
+
+          <Link href="/checkout" passHref>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              data-cy="cart-link"
+            >
+              Gå till kassan
+            </Button>
+          </Link>
         </Paper>
       )}
     </Box>
