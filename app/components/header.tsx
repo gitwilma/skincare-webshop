@@ -17,7 +17,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { AppUser } from "../types/user";
 import CartIcon from "./cart-icon";
-import TemporaryDrawer from "./drawer";
 import GitHubSignInButton from "./github-button";
 
 export default function Header() {
@@ -56,63 +55,111 @@ export default function Header() {
       <Box
         component="header"
         sx={{
-          padding: 1,
-          color: "palette.primary.main",
+          px: 4,
+          py: 4,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           position: "sticky",
           top: 0,
           zIndex: 1000,
-          backgroundColor: "background.default",
-          borderBottom: "2px solid black",
+          backgroundColor: "primary.light",
+          borderBottom: "4px solid black",
         }}
       >
-        <TemporaryDrawer />
-        <Box sx={{ flex: 1, position: "relative", height: 80,        
- }}>
-          <Box
-            sx={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <Link href="/">
-              <Image src="/logotype.png" alt="Beauty" width={150} height={80} />
-            </Link>
-          </Box>
+        <Box sx={{ display: "flex", gap: 7, alignItems: "center" }}>
+          <Link href="#" underline="none">
+            <Typography
+              variant="h6"
+              sx={{
+                textTransform: "uppercase",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                color: "primary.main",
+                fontFamily: "monospace",
+              }}
+            >
+              butik
+            </Typography>
+          </Link>
+          <Link href="#" underline="none">
+            <Typography
+              variant="h6"
+              sx={{
+                textTransform: "uppercase",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                color: "primary.main",
+                fontFamily: "monospace",
+              }}
+            >
+              om oss
+            </Typography>
+          </Link>
         </Box>
 
-        <Box display="flex" alignItems="center">
+        <Box
+          sx={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={100}
+              height={60}
+              style={{ width: "auto", height: 60 }}
+            />
+          </Link>
+        </Box>
+
+        <Box sx={{ display: "flex", gap: 7, alignItems: "center" }}>
           {user && (
-            <>
-              {user.isAdmin ? (
-                <Link href="/admin" underline="none" sx={{ marginRight: 2 }}>
-                  <Typography variant="body2" color="primary">
-                    Admin
-                  </Typography>
-                </Link>
-              ) : (
-                <Link href="/orders" underline="none" sx={{ marginRight: 2 }}>
-                  <Typography variant="body2" color="primary">
-                    Mina ordrar
-                  </Typography>
-                </Link>
-              )}
-            </>
+            <Link
+              href={user.isAdmin ? "/admin" : "/orders"}
+              underline="none"
+              sx={{ mr: 1 }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  color: "primary.main",
+                  fontFamily: "monospace",
+                }}
+              >
+                {user.isAdmin ? "Admin" : "Mina ordrar"}
+              </Typography>
+            </Link>
           )}
 
-      
-            <IconButton data-cy="cart-items-count-badge" color="primary">
-              <CartIcon />
-            </IconButton>
-         
+          <Box data-cy="cart-items-count-badge" color="primary">
+            <CartIcon />
+          </Box>
 
-          <IconButton color="primary" onClick={handleProfileClick}>
-            <AccountCircleIcon />
-          </IconButton>
+        
+
+
+
+          <Typography
+            variant="h6"
+            onClick={handleProfileClick}
+            sx={{
+              textTransform: "uppercase",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              color: "primary.main",
+              fontFamily: "monospace",
+              cursor: "pointer",
+            }}
+          >
+            konto
+          </Typography>
 
           <Menu
             anchorEl={anchorEl}
