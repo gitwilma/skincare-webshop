@@ -22,6 +22,7 @@ model Product {
   quantity      Int        @default(0)
   orderRows     OrderRow[]
   categories    Category[] @relation("ProductCategories")
+  
 }
 
 model Category {

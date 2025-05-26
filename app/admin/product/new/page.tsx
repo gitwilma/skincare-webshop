@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -22,6 +22,8 @@ const schema = z.object({
   price: z.coerce.number().positive("Price must be a positive number"),
   image: z.string().url("Image must be a valid URL"),
   quantity: z.coerce.number().int().min(0, "Quantity must be 0 or more"),
+  categoryIds: z.array(z.string()).nonempty("Minst en kategori krävs"),
+
 });
 
 export default function AdminForm() {
@@ -34,6 +36,8 @@ export default function AdminForm() {
       price: 0,
       image: "",
       quantity: 1,
+ categoryIds: [],
+    
     },
   });
 
@@ -44,10 +48,20 @@ const handleSubmit = async (product: z.infer<typeof schema>) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...product,
-        categories: { connect: [{ id: product.categoryId }] }, 
+        categories: {
+          connect: product.categoryIds.map((id) => ({ id })),
+        },
       }),
     });
-    if (!res.ok) throw new Error("Failed to add product");
+
+    const text = await res.text();
+
+    if (!res.ok) {
+      console.error("Server error response:", text);
+      throw new Error("Failed to add product");
+    }
+
+    console.log("Success response:", text);
     form.reset();
   } catch (error) {
     console.error("Error adding product:", error);
@@ -143,13 +157,19 @@ useEffect(() => {
           helperText={form.formState.errors.quantity?.message}
         />
 
-        <FormControl fullWidth error={!!form.formState.errors.categoryId}>
-  <InputLabel id="category-label">Kategori</InputLabel>
+     <FormControl fullWidth error={!!form.formState.errors.categoryIds}>
+  <InputLabel id="category-label">Kategorier</InputLabel>
   <Select
     labelId="category-label"
-    label="Kategori"
-    {...form.register("categoryId")}
-    defaultValue=""
+    multiple
+    {...form.register("categoryIds")}
+    value={form.watch("categoryIds") || []}
+    renderValue={(selected) =>
+      categories
+        .filter((cat) => selected.includes(cat.id))
+        .map((cat) => cat.name)
+        .join(", ")
+    }
   >
     {categories.map((cat) => (
       <MenuItem key={cat.id} value={cat.id}>
@@ -157,7 +177,9 @@ useEffect(() => {
       </MenuItem>
     ))}
   </Select>
-  <FormHelperText>{form.formState.errors.categoryId?.message}</FormHelperText>
+  <FormHelperText>
+    {form.formState.errors.categoryIds?.message}
+  </FormHelperText>
 </FormControl>
         <Button type="submit" variant="contained" color="primary">
           Add Product

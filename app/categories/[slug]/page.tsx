@@ -11,7 +11,7 @@ export default async function CategoryPage({
   const category = await db.category.findUnique({
     where: { slug: params.slug },
     include: {
-      products: true, // ✅ Hämta alla produkter som tillhör kategorin
+      products: true, 
     },
   });
 
