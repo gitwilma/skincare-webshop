@@ -31,6 +31,9 @@ model Category {
   image String
 
   products Product[] @relation("ProductCategories")
+
+  adminId String
+  admin   User   @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Order {
@@ -86,6 +89,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   Order         Order[]
+  categories    Category[]
 
   @@map("user")
 }

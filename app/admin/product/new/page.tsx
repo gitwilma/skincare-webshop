@@ -1,6 +1,17 @@
 "use client";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormHelperText,
+} from "@mui/material";
 import { Prisma } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -14,6 +25,7 @@ const schema = z.object({
 });
 
 export default function AdminForm() {
+
   const form = useForm<Prisma.ProductCreateInput>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -25,19 +37,31 @@ export default function AdminForm() {
     },
   });
 
-  const handleSubmit = async (product: Prisma.ProductCreateInput) => {
-    try {
-      const res = await fetch("/api/products/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
-      });
-      if (!res.ok) throw new Error("Failed to add product");
-      form.reset();
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
-  };
+const handleSubmit = async (product: z.infer<typeof schema>) => {
+  try {
+    const res = await fetch("/api/products/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...product,
+        categories: { connect: [{ id: product.categoryId }] }, 
+      }),
+    });
+    if (!res.ok) throw new Error("Failed to add product");
+    form.reset();
+  } catch (error) {
+    console.error("Error adding product:", error);
+  }
+};
+
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
+
+useEffect(() => {
+  fetch("/api/categories")
+    .then((res) => res.json())
+    .then(setCategories)
+    .catch((err) => console.error("Failed to load categories", err));
+}, []);
 
   return (
     <main>
@@ -118,6 +142,23 @@ export default function AdminForm() {
           error={Boolean(form.formState.errors.quantity)}
           helperText={form.formState.errors.quantity?.message}
         />
+
+        <FormControl fullWidth error={!!form.formState.errors.categoryId}>
+  <InputLabel id="category-label">Kategori</InputLabel>
+  <Select
+    labelId="category-label"
+    label="Kategori"
+    {...form.register("categoryId")}
+    defaultValue=""
+  >
+    {categories.map((cat) => (
+      <MenuItem key={cat.id} value={cat.id}>
+        {cat.name}
+      </MenuItem>
+    ))}
+  </Select>
+  <FormHelperText>{form.formState.errors.categoryId?.message}</FormHelperText>
+</FormControl>
         <Button type="submit" variant="contained" color="primary">
           Add Product
         </Button>

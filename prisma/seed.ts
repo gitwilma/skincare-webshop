@@ -1,6 +1,24 @@
+import { admin } from "better-auth/plugins/admin";
 import { db } from "./db";
 
 async function main() {
+
+  const admin = await db.user.upsert({
+  where: { email: "admin@example.com" },
+  update: {},
+  create: {
+    email: "admin@example.com",
+    username: "admin",
+    password: "securepassword",
+    isAdmin: true,
+    name: "Super Admin",
+    emailVerified: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+});
+
+
   const categories = [
     {
       name: "Fruktig",
@@ -47,8 +65,18 @@ async function main() {
   for (const category of categories) {
     await db.category.upsert({
       where: { slug: category.slug },
-      update: category,
-      create: category,
+      update: {
+        ...category,
+        admin: {
+          connect: { id: admin.id },
+        },
+      },
+      create: {
+        ...category,
+        admin: {
+          connect: { id: admin.id },
+        },
+      },
     });
   }
 
