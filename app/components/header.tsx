@@ -1,13 +1,11 @@
 "use client";
 
 import { signOut, useSession } from "@/auth-client";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
   Dialog,
   DialogContent,
   DialogTitle,
-  IconButton,
   Link,
   Menu,
   MenuItem,
@@ -82,7 +80,7 @@ export default function Header() {
               butik
             </Typography>
           </Link>
-          <Link href="#" underline="none">
+          <Link href="/about" underline="none">
             <Typography
               variant="h6"
               sx={{
@@ -141,10 +139,6 @@ export default function Header() {
           <Box data-cy="cart-items-count-badge" color="primary">
             <CartIcon />
           </Box>
-
-        
-
-
 
           <Typography
             variant="h6"
