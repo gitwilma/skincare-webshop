@@ -1,8 +1,19 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function AboutPage() {
+  const textBoxRef = useRef<HTMLDivElement>(null);
+  const [textHeight, setTextHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (textBoxRef.current) {
+      setTextHeight(textBoxRef.current.offsetHeight);
+    }
+  }, []);
+
   return (
     <Box
       px={4}
@@ -11,11 +22,12 @@ export default function AboutPage() {
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         gap: 4,
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
       }}
     >
       <Box
+        ref={textBoxRef}
         sx={{
           flex: 1,
           maxWidth: 500,
@@ -36,6 +48,27 @@ export default function AboutPage() {
           kvalitet och hållbarhet genomsyrar varje produkt. Vi tror på
           transparens, kreativitet och gemenskap.
         </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          flex: 1,
+          maxWidth: 500,
+          height: textHeight ? `${textHeight}px` : "auto",
+          position: "relative",
+        }}
+      >
+        {textHeight && (
+          <Image
+            src="/lifestyle/ls1.jpg"
+            alt="image"
+            fill
+            style={{
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        )}
       </Box>
     </Box>
   );
