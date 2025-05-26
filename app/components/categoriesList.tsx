@@ -7,7 +7,7 @@ import { BorderBottom } from "@mui/icons-material";
 
 export default function CategoryList({ categories }: { categories: any[] }) {
   return (
-    <Box px={2} py={4}         sx={{ borderBottom: "2px solid black" }}
+    <Box px={2} py={4}         sx={{maxWidth: "lg", width: "100%", mx: "auto", display: "flex", flexDirection: "column", alignItems: "center" }}
 >
       <Typography
         variant="h5"

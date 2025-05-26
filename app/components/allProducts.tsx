@@ -6,7 +6,7 @@ import BuyButton from "./buy-button";
 
 export default function AllProducts({ products }: { products: any[] }) {
   return (
-    <Box px={2} py={4}>
+    <Box px={2} py={4}         sx={{ maxWidth: "lg", width: "100%", mx: "auto", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Typography
         variant="h5"
         fontWeight={700}

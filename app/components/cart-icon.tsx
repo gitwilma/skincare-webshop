@@ -10,12 +10,16 @@ import {
   IconButton,
   Paper,
   Typography,
+  
 } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import IncreaseDecreaseBtn from "../components/increase-decrease-btn";
 import { useCart } from "../providers/cart-provider";
+import NextLink from "next/link";
+import Image from "next/image";
+
 
 export default function CartIcon() {
   const { cart, updateQuantity, removeFromCart, isHydrated } = useCart();
@@ -23,7 +27,6 @@ export default function CartIcon() {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
- 
 
   useEffect(() => {
     setOpen(false);
@@ -35,11 +38,13 @@ export default function CartIcon() {
       document.body.style.overflow = "auto";
     };
   }, [open]);
-  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -48,50 +53,89 @@ export default function CartIcon() {
   }, []);
   if (!isHydrated) return null;
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <Box position="relative" ref={dropdownRef}>
-      <IconButton
-        color="primary"
-        onClick={() => setOpen((prev) => !prev)}
-        data-cy="cart-items-count-badge"
-      >
-        <Badge
-          badgeContent={cartCount}
-          sx={{
-            "& .MuiBadge-badge": {
-              backgroundColor: "black",
-              color: "white",
-            },
-          }}
-        >
-          <ShoppingCart sx={{ fontSize: 40 }} />
-        </Badge>
-      </IconButton>
+      <Box
+  sx={{
+    position: "relative",
+    display: "inline-block",
+    cursor: "pointer",
+  }}
+  onClick={() => setOpen((prev) => !prev)}
+>
+  <Typography
+    variant="h6"
+    sx={{
+      textTransform: "uppercase",
+      fontWeight: 700,
+      letterSpacing: "0.1em",
+      color: "primary.main",
+      fontFamily: "monospace",
+    }}
+  >
+    kundvagn
+  </Typography>
+
+  {cartCount > 0 && (
+    <Badge
+      badgeContent={cartCount}
+      sx={{
+        position: "absolute",
+        top: -3,
+        right: -5,
+        "& .MuiBadge-badge": {
+          backgroundColor: "black",
+          color: "white",
+          fontSize: "1rem",
+          height: 20,
+          minWidth: 20,
+          fontFamily: "monospace",
+
+        },
+      }}
+    />
+  )}
+</Box>
+
 
       {open && (
-        <Paper
-          elevation={3}
-          sx={{
-            position: "absolute",
-            right: 0,
-            mt: 1,
-            width: 400,
-            maxHeight: 520,
-            zIndex: 10,
-            p: 2,
-            bgcolor: "white",
-            borderRadius: "12px",
-            boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
-            overflow: "hidden",
-          }}
-        >
-          <Typography variant="h6" gutterBottom>
+      <Paper
+      elevation={0} // No elevation
+      sx={{
+        position: "absolute",
+        right: 0,
+        mt: 1,
+        width: 400,
+        maxHeight: 520,
+        zIndex: 10,
+        p: 2,
+        bgcolor: "primary.light",
+        border: "3px solid black",
+        borderRadius: 0, // Sharp corners
+        overflow: "hidden",
+        fontFamily: "monospace", // Consistent brutalist feel
+      }}
+    >
+    
+          <Typography variant="h6" gutterBottom sx={{  textTransform: "uppercase",
+    fontWeight: 900,
+    fontFamily: "monospace",
+    fontSize: "1rem", }}>
             Din varukorg
           </Typography>
 
-          <Divider sx={{ mb: 1 }} />
+          <Divider
+  sx={{
+    borderColor: "black",
+    borderBottomWidth: "2px",
+    my: 1,
+  }}
+/>
 
           <Box sx={{ maxHeight: 330, overflowY: "auto", pr: 1 }}>
             {cart.length === 0 ? (
@@ -109,15 +153,18 @@ export default function CartIcon() {
                   mb={2}
                 >
                   <Link
-                    href={`/product/${item.articleNumber}/${encodeURIComponent(item.title)}`}
+                    href={`/product/${item.articleNumber}/${encodeURIComponent(
+                      item.title
+                    )}`}
                     passHref
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <Avatar
+                    <Image
                       src={item.image}
                       alt={item.title}
-                      variant="rounded"
-                      sx={{ width: 56, height: 56, flexShrink: 0 }}
+                      width={56}
+                      height={56}
+                      style={{ objectFit: "contain", borderRadius: "4px" }}
                     />
                   </Link>
 
@@ -128,10 +175,10 @@ export default function CartIcon() {
                     flexDirection="column"
                     justifyContent="center"
                   >
-                    <Typography fontSize={13} fontWeight="bold" noWrap>
+                    <Typography fontSize={16} fontWeight="bold" noWrap>
                       {item.title}
                     </Typography>
-                    <Typography fontSize={12} color="text.secondary">
+                    <Typography fontSize={13} color="text.secondary">
                       {item.price} kr/st
                     </Typography>
                   </Box>
@@ -151,7 +198,7 @@ export default function CartIcon() {
                     <IconButton
                       onClick={() => removeFromCart(item.id)}
                       size="small"
-                      sx={{ mt: 0.5, color: "gray" }}
+                      sx={{ mt: 0.5, color: "black" }}
                     >
                       <Delete fontSize="small" />
                     </IconButton>
@@ -161,7 +208,13 @@ export default function CartIcon() {
             )}
           </Box>
 
-          <Divider sx={{ my: 1 }} />
+          <Divider
+  sx={{
+    borderColor: "black",
+    borderBottomWidth: "2px",
+    my: 1,
+  }}
+/>
 
           {cart.length > 0 && (
             <Box display="flex" justifyContent="space-between" mb={1} px={0.5}>
@@ -170,16 +223,30 @@ export default function CartIcon() {
             </Box>
           )}
 
-          <Link href="/checkout" passHref>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              data-cy="cart-link"
-            >
-              Gå till kassan
-            </Button>
-          </Link>
+<Button
+  component={NextLink}
+  href="/checkout"
+  fullWidth
+  variant="contained"
+  sx={{
+    backgroundColor: "black",
+    color: "white",
+    border: "2px solid black",
+    borderRadius: 0,
+    fontFamily: "monospace",
+    fontWeight: 700,
+    textTransform: "uppercase",
+    boxShadow: "none",
+    "&:hover": {
+      backgroundColor: "white",
+      color: "black",
+    },
+  }}
+>
+  Gå till kassan
+</Button>
+
+
         </Paper>
       )}
     </Box>

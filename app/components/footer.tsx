@@ -24,8 +24,8 @@ export default function Footer() {
         gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
         alignItems: "start",
         gap: 4,
-        borderTop: "2px solid black",
-        backgroundColor: "#f2f2e8",
+        borderTop: "4px solid black",
+        backgroundColor: "primary.light",
         fontFamily: "monospace",
         color: "black",
         textAlign: { xs: "center", md: "left" },
@@ -48,7 +48,7 @@ export default function Footer() {
       {/* Mitten */}
       <Box sx={{ textAlign: "center" }}>
       <Box >
-          <Image src="/logotype.png" alt="Logotype" width={120} height={80} />
+                        <Image src="/logo.svg" alt="Beauty" width={0}   height={60}   style={{ width: "auto"}}/>
         </Box>
         <Typography sx={{ mb: 1 }}>Follow us:</Typography>
         <IconButton href="https://linkedin.com" target="_blank" size="small" sx={{ color: "black" }}>
@@ -71,6 +71,8 @@ export default function Footer() {
             gap: 1,
             border: "2px solid black",
             p: 1,
+            backgroundColor: "white",
+
           }}
         >
           <TextField
@@ -92,7 +94,7 @@ export default function Footer() {
               border: "2px solid black",
               borderRadius: 0,
               color: "black",
-              backgroundColor: "transparent",
+              backgroundColor: "primary.light",
               px: 2,
               "&:hover": {
                 backgroundColor: "#000",
@@ -105,7 +107,7 @@ export default function Footer() {
         </Box>
       </Box>
     </Box>
-     <Box sx={{ textAlign: "center", borderTop: "2px solid black", py: 2 }}>
+     <Box sx={{ textAlign: "center", borderTop: "4px solid black", py: 2, backgroundColor: "primary.light" }}>
      <Typography sx={{ fontSize: "1rem", fontFamily: "monospace" }}>
            &copy; {new Date().getFullYear()} FermentedDreams. All rights reserved.
          </Typography>
