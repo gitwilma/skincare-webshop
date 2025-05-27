@@ -55,6 +55,7 @@ export default function CheckoutForm() {
         body: JSON.stringify({
           cart: cartItems,
           address: data,
+          customerId: user.id,
         }),
       });
 

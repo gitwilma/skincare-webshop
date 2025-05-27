@@ -1,4 +1,4 @@
-import { auth } from "@/auth"; 
+import { auth } from "@/auth";
 import { db } from "@/prisma/db";
 import { NextResponse } from "next/server";
 
@@ -18,10 +18,11 @@ export async function POST(req: Request) {
 
     const user = session?.user;
 
+    const userId = user.id;
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
-    const userId = user.id;
+
     console.log("Session user:", user);
     console.log("User ID used for order:", userId);
     const body = await req.json();
