@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useSession } from "@/auth-client"; // or wherever your auth-client exports useSession
 
 const checkoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -26,9 +27,12 @@ const checkoutSchema = z.object({
 type CheckoutFormValues = z.infer<typeof checkoutSchema>;
 
 export default function CheckoutForm() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  // Always call hooks at the top level!
   const router = useRouter();
   const { clearCart, cart: cartItems } = useCart();
-
   const {
     register,
     handleSubmit,
@@ -37,21 +41,29 @@ export default function CheckoutForm() {
     resolver: zodResolver(checkoutSchema),
   });
 
-  const onSubmit = async (data: CheckoutFormValues) => {
-    const res = await fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cart: cartItems,
-        address: data,
-      }),
-    });
+  // Now conditionally render
+  if (!user) {
+    return <div>You must be logged in to place an order.</div>;
+  }
 
-    if (!res.ok) {
-      throw new Error("Order failed");
-    }
+  const onSubmit = async (data: CheckoutFormValues) => {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: cartItems,
+          address: data,
+          customerId: user.id,
+        }),
+      });
+
+ if (!res.ok) {
+    const error = await res.json();
+    alert(error.error || "Order failed");
+    return;
+  }
 
     const result = await res.json();
     const orderNumber = result.orderNumber;
