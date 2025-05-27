@@ -83,7 +83,7 @@ export default function OrdersPage() {
               </Typography>
               <List dense>
                 {order.orderRows.map((row: any) => (
-                  <ListItem key={row.id} sx={{ pl: 0 }}>
+                  <ListItem key={row.id} sx={{ pl: 0 , fontWeight: "bold" }}>
                     {row.product?.title} ({row.quantity} st) - {row.price} kr/st
                   </ListItem>
                 ))}
@@ -91,6 +91,10 @@ export default function OrdersPage() {
               <Divider sx={{ my: 1 }} />
               <Typography variant="body1" fontWeight="bold">
                 Totalt: {order.totalPrice} kr
+              </Typography>
+              <Divider sx={{ my: 1 }} />
+              <Typography variant="body1" fontWeight="bold">
+                Orderstatus: Skickad
               </Typography>
             </CardContent>
           </Card>
