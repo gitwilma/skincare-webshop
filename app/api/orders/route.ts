@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { db } from "@/prisma/db";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 type CartItem = {
@@ -14,17 +15,17 @@ type CartItem = {
 
 export async function POST(req: Request) {
   try {
-    const session = await auth(req);
+    const session = await auth.api.getSession({
+      headers: await headers(), // some endpoint might require headers
+    });
 
     const user = session?.user;
-
-    const userId = user.id;
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
     console.log("Session user:", user);
-    console.log("User ID used for order:", userId);
+
     const body = await req.json();
     const cart: CartItem[] = body.cart;
     const addressData = body.address;
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
 
     const order = await db.order.create({
       data: {
-        customerId: userId,
+        customerId: user.id,
         shippingAddressId: address.id,
         totalPrice,
         orderRows: {
