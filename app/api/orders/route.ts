@@ -5,49 +5,29 @@ import { NextResponse } from "next/server";
 
 type CartItem = {
   id: string;
-  articleNumber: string;
-  image: string;
-  title: string;
-  description: string;
   price: number;
   quantity: number;
 };
 
 export async function POST(req: Request) {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(), // some endpoint might require headers
-    });
-
+    const session = await auth.api.getSession({ headers: await headers() });
     const user = session?.user;
-    if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-    }
+    if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
 
-    console.log("Session user:", user);
+    const { cart, address } = await req.json();
+    if (!cart?.length || !address) return NextResponse.json({ error: "Invalid request" }, { status: 400 });
 
-    const body = await req.json();
-    const cart: CartItem[] = body.cart;
-    const addressData = body.address;
-
-    if (!cart || cart.length === 0 || !addressData) {
-      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-    }
-
-    const address = await db.address.create({ data: addressData });
-
-    const totalPrice = cart.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
+    const addressRow = await db.address.create({ data: address });
+    const totalPrice = cart.reduce((sum: number, item: CartItem) => sum + item.price * item.quantity, 0);
 
     const order = await db.order.create({
       data: {
         customerId: user.id,
-        shippingAddressId: address.id,
+        shippingAddressId: addressRow.id,
         totalPrice,
         orderRows: {
-          create: cart.map((item) => ({
+          create: cart.map((item: CartItem) => ({
             productId: item.id,
             quantity: item.quantity,
             price: item.price,
@@ -65,35 +45,47 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ orderNumber: order.orderNumber });
   } catch (error) {
-    console.error("Order API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 export async function GET(req: Request) {
   try {
-  const session = await auth.api.getSession({
-      headers: await headers(), // some endpoint might require headers
-    });
-
+    const session = await auth.api.getSession({ headers: await headers() });
     const user = session?.user;
-    if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-    }
+    if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+
+    const url = new URL(req.url);
+    const isAdmin = url.searchParams.get("admin") === "1" && user.isAdmin;
 
     const orders = await db.order.findMany({
-      where: { customerId: user.id },
+      ...(isAdmin ? {} : { where: { customerId: user.id } }),
       orderBy: { createdAt: "desc" },
       include: {
         orderRows: { include: { product: true } },
         shippingAddress: true,
+        customer: true,
       },
     });
 
     return NextResponse.json(orders);
+  } catch (error) {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await auth.api.getSession({ headers: await headers() });
+    const user = session?.user;
+    if (!user) return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    if (!user.isAdmin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+    const { orderId, status } = await req.json();
+    if (!orderId || !status) return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+
+    const order = await db.order.update({ where: { id: orderId }, data: { status } });
+    return NextResponse.json(order);
   } catch (error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

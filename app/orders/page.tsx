@@ -94,7 +94,7 @@ export default function OrdersPage() {
               </Typography>
               <Divider sx={{ my: 1 }} />
               <Typography variant="body1" fontWeight="bold">
-                Orderstatus: Skickad
+                Orderstatus: {order.status}
               </Typography>
             </CardContent>
           </Card>

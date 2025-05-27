@@ -46,6 +46,7 @@ model Order {
   shippingAddressId String
 
   orderRows       OrderRow[]
+  status          Status    @default(PENDING)
   customer        User       @relation(fields: [customerId], references: [id], onDelete: Cascade)
   shippingAddress Address    @relation(fields: [shippingAddressId], references: [id], onDelete: Cascade)
 }
