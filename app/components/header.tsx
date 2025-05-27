@@ -116,6 +116,23 @@ export default function Header() {
 
         <Box sx={{ display: "flex", gap: 7, alignItems: "center" }}>
           {user && (
+            <Link href="/adminOrder" underline="none" sx={{ mr: 1 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  color: "primary.main",
+                  fontFamily: "monospace",
+                }}
+              >
+                {user.isAdmin ? "AdminOrder" : ""}
+              </Typography>
+            </Link>
+          )}
+
+          {user && (
             <Link
               href={user.isAdmin ? "/admin" : "/orders"}
               underline="none"
