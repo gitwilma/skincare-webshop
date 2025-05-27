@@ -19,7 +19,7 @@ const theme = createTheme({
 
   },
   typography: {
-    fontFamily: "var(--font-poppins)",
+    fontFamily: "monospace",
     fontWeightRegular: 600, // Standardtext
     fontWeightMedium: 700, // Mellanrubriker
     fontWeightBold: 800, // Rubriker 
