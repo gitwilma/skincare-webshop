@@ -72,3 +72,29 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET(req: Request) {
+  try {
+  const session = await auth.api.getSession({
+      headers: await headers(), // some endpoint might require headers
+    });
+
+    const user = session?.user;
+    if (!user) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+
+    const orders = await db.order.findMany({
+      where: { customerId: user.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        orderRows: { include: { product: true } },
+        shippingAddress: true,
+      },
+    });
+
+    return NextResponse.json(orders);
+  } catch (error) {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
