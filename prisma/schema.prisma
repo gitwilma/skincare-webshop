@@ -95,18 +95,13 @@ model User {
   @@map("user")
 }
 
-// model Address {
-//   id      String @id @default(cuid())
-//   name    String
-//   address String
-//   zipcode String
-//   city    String
-//   email   String
-//   phone   String
-
-//   userId Int
-//   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
+enum Status {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
 
 model Session {
   id        String   @id
