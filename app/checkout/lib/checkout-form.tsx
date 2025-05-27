@@ -43,7 +43,7 @@ export default function CheckoutForm() {
 
   // Now conditionally render
   if (!user) {
-    return <div>You must be logged in to place an order.</div>;
+    return <Box sx={{ fontSize: "20px", fontWeight: "bold" }}>You must be logged in to place an order.</Box>;
   }
 
   const onSubmit = async (data: CheckoutFormValues) => {
