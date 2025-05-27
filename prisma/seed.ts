@@ -1,6 +1,24 @@
+import { admin } from "better-auth/plugins/admin";
 import { db } from "./db";
 
 async function main() {
+
+  const admin = await db.user.upsert({
+  where: { email: "admin@example.com" },
+  update: {},
+  create: {
+    email: "admin@example.com",
+    username: "admin",
+    password: "securepassword",
+    isAdmin: true,
+    name: "Super Admin",
+    emailVerified: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+});
+
+
   const categories = [
     {
       name: "Fruktig",
@@ -47,12 +65,20 @@ async function main() {
   for (const category of categories) {
     await db.category.upsert({
       where: { slug: category.slug },
-      update: category,
-      create: category,
+      update: {
+        ...category,
+        admin: {
+          connect: { id: admin.id },
+        },
+      },
+      create: {
+        ...category,
+        admin: {
+          connect: { id: admin.id },
+        },
+      },
     });
   }
-
-
 
   await db.product.upsert({
     where: { articleNumber: "K001" },
@@ -69,7 +95,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K002" },
     update: {},
@@ -85,7 +111,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K003" },
     update: {},
@@ -101,7 +127,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K004" },
     update: {},
@@ -117,7 +143,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K005" },
     update: {},
@@ -133,7 +159,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K006" },
     update: {},
@@ -149,7 +175,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K007" },
     update: {},
@@ -165,7 +191,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K008" },
     update: {},
@@ -181,7 +207,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K009" },
     update: {},
@@ -197,7 +223,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K010" },
     update: {},
@@ -213,7 +239,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K011" },
     update: {},
@@ -229,7 +255,7 @@ async function main() {
       },
     },
   });
-  
+
   await db.product.upsert({
     where: { articleNumber: "K012" },
     update: {},
@@ -245,7 +271,6 @@ async function main() {
       },
     },
   });
-
 }
 
 main()

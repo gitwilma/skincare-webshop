@@ -22,10 +22,10 @@ export default function ProductCard({ product, children }: Props) {
     display: "flex",
     flexDirection: "column",
     mt: 4,
-    border: "2px solid black",
+    border: "4px solid black",
     borderRadius: 0,
     boxShadow: "none",
-    backgroundColor: "#fff",
+    backgroundColor: "primary.light",
     "&:hover": {
       transform: "scale(1.02)",
       transition: "transform 0.2s",

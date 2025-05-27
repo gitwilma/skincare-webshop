@@ -20,6 +20,7 @@ interface CartContextValue {
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, amount: number) => void;
   updateFormData: (data: Partial<FormData>) => void;
+  isHydrated: boolean;
   clearCart: () => void;
 }
 
@@ -39,21 +40,33 @@ export function CartProvider({ children }: PropsWithChildren) {
     address: "",
   });
 
+  const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCart(storedCart);
-
-    const storedFormData = JSON.parse(localStorage.getItem("formData") || "{}");
-    setFormData(storedFormData);
+    if (typeof window === "undefined") return;
+  
+    try {
+      const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const storedFormData = JSON.parse(localStorage.getItem("formData") || "{}");
+  
+      if (Array.isArray(storedCart)) {
+        setCart(storedCart);
+      }
+  
+      if (storedFormData && typeof storedFormData === "object") {
+        setFormData(storedFormData);
+      }
+  
+      setIsHydrated(true); // 🟢 Flagga att localStorage är laddad
+    } catch (err) {
+      console.error("Fel vid inläsning från localStorage:", err);
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
-
-  useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [formData]);
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
@@ -103,6 +116,7 @@ export function CartProvider({ children }: PropsWithChildren) {
         updateQuantity,
         updateFormData,
         clearCart,
+        isHydrated,
       }}
     >
       {children}

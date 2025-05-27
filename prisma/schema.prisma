@@ -19,9 +19,10 @@ model Product {
   description   String
   image         String
   price         Float
-  quantity      Int        @default(0) 
+  quantity      Int        @default(0)
   orderRows     OrderRow[]
   categories    Category[] @relation("ProductCategories")
+  
 }
 
 model Category {
@@ -31,17 +32,21 @@ model Category {
   image String
 
   products Product[] @relation("ProductCategories")
+
+  adminId String
+  admin   User   @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model Order {
   id                String   @id @default(cuid())
   orderNumber       String   @unique @default(cuid())
   createdAt         DateTime @default(now())
-  // customerId  String?
+  customerId        String
   totalPrice        Float
   shippingAddressId String
 
   orderRows       OrderRow[]
+  customer        User       @relation(fields: [customerId], references: [id], onDelete: Cascade)
   shippingAddress Address    @relation(fields: [shippingAddressId], references: [id], onDelete: Cascade)
 }
 
@@ -84,6 +89,8 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  Order         Order[]
+  categories    Category[]
 
   @@map("user")
 }

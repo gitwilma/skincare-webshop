@@ -2,6 +2,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { Box, Button, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 
 interface IncreaseDecreaseBtnProps {
   productId: string;
@@ -24,25 +25,24 @@ export default function IncreaseDecreaseBtn({
         mx: "auto",
       }}
     >
-      <Button
+      <Box
         data-cy="increase-quantity-button"
-        variant="contained"
         color="primary"
-        sx={{ minWidth: "auto", padding: "4px" }}
+        sx={{ padding: "4px" }}
         onClick={() => onUpdate(productId, 1)}
       >
         <ArrowDropUpIcon />
-      </Button>
+      </Box>
       <Typography>{quantity}</Typography>
-      <Button
-        data-cy="decrease-quantity-button"
-        variant="contained"
+
+      <Box
+        data-cy="increase-quantity-button"
         color="primary"
-        sx={{ minWidth: "auto", padding: "4px" }}
+        sx={{ padding: "4px" }}
         onClick={() => onUpdate(productId, -1)}
       >
         <ArrowDropDownIcon />
-      </Button>
+      </Box>
     </Box>
   );
 }
