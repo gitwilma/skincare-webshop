@@ -15,7 +15,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { AppUser } from "../types/user";
 import CartIcon from "./cart-icon";
-import GitHubSignInButton from "./github-button";
+import GitHubAuthButton from "./github-button";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -209,7 +209,7 @@ export default function Header() {
           {mode === "login" ? "Logga in" : "Registrera dig"}
         </DialogTitle>
         <DialogContent>
-          <GitHubSignInButton />
+          <GitHubAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </>
