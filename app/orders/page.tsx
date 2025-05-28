@@ -91,7 +91,7 @@ export default function OrdersPage() {
               </Typography>
               <Divider sx={{ my: 1 }} />
               <Typography
-                variant='subtitle1'
+                variant='h6'
                 fontWeight='bold'>
                 Produkter:
               </Typography>
@@ -106,13 +106,13 @@ export default function OrdersPage() {
               </List>
               <Divider sx={{ my: 1 }} />
               <Typography
-                variant='body1'
+                variant='h6'
                 fontWeight='bold'>
                 Totalt: {order.totalPrice} kr
               </Typography>
               <Divider sx={{ my: 1 }} />
               <Typography
-                variant='body1'
+                variant='h6'
                 fontWeight='bold'>
                 Orderstatus: Skickad
               </Typography>
