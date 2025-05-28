@@ -1,6 +1,6 @@
 "use client";
 
-import GitHubSignInButton from "@/app/components/github-button";
+import GitHubAuthButton from "@/app/components/github-button";
 import { useCart } from "@/app/providers/cart-provider";
 import { useSession } from "@/auth-client"; // or wherever your auth-client exports useSession
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -48,7 +48,18 @@ export default function CheckoutForm() {
         <Typography variant="h6" gutterBottom>
           Du måste vara inloggad för att lägga en beställning.
         </Typography>
-        <GitHubSignInButton />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            mt: 2,
+            alignItems: "center",
+          }}
+        >
+          <GitHubAuthButton mode="login" />
+          <GitHubAuthButton mode="register" />
+        </Box>
       </Box>
     );
   }
