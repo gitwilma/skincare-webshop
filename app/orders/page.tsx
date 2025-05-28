@@ -71,7 +71,7 @@ export default function OrdersPage() {
         {orders.map((order) => (
           <Card
             key={order.id}
-            sx={{ bgcolor: '#F5E044', mb: 3, boxShadow: 3 }}>
+            sx={{ bgcolor: '#F5E044', border: 2, mb: 3, boxShadow: 3 }}>
             <CardContent>
               <Typography
                 variant='h6'
