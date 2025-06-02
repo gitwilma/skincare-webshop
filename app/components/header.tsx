@@ -229,10 +229,10 @@ export default function Header() {
       <Dialog
         open={openModal}
         onClose={handleCloseModal}>
-        <DialogTitle sx={{ bgcolor: '#F5E044' }}>
+        <DialogTitle>
           {mode === 'login' ? 'Logga in' : 'Registrera dig'}
         </DialogTitle>
-        <DialogContent sx={{ bgcolor: '#F5E044' }}>
+        <DialogContent>
           <GitHubSignInButton />
         </DialogContent>
       </Dialog>
