@@ -100,9 +100,11 @@ export default function AdminOrderPage() {
         {orders.map((order) => (
           <Card
             key={order.id}
-            sx={{ bgcolor: '#F5E044', border: 2, mb: 3 }}>
+            sx={{ border: 2, mb: 3 }}>
             <CardContent>
-              <Typography variant='h6'>
+              <Typography variant='h6' sx={{
+                overflow: "auto"
+              }}>
                 Ordernummer: {order.orderNumber}
               </Typography>
               <Typography variant='body2'>
@@ -136,7 +138,6 @@ export default function AdminOrderPage() {
                     disabled={statusUpdating === order.id}>
                     {statusOptions.map((status) => (
                       <MenuItem
-                      sx={{ bgcolor: "#F5E044", border: 2 }}
                         key={status}
                         value={status}>
                         {status}
