@@ -1,18 +1,19 @@
-// app/api/products/add/route.ts
 import { db } from "@/prisma/db";
 import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/require-admin";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    await requireAdmin();
 
+    const body = await req.json();
     const {
       title,
       description,
       price,
       image,
       quantity,
-      categories, // detta ska vara { connect: [...] }
+      categories,
     } = body;
 
     const product = await db.product.create({
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
-    console.error("Error in /api/products/add:", error);
-    return NextResponse.json({ error: "Failed to create product" }, { status: 500 });
+    if (error instanceof Response) return error;
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -1,5 +1,6 @@
 import { db } from "@/prisma/db";
 import { NextResponse } from "next/server";
+import { requireAdmin } from "@/lib/require-admin";
 
 export async function GET(
   req: Request,
@@ -23,28 +24,42 @@ export async function PATCH(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
-  const data = await req.json();
+  try {
+    await requireAdmin();
 
-  if (!id) {
-    return NextResponse.json(
-      { error: "Product ID is required" },
-      { status: 400 }
-    );
+    const { id } = params;
+    const data = await req.json();
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Product ID is required" },
+        { status: 400 }
+      );
+    }
+
+    await db.product.update({ where: { id }, data });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    if (error instanceof Response) return error;
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  await db.product.update({ where: { id }, data });
-  return NextResponse.json({ success: true });
 }
 
 export async function DELETE(req: Request) {
-  const { articleNumber } = await req.json();
-  if (!articleNumber)
-    return NextResponse.json(
-      { error: "Product ID is required" },
-      { status: 400 }
-    );
+  try {
+    await requireAdmin();
 
-  await db.product.delete({ where: { articleNumber } });
-  return NextResponse.json({ success: true });
+    const { articleNumber } = await req.json();
+    if (!articleNumber)
+      return NextResponse.json(
+        { error: "Product ID is required" },
+        { status: 400 }
+      );
+
+    await db.product.delete({ where: { articleNumber } });
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    if (error instanceof Response) return error;
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
