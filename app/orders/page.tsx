@@ -66,7 +66,7 @@ export default function OrdersPage() {
       </Typography>
       <List>
         {orders.map((order) => (
-          <Card key={order.id} sx={{ mb: 3, boxShadow: 3 }}>
+          <Card key={order.id} sx={{ border: 2, mb: 3, boxShadow: 3 }}>
             <CardContent>
               <Typography variant="h6" color="primary">
                 Ordernummer: {order.orderNumber}
@@ -78,7 +78,7 @@ export default function OrdersPage() {
                 Leveransadress: {order.shippingAddress.street}, {order.shippingAddress.zipcode} {order.shippingAddress.city}
               </Typography>
               <Divider sx={{ my: 1 }} />
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold">
                 Produkter:
               </Typography>
               <List dense>
@@ -89,11 +89,11 @@ export default function OrdersPage() {
                 ))}
               </List>
               <Divider sx={{ my: 1 }} />
-              <Typography variant="body1" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold">
                 Totalt: {order.totalPrice} kr
               </Typography>
               <Divider sx={{ my: 1 }} />
-              <Typography variant="body1" fontWeight="bold">
+              <Typography variant="h6" fontWeight="bold">
                 Orderstatus: {order.status}
               </Typography>
             </CardContent>

@@ -88,31 +88,37 @@ export default function AdminOrderPage() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ mt: 6 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container
+      maxWidth='md'
+      sx={{ mt: 6 }}>
+      <Typography
+        variant='h4'
+        gutterBottom>
         Admin Orders
       </Typography>
       <Box>
         {orders.map((order) => (
-          <Card key={order.id} sx={{ mb: 3 }}>
+          <Card
+            key={order.id}
+            sx={{ border: 2, mb: 3 }}>
             <CardContent>
-              <Typography variant="h6">
+              <Typography variant='h6' sx={{
+                overflow: "auto"
+              }}>
                 Ordernummer: {order.orderNumber}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant='body2'>
                 Datum: {new Date(order.createdAt).toLocaleString()}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant='body2'>
                 Kund: {order.customer?.name} ({order.customer?.email})
               </Typography>
-              <Typography variant="body2">
-                Leveransadress: {order.shippingAddress?.street},{" "}
+              <Typography variant='body2'>
+                Leveransadress: {order.shippingAddress?.street},{' '}
                 {order.shippingAddress?.zipcode} {order.shippingAddress?.city}
               </Typography>
               <Divider sx={{ my: 1 }} />
-              <Typography variant="subtitle1">
-                Produkter:
-              </Typography>
+              <Typography variant='h6'>Produkter:</Typography>
               <List dense>
                 {order.orderRows?.map((row: any) => (
                   <ListItem key={row.id}>
@@ -121,20 +127,19 @@ export default function AdminOrderPage() {
                 ))}
               </List>
               <Divider sx={{ my: 1 }} />
-              <Typography>
-                Totalt: {order.totalPrice} kr
-              </Typography>
+              <Typography variant="h6">Totalt: {order.totalPrice} kr</Typography>
               <Box sx={{ mt: 2 }}>
-                <FormControl size="small">
+                <FormControl size='small'>
                   <Select
                     value={order.status}
                     onChange={(e) =>
                       handleStatusChange(order.id, e.target.value)
                     }
-                    disabled={statusUpdating === order.id}
-                  >
+                    disabled={statusUpdating === order.id}>
                     {statusOptions.map((status) => (
-                      <MenuItem key={status} value={status}>
+                      <MenuItem
+                        key={status}
+                        value={status}>
                         {status}
                       </MenuItem>
                     ))}
