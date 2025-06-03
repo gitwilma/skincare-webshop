@@ -15,8 +15,6 @@ import {
 import { Prisma } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { redirectIfNotAdmin } from "@/lib/require-admin";
-import { requireAdmin } from "@/lib/require-admin";
 
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -29,8 +27,6 @@ const schema = z.object({
 });
 
 export default function AdminForm() {
-  requireAdmin()
-  redirectIfNotAdmin();
 
   const form = useForm<Prisma.ProductCreateInput>({
     resolver: zodResolver(schema),
