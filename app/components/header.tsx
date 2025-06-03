@@ -233,7 +233,7 @@ export default function Header() {
           {mode === 'login' ? 'Logga in' : 'Registrera dig'}
         </DialogTitle>
         <DialogContent>
-          <GitHubSignInButton />
+          <GitHubAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </>

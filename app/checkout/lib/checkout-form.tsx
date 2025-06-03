@@ -1,6 +1,8 @@
 "use client";
 
+import GitHubAuthButton from "@/app/components/github-button";
 import { useCart } from "@/app/providers/cart-provider";
+import { useSession } from "@/auth-client"; // or wherever your auth-client exports useSession
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -12,7 +14,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useSession } from "@/auth-client"; // or wherever your auth-client exports useSession
 
 const checkoutSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -41,29 +42,46 @@ export default function CheckoutForm() {
     resolver: zodResolver(checkoutSchema),
   });
 
-  // Now conditionally render
   if (!user) {
-    return <Box sx={{ fontSize: "20px", fontWeight: "bold" }}>You must be logged in to place an order.</Box>;
+    return (
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Du måste vara inloggad för att lägga en beställning.
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            mt: 2,
+            alignItems: "center",
+          }}
+        >
+          <GitHubAuthButton mode="login" />
+          <GitHubAuthButton mode="register" />
+        </Box>
+      </Box>
+    );
   }
 
   const onSubmit = async (data: CheckoutFormValues) => {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cart: cartItems,
-          address: data,
-          customerId: user.id,
-        }),
-      });
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: cartItems,
+        address: data,
+        customerId: user.id,
+      }),
+    });
 
- if (!res.ok) {
-    const error = await res.json();
-    alert(error.error || "Order failed");
-    return;
-  }
+    if (!res.ok) {
+      const error = await res.json();
+      alert(error.error || "Order failed");
+      return;
+    }
 
     const result = await res.json();
     const orderNumber = result.orderNumber;

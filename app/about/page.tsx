@@ -49,9 +49,9 @@ export default function AboutPage() {
               color: "primary.dark",
             }}
           >
-            Vi på Butik brinner för att skapa något unikt. Vår passion för
-            kvalitet och hållbarhet genomsyrar varje produkt. Vi tror på
-            transparens, kreativitet och gemenskap.
+            Vi på Fermented Dreams brinner för att skapa något unikt. Vår
+            passion för kvalitet och hållbarhet genomsyrar varje produkt. Vi
+            tror på transparens, kreativitet och gemenskap.
           </Typography>
 
           <Box
