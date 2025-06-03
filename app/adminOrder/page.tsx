@@ -63,7 +63,7 @@ export default async function AdminOrderPage() {
         Admin Orders
       </Typography>
       <Box>
-        {orders.map((order) => (
+        {orders.map((order: any) => (
           <Card
             key={order.id}
             sx={{ border: 2, mb: 3 }}>
