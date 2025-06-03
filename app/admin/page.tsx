@@ -1,11 +1,19 @@
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import AdminCard from "./lib/admin-card";
+import { redirectIfNotAdmin } from "@/lib/require-admin";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  await redirectIfNotAdmin();
+
   return (
     <main>
-      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Hantera produkter</Typography>
+      <Typography
+        variant="h4"
+        sx={{ display: "flex", justifyContent: "center", marginTop: 5 }}
+      >
+        Hantera produkter
+      </Typography>
       <Box
         sx={{
           display: "flex",
