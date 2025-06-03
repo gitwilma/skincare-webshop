@@ -25,6 +25,8 @@ const statusOptions = [
 ];
 
 export default function AdminOrderPage() {
+  await redirectIfNotAdmin();
+  
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

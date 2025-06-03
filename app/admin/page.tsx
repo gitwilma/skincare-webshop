@@ -1,14 +1,10 @@
-import { auth } from "@/auth";
+import { redirectIfNotAdmin } from "@/lib/require-admin";
 import { Box, Button, Typography } from "@mui/material";
-import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import AdminCard from "./lib/admin-card";
 
 export default async function AdminPage() {
-  const session = await auth.api.getSession({ headers: await headers() });
-  redirect("/");
-  // await redirectToLoginIfNotLoggedIn({ isAdmin: true });
+  await redirectIfNotAdmin();
 
   return (
     <main>

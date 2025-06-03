@@ -22,6 +22,7 @@ interface Props {
 }
 
 export default function ProductForm({ product }: Props) {
+  await redirectIfNotAdmin();
   const router = useRouter();
 
   const form = useForm<Prisma.ProductCreateInput>({
