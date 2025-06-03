@@ -1,21 +1,23 @@
-import { db } from "@/prisma/db";
+"use server";
+
 import { auth } from "@/auth";
-import { headers } from "next/headers";
+import { db } from "@/prisma/db";
 import {
-  Container,
-  Typography,
+  Box,
+  Button,
   Card,
   CardContent,
-  Box,
-  MenuItem,
-  Select,
+  Container,
+  Divider,
   FormControl,
   List,
   ListItem,
-  Divider,
+  MenuItem,
+  Select,
+  Typography,
 } from "@mui/material";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { updateOrderStatus } from "./lib/orderStatus";
 
 const statusOptions = [
   "PENDING",
@@ -25,25 +27,6 @@ const statusOptions = [
   "REFUNDED",
 ];
 
-// Server action for updating order status
-async function updateOrderStatus(formData: FormData) {
-  "use server";
-  const session = await auth.api.getSession({ headers: await headers() });
-  const user = session?.user;
-  if (!user || !user.isAdmin) return;
-
-  const orderId = formData.get("orderId") as string;
-  const status = formData.get("status") as string;
-  if (!orderId || !status) return;
-
-  await db.order.update({
-    where: { id: orderId },
-    data: { status },
-  });
-
-  revalidatePath("/adminOrder");
-  redirect("/adminOrder");
-}
 
 export default async function AdminOrderPage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -118,19 +101,14 @@ export default async function AdminOrderPage() {
                       ))}
                     </Select>
                   </FormControl>
-                  <button
+                  <Button
                     type="submit"
-                    style={{
-                      marginLeft: 8,
-                      padding: "4px 12px",
-                      borderRadius: 4,
-                      border: "1px solid #ccc",
-                      background: "#f5f5f5",
-                      cursor: "pointer",
-                    }}
+                    variant="contained"
+                    color="primary"
+                    sx={{ p: 1, ml: 2 }}
                   >
                     Spara
-                  </button>
+                  </Button>
                 </form>
               </Box>
             </CardContent>
