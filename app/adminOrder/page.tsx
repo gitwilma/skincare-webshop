@@ -108,7 +108,7 @@ export default async function AdminOrderPage() {
                   </Button>
                 </form>
               </Box>
-              <form action={deleteOrder}>
+              <form action={deleteOrder} style={{ justifyContent: "flex-end", display: "flex" }}>
                 <input type="hidden" name="orderId" value={order.id} />
                 <Button
                   type="submit"
