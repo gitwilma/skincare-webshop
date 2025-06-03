@@ -15,7 +15,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { AppUser } from '../types/user';
 import CartIcon from './cart-icon';
-import GitHubSignInButton from './github-button';
+import GitHubAuthButton from "./github-button";
+
 import NavDrawer from './navDrawer';
 
 export default function Header() {

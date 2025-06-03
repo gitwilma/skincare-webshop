@@ -31,7 +31,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StoreIcon from '@mui/icons-material/Store';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import { AppUser } from '../types/user';
-import GitHubSignInButton from './github-button';
+import GitHubAuthButton from "./github-button";
 
 export default function NavDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -192,7 +192,7 @@ export default function NavDrawer() {
           {mode === 'login' ? 'Logga in' : 'Registrera dig'}
         </DialogTitle>
         <DialogContent>
-          <GitHubSignInButton />
+          <GitHubAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </Box>
