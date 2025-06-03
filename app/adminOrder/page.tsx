@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { headers } from "next/headers";
 import { updateOrderStatus } from "./lib/orderStatus";
+import { redirectIfNotAdmin } from "@/lib/require-admin";
 
 const statusOptions = [
   "PENDING",
@@ -29,6 +30,8 @@ const statusOptions = [
 
 
 export default async function AdminOrderPage() {
+  await redirectIfNotAdmin();
+  
   const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
   if (!user || !user.isAdmin) {
