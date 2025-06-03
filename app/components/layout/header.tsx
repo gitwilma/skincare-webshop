@@ -13,11 +13,11 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
-import { AppUser } from '../types/user';
-import CartIcon from './cart-icon';
-import GitHubAuthButton from "./github-button";
+import { AppUser } from '@/app/types/user';
+import CartIcon from '../cart';
+import GitHubAuthButton from "../github-button";
 
-import NavDrawer from './navDrawer';
+import NavDrawer from '../hamburger';
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

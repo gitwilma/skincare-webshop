@@ -4,7 +4,7 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 
-export default function HeroSection() {
+export default function Hero() {
   return (
     <Box
       sx={{

@@ -16,7 +16,8 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        mt: "auto",
+        mt: "auto",    
+        mb: 0,    
         width: "100%",
         px: 2,
         py: 4,
@@ -62,7 +63,7 @@ export default function Footer() {
 
       {/* Höger */}
       <Box sx={{ maxWidth: 300, justifySelf: { md: "end" }, width: "100%" }}>
-        <Typography sx={{ mb: 1 }}>Subscribe to our dreamy newsletter</Typography>
+        <Typography sx={{ mb: 1, textAlign: "right" }}>Subscribe to our dreamy newsletter</Typography>  
         <Box
           component="form"
           sx={{
