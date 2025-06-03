@@ -1,5 +1,12 @@
 import { Instagram, LinkedIn } from "@mui/icons-material";
-import { Box, Link, Typography, IconButton, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 
 export default function Footer() {
@@ -13,53 +20,66 @@ export default function Footer() {
           mt: 4,
         }}
       >
-    <Box
-      component="footer"
-      sx={{
-        mt: "auto",    
-        mb: 0,    
-        width: "100%",
-        px: 2,
-        py: 4,
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
-        alignItems: "start",
-        gap: 4,
-        borderTop: "4px solid black",
-        backgroundColor: "primary.light",
-        fontFamily: "monospace",
-        color: "black",
-        textAlign: { xs: "center", md: "left" },
-      }}
-    >
-      {/* Vänster */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <Typography>
-          <Link href="/admin" underline="none" color="black">
-            Admin
-          </Link>
-        </Typography>
-        <Typography>Return</Typography>
-        <Typography>Contact</Typography>
-        <Typography>About</Typography>
-        <Typography>FAQ</Typography>
-       
-      </Box>
+        <Box
+          component="footer"
+          sx={{
+            mt: "auto",
+            width: "100%",
+            px: 2,
+            py: 4,
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
+            alignItems: "start",
+            gap: 4,
+            borderTop: "4px solid black",
+            backgroundColor: "primary.light",
+            fontFamily: "monospace",
+            color: "black",
+            textAlign: { xs: "center", md: "left" },
+          }}
+        >
+          {/* Vänster */}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Typography>
+              <Link href="/admin" underline="none" color="black">
+                Admin
+              </Link>
+            </Typography>
+            <Typography>Return</Typography>
+            <Typography>Contact</Typography>
+            <Typography>About</Typography>
+            <Typography>FAQ</Typography>
+          </Box>
 
-      {/* Mitten */}
-      <Box sx={{ textAlign: "center" }}>
-      <Box >
-                        <Image src="/logo.svg" alt="Beauty" width={0}   height={60}   style={{ width: "auto"}}/>
-        </Box>
-        <Typography sx={{ mb: 1 }}>Follow us:</Typography>
-        <IconButton href="https://linkedin.com" target="_blank" size="small" sx={{ color: "black" }}>
-          <LinkedIn />
-        </IconButton>
-        <IconButton href="https://instagram.com" target="_blank" size="small" sx={{ color: "black" }}>
-          <Instagram />
-        </IconButton>
-       
-      </Box>
+          {/* Mitten */}
+          <Box sx={{ textAlign: "center" }}>
+            <Box>
+              <Image
+                src="/logo.svg"
+                alt="Beauty"
+                width={0}
+                height={60}
+                style={{ width: "auto" }}
+              />
+            </Box>
+            <Typography sx={{ mb: 1 }}>Follow us:</Typography>
+            <IconButton
+              href="https://linkedin.com"
+              target="_blank"
+              size="small"
+              sx={{ color: "black" }}
+            >
+              <LinkedIn />
+            </IconButton>
+            <IconButton
+              href="https://instagram.com"
+              target="_blank"
+              size="small"
+              sx={{ color: "black" }}
+            >
+              <Instagram />
+            </IconButton>
+          </Box>
 
       {/* Höger */}
       <Box sx={{ maxWidth: 300, justifySelf: { md: "end" }, width: "100%" }}>
@@ -116,6 +136,5 @@ export default function Footer() {
      </Box>
 
     </>
-
   );
 }

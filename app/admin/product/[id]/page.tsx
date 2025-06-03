@@ -1,12 +1,14 @@
 import { db } from "@/prisma/db";
 import { Box, Typography } from "@mui/material";
 import ProductForm from "../product-form";
+import { redirectIfNotAdmin } from "@/lib/require-admin";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export default async function AdminEditProductPage({ params }: Props) {
+    await redirectIfNotAdmin();
 
   const { id: articleNumber } = await params;
   const product = await db.product.findUnique({ where: { articleNumber } });

@@ -12,7 +12,8 @@ import theme from "./theme/theme";
 
 export const metadata: Metadata = {
   title: "FermentedDreams",
-  description: "Kombucha är en fermenterad dryck gjord på te, socker och en symbios av bakterier och jäst.",
+  description:
+    "Kombucha är en fermenterad dryck gjord på te, socker och en symbios av bakterier och jäst.",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <CssBaseline />
             <CartProvider>
               <Header />
-              {children}
+              <main style={{ flex: 1 }}>{children}</main>
               <Footer />
             </CartProvider>
           </ThemeProvider>
