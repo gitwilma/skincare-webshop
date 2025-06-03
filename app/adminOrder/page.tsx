@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import { db } from "@/prisma/db";
+
 import {
   Box,
   Button,
@@ -20,6 +21,7 @@ import { headers } from "next/headers";
 import { updateOrderStatus } from "./lib/orderStatus";
 import { redirectIfNotAdmin } from "@/lib/require-admin";
 
+
 const statusOptions = [
   "PENDING",
   "PROCESSING",
@@ -27,7 +29,6 @@ const statusOptions = [
   "CANCELLED",
   "REFUNDED",
 ];
-
 
 export default async function AdminOrderPage() {
   await redirectIfNotAdmin();
@@ -59,7 +60,7 @@ export default async function AdminOrderPage() {
         Admin Orders
       </Typography>
       <Box>
-        {orders.map((order) => (
+        {orders.map((order: any) => (
           <Card key={order.id} sx={{ border: 2, mb: 3 }}>
             <CardContent>
               <Typography variant="h6" sx={{ overflow: "auto" }}>
@@ -88,8 +89,18 @@ export default async function AdminOrderPage() {
               <Typography variant="h6">
                 Totalt: {order.totalPrice} kr
               </Typography>
-              <Box sx={{ mt: 2 }}>
-                <form action={updateOrderStatus}>
+              <Box
+                sx={{
+                  mt: 2,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <form
+                  action={updateOrderStatus}
+                >
                   <input type="hidden" name="orderId" value={order.id} />
                   <FormControl size="small">
                     <Select
@@ -111,6 +122,19 @@ export default async function AdminOrderPage() {
                     sx={{ p: 1, ml: 2 }}
                   >
                     Spara
+                  </Button>
+                </form>
+                <form
+                  action={deleteOrder}
+                >
+                  <input type="hidden" name="orderId" value={order.id} />
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="error"
+                    sx={{ }}
+                  >
+                    Ta bort order
                   </Button>
                 </form>
               </Box>
