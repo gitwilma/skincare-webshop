@@ -16,13 +16,22 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "FermentedDreams",
-  description: "Kombucha är en fermenterad dryck gjord på te, socker och en symbios av bakterier och jäst.",
+  description:
+    "Kombucha är en fermenterad dryck gjord på te, socker och en symbios av bakterier och jäst.",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={poppins.className} style={{ margin: 0 }}>
+      <body
+        className={poppins.className}
+        style={{
+          margin: 0,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -33,7 +42,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
                 }}
               />
               <Header />
-              {children}
+              <main style={{ flex: 1 }}>{children}</main>
               <Footer />
             </CartProvider>
           </ThemeProvider>
