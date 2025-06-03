@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/prisma/db";
 
+import { redirectIfNotAdmin } from "@/lib/require-admin";
 import {
   Box,
   Button,
@@ -18,9 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { headers } from "next/headers";
-import { updateOrderStatus } from "./lib/orderStatus";
-import { redirectIfNotAdmin } from "@/lib/require-admin";
-
+import { deleteOrder, updateOrderStatus } from "./lib/orderStatus";
 
 const statusOptions = [
   "PENDING",
@@ -32,7 +31,7 @@ const statusOptions = [
 
 export default async function AdminOrderPage() {
   await redirectIfNotAdmin();
-  
+
   const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
   if (!user || !user.isAdmin) {
@@ -98,9 +97,7 @@ export default async function AdminOrderPage() {
                   display: "flex",
                 }}
               >
-                <form
-                  action={updateOrderStatus}
-                >
+                <form action={updateOrderStatus}>
                   <input type="hidden" name="orderId" value={order.id} />
                   <FormControl size="small">
                     <Select
@@ -124,15 +121,13 @@ export default async function AdminOrderPage() {
                     Spara
                   </Button>
                 </form>
-                <form
-                  action={deleteOrder}
-                >
+                <form action={deleteOrder}>
                   <input type="hidden" name="orderId" value={order.id} />
                   <Button
                     type="submit"
                     variant="outlined"
                     color="error"
-                    sx={{ }}
+                    sx={{}}
                   >
                     Ta bort order
                   </Button>
