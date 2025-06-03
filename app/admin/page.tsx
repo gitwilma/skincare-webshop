@@ -1,11 +1,23 @@
+import { auth } from "@/auth";
 import { Box, Button, Typography } from "@mui/material";
+import { headers } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import AdminCard from "./lib/admin-card";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  redirect("/");
+  // await redirectToLoginIfNotLoggedIn({ isAdmin: true });
+
   return (
     <main>
-      <Typography variant="h4" sx={{display: "flex", justifyContent: "center", marginTop: 5}}>Hantera produkter</Typography>
+      <Typography
+        variant="h4"
+        sx={{ display: "flex", justifyContent: "center", marginTop: 5 }}
+      >
+        Hantera produkter
+      </Typography>
       <Box
         sx={{
           display: "flex",

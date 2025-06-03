@@ -1,8 +1,9 @@
 import { auth } from "@/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function requireAdmin() {
-  const session = await auth.api.getSession({ headers: headers() });
+  const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
 
   if (!user) {
@@ -14,4 +15,12 @@ export async function requireAdmin() {
   }
 
   return user;
+}
+
+export async function redirectIfNotAdmin() {
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  if (!session?.user.isAdmin) {
+    redirect("/?login=true");
+  }
 }
