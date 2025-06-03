@@ -1,5 +1,6 @@
-"use client";
-import { useEffect, useState } from "react";
+import { db } from "@/prisma/db";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
 import {
   Container,
   Typography,
@@ -12,9 +13,9 @@ import {
   List,
   ListItem,
   Divider,
-  CircularProgress,
-  Alert,
 } from "@mui/material";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const statusOptions = [
   "PENDING",
@@ -24,101 +25,72 @@ const statusOptions = [
   "REFUNDED",
 ];
 
-export default function AdminOrderPage() {
-  const [orders, setOrders] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [statusUpdating, setStatusUpdating] = useState<string | null>(null);
+// Server action for updating order status
+async function updateOrderStatus(formData: FormData) {
+  "use server";
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
+  if (!user || !user.isAdmin) return;
 
-  useEffect(() => {
-    async function fetchOrders() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("/api/orders?admin=1");
-        if (!res.ok) throw new Error("Could not fetch orders");
-        const data = await res.json();
-        setOrders(data);
-      } catch (err: any) {
-        setError(err.message || "Unknown error");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchOrders();
-  }, []);
+  const orderId = formData.get("orderId") as string;
+  const status = formData.get("status") as string;
+  if (!orderId || !status) return;
 
-  async function handleStatusChange(orderId: string, newStatus: string) {
-    setStatusUpdating(orderId);
-    try {
-      const res = await fetch("/api/orders", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId, status: newStatus }),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        alert(err.error || "Failed to update status");
-        return;
-      }
-      setOrders((prev) =>
-        prev.map((order) =>
-          order.id === orderId ? { ...order, status: newStatus } : order
-        )
-      );
-    } finally {
-      setStatusUpdating(null);
-    }
-  }
+  await db.order.update({
+    where: { id: orderId },
+    data: { status },
+  });
 
-  if (loading) {
+  revalidatePath("/adminOrder");
+  redirect("/adminOrder");
+}
+
+export default async function AdminOrderPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
+  if (!user || !user.isAdmin) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
-      </Box>
+      <Container maxWidth="md" sx={{ mt: 6 }}>
+        <Typography variant="h5" color="error">
+          Du har inte behörighet att se denna sida.
+        </Typography>
+      </Container>
     );
   }
 
-  if (error) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <Alert severity="error">{error}</Alert>
-      </Box>
-    );
-  }
+  const orders = await db.order.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      orderRows: { include: { product: true } },
+      shippingAddress: true,
+      customer: true,
+    },
+  });
 
   return (
-    <Container
-      maxWidth='md'
-      sx={{ mt: 6 }}>
-      <Typography
-        variant='h4'
-        gutterBottom>
+    <Container maxWidth="md" sx={{ mt: 6 }}>
+      <Typography variant="h4" gutterBottom>
         Admin Orders
       </Typography>
       <Box>
         {orders.map((order) => (
-          <Card
-            key={order.id}
-            sx={{ border: 2, mb: 3 }}>
+          <Card key={order.id} sx={{ border: 2, mb: 3 }}>
             <CardContent>
-              <Typography variant='h6' sx={{
-                overflow: "auto"
-              }}>
+              <Typography variant="h6" sx={{ overflow: "auto" }}>
                 Ordernummer: {order.orderNumber}
               </Typography>
-              <Typography variant='body2'>
+              <Typography variant="body2">
                 Datum: {new Date(order.createdAt).toLocaleString()}
               </Typography>
-              <Typography variant='body2'>
+              <Typography variant="body2">
                 Kund: {order.customer?.name} ({order.customer?.email})
               </Typography>
-              <Typography variant='body2'>
-                Leveransadress: {order.shippingAddress?.street},{' '}
+              <Typography variant="body2">
+                Leveransadress: {order.shippingAddress?.street},{" "}
                 {order.shippingAddress?.zipcode} {order.shippingAddress?.city}
               </Typography>
               <Divider sx={{ my: 1 }} />
-              <Typography variant='h6'>Produkter:</Typography>
+              <Typography variant="h6">Produkter:</Typography>
               <List dense>
                 {order.orderRows?.map((row: any) => (
                   <ListItem key={row.id}>
@@ -127,24 +99,39 @@ export default function AdminOrderPage() {
                 ))}
               </List>
               <Divider sx={{ my: 1 }} />
-              <Typography variant="h6">Totalt: {order.totalPrice} kr</Typography>
+              <Typography variant="h6">
+                Totalt: {order.totalPrice} kr
+              </Typography>
               <Box sx={{ mt: 2 }}>
-                <FormControl size='small'>
-                  <Select
-                    value={order.status}
-                    onChange={(e) =>
-                      handleStatusChange(order.id, e.target.value)
-                    }
-                    disabled={statusUpdating === order.id}>
-                    {statusOptions.map((status) => (
-                      <MenuItem
-                        key={status}
-                        value={status}>
-                        {status}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <form action={updateOrderStatus}>
+                  <input type="hidden" name="orderId" value={order.id} />
+                  <FormControl size="small">
+                    <Select
+                      name="status"
+                      defaultValue={order.status}
+                      sx={{ minWidth: 140 }}
+                    >
+                      {statusOptions.map((status) => (
+                        <MenuItem key={status} value={status}>
+                          {status}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <button
+                    type="submit"
+                    style={{
+                      marginLeft: 8,
+                      padding: "4px 12px",
+                      borderRadius: 4,
+                      border: "1px solid #ccc",
+                      background: "#f5f5f5",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Spara
+                  </button>
+                </form>
               </Box>
             </CardContent>
           </Card>
