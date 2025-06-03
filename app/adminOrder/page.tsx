@@ -1,7 +1,9 @@
+
 'use server';
 
 import { auth } from '@/auth';
 import { db } from '@/prisma/db';
+
 import {
   Box,
   Button,
@@ -15,9 +17,11 @@ import {
   MenuItem,
   Select,
   Typography,
-} from '@mui/material';
-import { headers } from 'next/headers';
-import { updateOrderStatus } from './lib/orderStatus';
+
+} from "@mui/material";
+import { headers } from "next/headers";
+import { deleteOrder, updateOrderStatus } from "./lib/orderStatus";
+
 
 const statusOptions = [
   'PENDING',
@@ -126,6 +130,17 @@ export default async function AdminOrderPage() {
                   </Button>
                 </form>
               </Box>
+              <form action={deleteOrder} style={{ justifyContent: "flex-end", display: "flex" }}>
+                <input type="hidden" name="orderId" value={order.id} />
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="error"
+                  sx={{ mt: 2 }}
+                >
+                  Ta bort order
+                </Button>
+              </form>
             </CardContent>
           </Card>
         ))}

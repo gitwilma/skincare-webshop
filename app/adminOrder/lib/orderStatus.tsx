@@ -23,3 +23,19 @@ export async function updateOrderStatus(formData: FormData) {
   revalidatePath("/adminOrder");
   redirect("/adminOrder");
 }
+
+export async function deleteOrder(formData: FormData) {
+    console.log("deleteOrder called");
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
+  if (!user || !user.isAdmin) return;
+
+  const orderId = formData.get("orderId") as string;
+  if (!orderId) return;
+
+  await db.order.delete({ where: { id: orderId } });
+
+
+  revalidatePath("/adminOrder");
+  redirect("/adminOrder");
+}
