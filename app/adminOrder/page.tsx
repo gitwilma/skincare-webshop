@@ -1,5 +1,3 @@
-"use server";
-
 import { auth } from "@/auth";
 import { db } from "@/prisma/db";
 import {
@@ -17,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { headers } from "next/headers";
-import { updateOrderStatus } from "./lib/orderStatus";
+import { deleteOrder, updateOrderStatus } from "./lib/orderStatus";
 
 const statusOptions = [
   "PENDING",
@@ -26,7 +24,6 @@ const statusOptions = [
   "CANCELLED",
   "REFUNDED",
 ];
-
 
 export default async function AdminOrderPage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -111,6 +108,17 @@ export default async function AdminOrderPage() {
                   </Button>
                 </form>
               </Box>
+              <form action={deleteOrder}>
+                <input type="hidden" name="orderId" value={order.id} />
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="error"
+                  sx={{ mt: 2 }}
+                >
+                  Ta bort order
+                </Button>
+              </form>
             </CardContent>
           </Card>
         ))}
