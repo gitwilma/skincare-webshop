@@ -33,7 +33,7 @@ export default function ClientHomeContent({
 
       <DescriptionText text="Varje produkt är omsorgsfullt utvald för dess unika smakprofil och förmåga att förgylla vardagen" />
       <AllProducts products={products} />
-      <DescriptionText text="𓆝 𓆟 𓆞 𓆝 𓆟" />
+      <DescriptionText text="｡𖦹°｡˚○･ﾟ･｡･ﾟﾟ･｡˚○∘˚•" />
       <FillerImage
   leftSrc="/lifestyle/ls3.jpg"
   rightSrc="/lifestyle/ls4.jpg"
