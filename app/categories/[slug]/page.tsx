@@ -6,10 +6,10 @@ import { db } from "../../../prisma/db";
 export default async function CategoryPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise <{ slug: string }>;
 }) {
   const category = await db.category.findUnique({
-    where: { slug: params.slug },
+    where: { slug: (await params).slug },
     include: {
       products: true, 
     },
