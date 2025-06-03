@@ -15,8 +15,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Beauty of Joseon",
-  description: "Dina favoritprodukter online till en bra pris...",
+  title: "FermentedDreams",
+  description: "Kombucha är en fermenterad dryck gjord på te, socker och en symbios av bakterier och jäst.",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
