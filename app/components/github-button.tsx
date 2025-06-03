@@ -13,7 +13,7 @@ export default function GitHubAuthButton({
       startIcon={<GitHubIcon />}
       onClick={() => {
         console.log(`Trying GitHub ${mode}...`);
-        signIn.social({ provider: "github" });
+        signIn.social({ provider: "github" /* callbackURL: "/admin" */ });
       }}
     >
       {mode === "login" ? "Logga in med GitHub" : "Registrera dig med GitHub"}
