@@ -1,24 +1,21 @@
 "use client";
 
-import { ShoppingCart, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import {
-  Avatar,
   Badge,
   Box,
   Button,
   Divider,
   IconButton,
   Paper,
-  Typography,
-  
+  Typography
 } from "@mui/material";
-import Link from "next/link";
+import Image from "next/image";
+import { default as Link, default as NextLink } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import IncreaseDecreaseBtn from "../components/increase-decrease-btn";
 import { useCart } from "../providers/cart-provider";
-import NextLink from "next/link";
-import Image from "next/image";
+import IncreaseDecreaseBtn from "./increase-decrease-btn";
 
 
 export default function CartIcon() {
@@ -116,9 +113,9 @@ export default function CartIcon() {
         p: 2,
         bgcolor: "primary.light",
         border: "3px solid black",
-        borderRadius: 0, // Sharp corners
+        borderRadius: 0, 
         overflow: "hidden",
-        fontFamily: "monospace", // Consistent brutalist feel
+        fontFamily: "monospace", 
       }}
     >
     

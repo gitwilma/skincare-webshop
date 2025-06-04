@@ -11,7 +11,7 @@ const schema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Description is required'),
   price: z.coerce.number().positive('Price must be a positive number'),
-  image: z.string().url('Image must be a valid URL'),
+  image: z.string().min(1, 'Image must be a valid URL'),
   quantity: z.coerce.number().int().min(0, 'Quantity must be 0 or more'),
 });
 

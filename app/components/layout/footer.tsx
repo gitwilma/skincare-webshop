@@ -81,70 +81,60 @@ export default function Footer() {
             </IconButton>
           </Box>
 
-          {/* Höger */}
-          <Box
-            sx={{ maxWidth: 300, justifySelf: { md: "end" }, width: "100%" }}
-          >
-            <Typography sx={{ mb: 1 }}>
-              Subscribe to our dreamy newsletter
-            </Typography>
-            <Box
-              component="form"
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 1,
-                border: "2px solid black",
-                p: 1,
-                backgroundColor: "white",
-              }}
-            >
-              <TextField
-                placeholder="Your email"
-                variant="standard"
-                InputProps={{
-                  disableUnderline: true,
-                  sx: {
-                    fontFamily: "monospace",
-                    flexGrow: 1,
-                  },
-                }}
-                fullWidth
-              />
-              <Button
-                type="submit"
-                sx={{
-                  fontFamily: "monospace",
-                  border: "2px solid black",
-                  borderRadius: 0,
-                  color: "black",
-                  backgroundColor: "primary.light",
-                  px: 2,
-                  "&:hover": {
-                    backgroundColor: "#000",
-                    color: "#fff",
-                  },
-                }}
-              >
-                Submit
-              </Button>
-            </Box>
-          </Box>
-        </Box>
+      {/* Höger */}
+      <Box sx={{ maxWidth: 300, justifySelf: { md: "end" }, width: "100%" }}>
+        <Typography sx={{ mb: 1, textAlign: "right" }}>Subscribe to our dreamy newsletter</Typography>  
         <Box
+          component="form"
           sx={{
-            textAlign: "center",
-            borderTop: "4px solid black",
-            py: 2,
-            backgroundColor: "primary.light",
+            display: "flex",
+            flexDirection: "row",
+            gap: 1,
+            border: "2px solid black",
+            p: 1,
+            backgroundColor: "white",
+
           }}
         >
-          <Typography sx={{ fontSize: "1rem", fontFamily: "monospace" }}>
-            &copy; {new Date().getFullYear()} FermentedDreams. All rights
-            reserved.
-          </Typography>
+          <TextField
+            placeholder="Your email"
+            variant="standard"
+            InputProps={{
+              disableUnderline: true,
+              sx: {
+                fontFamily: "monospace",
+                flexGrow: 1,
+              },
+            }}
+            fullWidth
+          />
+          <Button
+            type="submit"
+            sx={{
+              fontFamily: "monospace",
+              border: "2px solid black",
+              borderRadius: 0,
+              color: "black",
+              backgroundColor: "primary.light",
+              px: 2,
+              "&:hover": {
+                backgroundColor: "#000",
+                color: "#fff",
+              },
+            }}
+          >
+            Submit
+          </Button>
         </Box>
       </Box>
+    </Box>
+     <Box sx={{ textAlign: "center", borderTop: "4px solid black", py: 2, backgroundColor: "primary.light" }}>
+     <Typography sx={{ fontSize: "1rem", fontFamily: "monospace" }}>
+           &copy; {new Date().getFullYear()} FermentedDreams. All rights reserved.
+         </Typography>
+     </Box>
+     </Box>
+
     </>
   );
 }

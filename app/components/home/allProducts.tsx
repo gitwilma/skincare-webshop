@@ -1,8 +1,8 @@
 "use client";
 
 import { Box, Grid, Typography } from "@mui/material";
-import ProductCard from "./product-card";
-import BuyButton from "./buy-button";
+import ProductCard from "../product-card";
+import BuyButton from "../buy-button";
 
 export default function AllProducts({ products }: { products: any[] }) {
   return (

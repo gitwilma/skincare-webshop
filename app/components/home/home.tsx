@@ -1,14 +1,12 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Container } from "@mui/material";
 import { useState } from "react";
-import HeroSection from "./hero";
-import DescriptionText from "./descriptionText";
-import CategoryList from "./categoriesList";
 import AllProducts from "./allProducts";
+import CategoryList from "./categoriesList";
+import DescriptionText from "./fillerText";
 import FillerImage from "./fillerImage";
-
+import Hero from "./hero";
 
 export default function ClientHomeContent({
   products,
@@ -21,7 +19,7 @@ export default function ClientHomeContent({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <HeroSection />
+      <Hero />
       <DescriptionText text="Upptäck vår ekologiska kombucha – en fermenterad tedryck bryggd med naturliga ingredienser
             och levande bakteriekultur (SCOBY). Ett smakrikt och hälsosamt alternativ till läsk,
             tillverkat i liten skala med omtanke och kvalitet."/>
