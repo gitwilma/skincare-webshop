@@ -95,6 +95,7 @@ export default async function AdminOrderPage() {
                   justifyContent: "space-between",
                   alignItems: "center",
                   display: "flex",
+                  flexWrap: "wrap",
                 }}
               >
                 <form action={updateOrderStatus}>
