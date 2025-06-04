@@ -25,7 +25,7 @@ export default function ClientProductView({ item }: { item: Product }) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          minHeight: "100vh",
           flexDirection: "column",
         }}
       >
@@ -35,7 +35,7 @@ export default function ClientProductView({ item }: { item: Product }) {
             flexDirection: "column",
             gap: 2,
             fontFamily: "monospace",
-            width: "500px",
+            maxWidth: "500px",
             marginBottom: "3rem",
           }}
         >
