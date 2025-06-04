@@ -42,6 +42,7 @@ export default function OrderSummary() {
               gap: 2,
               padding: 2,
               borderBottom: "1px solid #ddd",
+              flexWrap: "wrap",
             }}
           >
             <ListItemAvatar>
