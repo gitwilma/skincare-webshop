@@ -17,6 +17,7 @@ import { useState } from "react";
 import CartIcon from "../cart";
 import GoogleAuthButton from "../google-button";
 
+import GitHubAuthButton from "../github-button";
 import NavDrawer from "../hamburger";
 
 export default function Header() {
@@ -236,6 +237,7 @@ export default function Header() {
         </DialogTitle>
         <DialogContent>
           <GoogleAuthButton mode={mode} />
+          <GitHubAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </>

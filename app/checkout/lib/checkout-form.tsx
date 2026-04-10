@@ -1,5 +1,6 @@
 "use client";
 
+import GitHubAuthButton from "@/app/components/github-button";
 import GoogleAuthButton from "@/app/components/google-button";
 import { useCart } from "@/app/providers/cart-provider";
 import { useSession } from "@/auth-client"; // or wherever your auth-client exports useSession
@@ -57,6 +58,8 @@ export default function CheckoutForm() {
             alignItems: "center",
           }}
         >
+          <GitHubAuthButton mode="login" />
+          <GitHubAuthButton mode="register" />
           <GoogleAuthButton mode="login" />
           <GoogleAuthButton mode="register" />
         </Box>

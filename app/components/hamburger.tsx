@@ -32,6 +32,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { AppUser } from "../types/user";
 
+import GitHubAuthButton from "./github-button";
 import GoogleAuthButton from "./google-button";
 
 export default function NavDrawer() {
@@ -182,6 +183,7 @@ export default function NavDrawer() {
         </DialogTitle>
         <DialogContent>
           <GoogleAuthButton mode={mode} />
+          <GitHubAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </Box>
