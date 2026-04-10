@@ -15,7 +15,7 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import CartIcon from "../cart";
-import GitHubAuthButton from "../github-button";
+import GoogleAuthButton from "../google-button";
 
 import NavDrawer from "../hamburger";
 
@@ -235,7 +235,7 @@ export default function Header() {
           {mode === "login" ? "Logga in" : "Registrera dig"}
         </DialogTitle>
         <DialogContent>
-          <GitHubAuthButton mode={mode} />
+          <GoogleAuthButton mode={mode} />
         </DialogContent>
       </Dialog>
     </>
