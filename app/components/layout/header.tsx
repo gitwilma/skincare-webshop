@@ -235,7 +235,12 @@ export default function Header() {
         <DialogTitle>
           {mode === "login" ? "Logga in" : "Registrera dig"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
           <GoogleAuthButton mode={mode} />
           <GitHubAuthButton mode={mode} />
         </DialogContent>
